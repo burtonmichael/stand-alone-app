@@ -1,0 +1,16 @@
+{
+	"country": "País",
+	"city": "Ciudad",
+	"location": "Lugar",
+	"pickUp": "Recoger",
+	"dropOff": "Devolver",
+	"emptySelect": "Por favor seleccione",
+	"pickUpDateTime": "Fecha y hora de recogida",
+	"dropOffDateTime": "Fecha y hora de devolución",
+	"driverAgeBetween": "Conductor de entre 25 y 70 años",
+	"driverAge": "Edad del conductor",
+	"search": "Búsqueda",
+	"errorSelectCountry": "País requerido",
+	"errorSelectCity": "Ciudad requerida",
+	"errorSelectLocation": "Lugar requerido"
+}

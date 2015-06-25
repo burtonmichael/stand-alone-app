@@ -1,0 +1,33 @@
+<div ng-show="main.frame == 'pickup'" class="location locations-pickup">
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="puCountry">{{main.translations.country}}</label>
+        <div class="col-sm-10">
+            <div class="select-wrap">
+                <ui-select ng-model="suggest.location.selected" ng-disabled="disabled" reset-search-input="false">
+                    <ui-select-match placeholder="Enter a location...">{{$select.selected.label || suggest.location.selected.label}}</ui-select-match>
+                    <ui-select-choices repeat="suggestion in suggest.suggestions track by $index" refresh="suggest.refreshSuggestions($select.search)" refresh-delay="0">
+                        <span class="glyphicon" ng-class="'glyphicon-' + suggestion.type"></span>
+                        <span ng-bind-html="suggestion.label | highlight: $select.search"></span>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-show="main.frame == 'dropoff'" class="location locations-dropoff">
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="puCountry">{{main.translations.country}}</label>
+        <div class="col-sm-10">
+            <div class="select-wrap">
+                <ui-select ng-model="suggest.dropLocation.selected" ng-disabled="disabled" reset-search-input="false">
+                    <ui-select-match placeholder="Enter a location...">{{$select.selected.label || suggest.location.selected.label}}</ui-select-match>
+                    <ui-select-choices repeat="suggestion in suggest.suggestions track by $index" refresh="suggest.refreshSuggestions($select.search)" refresh-delay="0">
+                        <span class="glyphicon" ng-class="'glyphicon-' + suggestion.type"></span>
+                        <span ng-bind-html="suggestion.label | highlight: $select.search"></span>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+    </div>
+</div>

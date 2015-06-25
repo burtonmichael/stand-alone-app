@@ -1,0 +1,16 @@
+{
+	"country": "Country",
+	"city": "City",
+	"location": "Location",
+	"pickUp": "Pick up",
+	"dropOff": "Drop off",
+	"emptySelect": "Please select",
+	"pickUpDateTime": "Pick up date and time",
+	"dropOffDateTime": "Drop off date and time",
+	"driverAgeBetween": "Driver aged between 25 – 70",
+	"driverAge": "Driver's age",
+	"search": "Search",
+	"errorSelectCountry": "Country required",
+	"errorSelectCity": "City required",
+	"errorSelectLocation": "Location required"
+}
