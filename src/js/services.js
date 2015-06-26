@@ -22,11 +22,11 @@ angular.module('searchApp.services', ['ngCookies'])
 			queryStr += 'wrapNonAirports=true&preflang=' + SessionService.preflang;
 			$http({
 				method: "GET",
-				url: "/AjaxDroplists.do;jsessionid=" + SessionService.jsessionid + queryStr
+				url: "http://www.rentalcars.com/InPathAjaxAction.do;jsessionid=" + SessionService.jsessionid + queryStr
 			})
 				.success(function(data) {
 					SessionService.jsessionid = $cookies['JSESSIONID'];
-					deferred.resolve(data);
+					deferred.resolve(data.cityList || data.locationList);
 				})
 				.error(function(data) {
 					deferred.resolve(false);

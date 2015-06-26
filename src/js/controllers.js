@@ -11,15 +11,11 @@ angular.module('searchApp.controllers', ['ngRoute'])
 	app.frame = "pickup"
 })
 
-.controller('LocaleCtrl', function ($route, $filter, LocationService, preloadCountries, sessionService) {
+.controller('LocaleCtrl', function ($route, $filter, LocationService, preloadData, SessionService) {
 
 	var app = this;
 
-	app.countries = preloadCountries[0];
-
-	app.cities = preloadData[1] || null;
-
-	app.locations = preloadData[2] || null;
+	app.countries = preloadData[0];
 
 	var params = $route.current.params;
 
@@ -80,10 +76,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
 		app.dropCountries = [selectedCountry];
 		app.dropCountry.selected = selectedCountry;
 		LocationService.getAjax({
-			country: selectedCountry.id,
-			city: selectedCity.id,
-			locationId: selectedLocation.id,
-			dropCountry: selectedCountry.id
+			country: selectedCountry.id
 		})
 		.then(function(data) {
 			app.dropCities = data;
@@ -92,19 +85,16 @@ angular.module('searchApp.controllers', ['ngRoute'])
 			} else {
 				app.dropCity.selected = selectedCity;
 			}
-			app.dropCityChanged(selectedCountry, selectedCity, selectedLocation, selectedCity);
+			app.dropCityChanged(selectedCountry, selectedCity);
 			app.dropLocation.selected = selectedLocation;
 		});
 	};
 
-	app.dropCityChanged = function(selectedCountry, selectedCity, selectedLocation, selectedDropCity) {
+	app.dropCityChanged = function(selectedCountry, selectedDropCity) {
 		app.clearFields("dropCity");
 		LocationService.getAjax({
 			country: selectedCountry.id,
-			city: selectedCity.id,
-			locationId: selectedLocation.id,
-			dropCountry: selectedCountry.id,
-			dropCity: selectedDropCity.id
+			city: selectedDropCity.id
 		})
 		.then(function(data) {
 			app.dropLocations = data;

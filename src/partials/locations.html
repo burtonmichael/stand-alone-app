@@ -90,7 +90,7 @@
                 ng-disabled="!locale.dropCities"
                 ng-model="locale.dropCity.selected"
                 ng-options="city as city.name for city in locale.dropCities track by city.id"
-                ng-change="locale.dropCityChanged(locale.country.selected, locale.city.selected, locale.location.selected, locale.dropCity.selected)">
+                ng-change="locale.dropCityChanged(locale.country.selected, locale.dropCity.selected)">
                     <option disabled value="">{{main.translations.emptySelect}}</option>
                 </select>
             </div>
