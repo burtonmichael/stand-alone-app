@@ -1,29 +1,32 @@
-var searchApp = angular.module('searchApp',
-    ['ngRoute',
-     'ngSanitize',
-     'searchApp.services',
-     'searchApp.directives',
-     'searchApp.filters',
-     'searchApp.controllers'])
+var searchApp = angular.module('searchApp', ['ngRoute',
+    'pikaday',
+    'ngSanitize',
+    'searchApp.services',
+    'searchApp.directives',
+    'searchApp.filters',
+    'searchApp.controllers'
+])
 
-.config(function($routeProvider, $locationProvider) {
+.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+    $routeProvider
 
-	$routeProvider
+        .when('/', {
+        templateUrl: 'partials/locations.html',
+        controller: 'LocaleCtrl',
+        controllerAs: 'locale',
+        resolve: {
+            countries: function(LocationService) {
+            	console.log($locationProvider)
+                return LocationService.getCountries();
+            }
+        }
 
-	.when('/', {
-		templateUrl: 'partials/locations.html',
-		controller: 'LocaleCtrl',
-		controllerAs: 'locale',
-		resolve: {
-			preloadData: function($q, LocationService){
-				return $q.all([
-					LocationService.getCountries()
-				]);
-			}
-		}
-	})
+    })
 
-	.otherwise({
-		redirectTo: '/'
-	});
-});
+    .otherwise({
+        redirectTo: '/'
+    });
+
+    $locationProvider.html5Mode(true);
+
+}])

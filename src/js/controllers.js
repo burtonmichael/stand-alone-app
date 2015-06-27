@@ -3,19 +3,36 @@ angular.module('searchApp.controllers', ['ngRoute'])
 .controller('MainCtrl', function(TranslationsService) {
 	var app = this;
 
+	app.pickup = {};
+	app.dropoff = {};
+
+	app.frame = "pickup";
+
 	TranslationsService.get()
 	.then(function(data) {
 		app.translations = data
 	});
 
-	app.frame = "pickup"
+	app.puSelect = function(pikaday) {
+		var date = pikaday.getDate();
+		app.pickup.day = date.getDate();
+		app.pickup.month = date.getMonth() + 1;
+		app.pickup.year = date.getFullYear();
+	}
+
+	app.doSelect = function(pikaday) {
+		var date = pikaday.getDate();
+		app.dropoff.day = date.getDate();
+		app.dropoff.month = date.getMonth() + 1;
+		app.dropoff.year = date.getFullYear();
+	}
 })
 
-.controller('LocaleCtrl', function ($route, $filter, LocationService, preloadData, SessionService) {
+.controller('LocaleCtrl', function ($route, $filter, countries, LocationService, SessionService) {
 
 	var app = this;
 
-	app.countries = preloadData[0];
+	app.countries = countries;
 
 	var params = $route.current.params;
 
@@ -30,7 +47,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
 	} : null;
 
 	if (params.location) {
-		var param = params.location.split('+').join(' ');
+		var param = decodeURIComponent(params.location);
 		var found = $filter('filter')(app.locations, {name: param}, true);
 		if (found) {
 			app.preselectedLocation = found;

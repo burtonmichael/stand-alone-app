@@ -16,16 +16,20 @@ angular.module('searchApp.services', ['ngCookies'])
 		getAjax: function(params) {
 			var deferred = $q.defer();
 			var queryStr = '?'
+			var baseUrl = "http://www.rentalcars.com/InPathAjaxAction.do";
+
+			if (SessionService.jessionid) baseUrl += ";jsessionid=" + SessionService.jessionid;
+
 			for(var prop in params) {
 				queryStr += prop + '=' + params[prop] + '&';
 			}
-			queryStr += 'wrapNonAirports=true&preflang=' + SessionService.preflang;
+			queryStr += 'wrapNonAirports=true&preflang=' + SessionService.preflang + SessionService.addAjaxReq;
 			$http({
 				method: "GET",
 				url: "http://www.rentalcars.com/InPathAjaxAction.do;jsessionid=" + SessionService.jsessionid + queryStr
 			})
 				.success(function(data) {
-					SessionService.jsessionid = $cookies['JSESSIONID'];
+					SessionService.jsessionid = $cookies.get('JSESSIONID');
 					deferred.resolve(data.cityList || data.locationList);
 				})
 				.error(function(data) {
@@ -38,7 +42,7 @@ angular.module('searchApp.services', ['ngCookies'])
 
 .factory('TranslationsService', function($q, $http, SessionService){
 	return {
-		get: function(preflang) {
+		get: function() {
 			var deferred = $q.defer();
 			$http({
 				method: "GET",
@@ -55,10 +59,13 @@ angular.module('searchApp.services', ['ngCookies'])
 .factory('SessionService', function($window, $cookies){
 
 	var factory = {
-		preflang: "en"
+		preflang: "en",
+		addAjaxReq: ""
 	}
 
-	var tj_conf = $cookies['tj_conf'] ? $cookies['tj_conf'].slice(1, -1).split('|') : [];
+	var tj_conf = $cookies.get('tj_conf');
+
+	var tj_conf = tj_conf ? tj_conf.slice(1, -1).split('|') : [];
 
 	for (var i = tj_conf.length - 1; i >= 0; i--) {
 		var item = tj_conf[i].split(':');
@@ -78,14 +85,12 @@ angular.module('searchApp.services', ['ngCookies'])
 		}
 	};
 
-	var queryString;
+	var queryString = '';
 
 	if ($window.location.search) {
 		queryString = $window.location.search.substring(1);
 	} else if ($window.location.hash) {
 		queryString = $window.location.hash.substring($window.location.hash.indexOf('?') + 1);
-	} else {
-		queryString = '';
 	}
 
 	var pairs = queryString.split('&');
@@ -93,9 +98,13 @@ angular.module('searchApp.services', ['ngCookies'])
 	for (var i = 0; i < pairs.length; i++) {
 		var pairVals = pairs[i].split('=');
 		factory[pairVals[0]] = pairVals[1];
+		if (pairVals[0] === 'prefcurrency') factory.addAjaxReq += '&prefcurrency=' + pairVals[1];
+		if (pairVals[0] === 'cor') factory.addAjaxReq += '&cor=' + pairVals[1];
 	}
 
-	factory.jsessionid = $cookies['JSESSIONID'] || '';
+	factory.jsessionid = $cookies.get('JSESSIONID');
+
+	console.log(factory)
 
 	return factory;
 

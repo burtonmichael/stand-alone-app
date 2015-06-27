@@ -1,4 +1,4 @@
-<div class="location locations-pickup">
+<div class="location locations-pickup" ng-show="main.frame === 'pickup'">
     <h4>{{main.translations.pickUp}}</h4>
     <div class="form-group">
         <label class="col-sm-2 control-label" for="puCountry">{{main.translations.country}}</label>
@@ -59,7 +59,7 @@
     </div>
 </div>
 
-<div class="location locations-dropoff">
+<div class="location locations-dropoff" ng-show="main.frame === 'dropoff'">
     <h4>{{main.translations.dropOff}}</h4>
     <div class="form-group">
         <label class="col-sm-2 control-label" for="puCountry">{{main.translations.country}}</label>
