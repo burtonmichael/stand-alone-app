@@ -29,7 +29,7 @@
 <body ng-controller="MainCtrl as main">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-6 col-md-offset-3">
 				<form class="form-horizontal" role="form">
 					<label class="radio-inline">
 						<input ng-model="main.frame" selected="selected" type="radio" name="radio" id="radio-pickup" value="pickup">{{main.translations.pickUp}}
@@ -39,18 +39,22 @@
 					</label>
 					<ng-view></ng-view>
 					<div class="form-group">
-					<label>{{main.translations.pickUpDateTime}}</label>
-					<input on-select="main.puSelect(pikaday)" pikaday="pikaday.pickup">
-					<input type="text" ng-model="main.pickup.day" name="puDay">
-					<input type="text" ng-model="main.pickup.month" name="puMonth">
-					<input type="text" ng-model="main.pickup.year" name="puYear">
+						<label class="col-md-12">{{main.translations.pickUpDateTime}}</label>
+						<div class="col-md-6">
+							<input class="form-control" on-select="main.puSelect(pikaday)" pikaday="pikaday.pickup">
+							<input type="hidden" ng-model="main.pickup.day" name="puDay">
+							<input type="hidden" ng-model="main.pickup.month" name="puMonth">
+							<input type="hidden" ng-model="main.pickup.year" name="puYear">
+						</div>
 					</div>
 					<div class="form-group">
-					<label>{{main.translations.dropOffDateTime}}</label>
-					<input on-select="main.doSelect(pikaday)" pikaday="pikaday.dropoff">
-					<input type="text" ng-model="main.dropoff.day" name="doDay">
-					<input type="text" ng-model="main.dropoff.month" name="doMonth">
-					<input type="text" ng-model="main.dropoff.year" name="doYear">
+						<label class="col-md-12">{{main.translations.dropOffDateTime}}</label>
+						<div class="col-md-6">
+							<input class="form-control" on-select="main.doSelect(pikaday)" pikaday="pikaday.dropoff">
+							<input type="hidden" ng-model="main.dropoff.day" name="doDay">
+							<input type="hidden" ng-model="main.dropoff.month" name="doMonth">
+							<input type="hidden" ng-model="main.dropoff.year" name="doYear">
+						</div>
 					</div>
 				</form>
 			</div>

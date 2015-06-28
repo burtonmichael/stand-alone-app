@@ -32,8 +32,6 @@ angular.module('searchApp.controllers', ['ngRoute'])
 
     var app = this;
 
-    app.dropCities = {};
-
     app.countries = countries;
 
     app.localeChanged = function(level) {
