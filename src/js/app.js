@@ -16,7 +16,6 @@ var searchApp = angular.module('searchApp', ['ngRoute',
         controllerAs: 'locale',
         resolve: {
             countries: function(LocationService) {
-            	console.log($locationProvider)
                 return LocationService.getCountries();
             }
         }

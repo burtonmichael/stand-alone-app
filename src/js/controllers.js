@@ -1,142 +1,167 @@
 angular.module('searchApp.controllers', ['ngRoute'])
 
 .controller('MainCtrl', function(TranslationsService) {
-	var app = this;
+    var app = this;
 
-	app.pickup = {};
-	app.dropoff = {};
+    app.pickup = {};
+    app.dropoff = {};
 
-	app.frame = "pickup";
+    app.frame = "pickup";
 
-	TranslationsService.get()
-	.then(function(data) {
-		app.translations = data
-	});
+    TranslationsService.get()
+        .then(function(data) {
+            app.translations = data
+        });
 
-	app.puSelect = function(pikaday) {
-		var date = pikaday.getDate();
-		app.pickup.day = date.getDate();
-		app.pickup.month = date.getMonth() + 1;
-		app.pickup.year = date.getFullYear();
-	}
+    app.puSelect = function(pikaday) {
+        var date = pikaday.getDate();
+        app.pickup.day = date.getDate();
+        app.pickup.month = date.getMonth() + 1;
+        app.pickup.year = date.getFullYear();
+    }
 
-	app.doSelect = function(pikaday) {
-		var date = pikaday.getDate();
-		app.dropoff.day = date.getDate();
-		app.dropoff.month = date.getMonth() + 1;
-		app.dropoff.year = date.getFullYear();
-	}
+    app.doSelect = function(pikaday) {
+        var date = pikaday.getDate();
+        app.dropoff.day = date.getDate();
+        app.dropoff.month = date.getMonth() + 1;
+        app.dropoff.year = date.getFullYear();
+    }
 })
 
-.controller('LocaleCtrl', function ($route, $filter, countries, LocationService, SessionService) {
+.controller('LocaleCtrl', function($route, $filter, countries, LocationService, SessionService) {
 
-	var app = this;
+    var app = this;
 
-	app.countries = countries;
+    app.dropCities = {};
 
-	var params = $route.current.params;
+    app.countries = countries;
 
-	app.preselectedCountry = params.country ? {
-		id: params.country.split('+').join(' '),
-		name: params.country.split('+').join(' ')
-	} : null;
+    app.localeChanged = function(level) {
+        app.clearFields(level);
+        switch (level) {
+            case "country":
+                app.countryChanged();
+                break;
+            case "city":
+                app.cityChanged();
+                break;
+            case "location":
+                app.locationChanged();
+                break;
+            case "dropCity":
+                app.dropCityChanged();
+                break;
+        }
 
-	app.preselectedCity = params.city ? {
-		id: params.city.split('+').join(' '),
-		name: params.city.split('+').join(' ')
-	} : null;
+    }
 
-	if (params.location) {
-		var param = decodeURIComponent(params.location);
-		var found = $filter('filter')(app.locations, {name: param}, true);
-		if (found) {
-			app.preselectedLocation = found;
-			app.locationChanged(app.preselectedCountry, app.preselectedCity, app.preselectedLocation)
-		} else {
-			app.preselectedLocation = null;
-		}
-	} else {
-		app.preselectedLocation = null;
-	}
+    app.countryChanged = function(preselect) {
+        LocationService.getAjax({
+                country: app.countries.selected.id
+            })
+            .then(function(data) {
+                app.cities = data;
+                if (data.length == 1) {
+                    app.cities.selected = data[0];
+                    app.cityChanged();
+                }
+            });
+    };
 
-	app.countryChanged = function(selectedCountry) {
-		app.clearFields("country");
-		LocationService.getAjax({
-			country: selectedCountry.id
-		})
-		.then(function(data) {
-			app.cities = data;
-			if(data.length == 1) {
-				app.city.selected = data[0];
-				app.cityChanged(selectedCountry, data[0]);
-			}
-		});
-	};
+    app.cityChanged = function(preselect) {
+        LocationService.getAjax({
+                country: app.countries.selected.id,
+                city: app.cities.selected.id
+            })
+            .then(function(data) {
+                app.locations = data;
+                if (data.length == 1) {
+                    app.locations.selected = data[0];
+                    app.locationChanged();
+                }
+            });
+    };
 
-	app.cityChanged = function(selectedCountry, selectedCity) {
-		app.clearFields("city");
-		LocationService.getAjax({
-			country: selectedCountry.id,
-			city: selectedCity.id
-		})
-		.then(function(data) {
-			app.locations = data;
-			if(data.length == 1) {
-				app.location.selected = data[0];
-				app.locationChanged(selectedCountry, selectedCity, data[0]);
-			}
-		});
-	};
+    app.locationChanged = function() {
+        app.dropCountries = [app.countries.selected];
+        app.dropCountries.selected = app.countries.selected;
+        app.dropCities = angular.copy(app.cities);
+        app.dropCities.selected = angular.copy(app.cities.selected);
+        app.dropLocations = angular.copy(app.locations);
+        app.dropLocations.selected = angular.copy(app.locations.selected);
+    };
 
-	app.locationChanged = function(selectedCountry, selectedCity, selectedLocation) {
-		app.clearFields("location");
-		app.dropCountries = [selectedCountry];
-		app.dropCountry.selected = selectedCountry;
-		LocationService.getAjax({
-			country: selectedCountry.id
-		})
-		.then(function(data) {
-			app.dropCities = data;
-			if(data.length == 1) {
-				app.dropCity.selected = data[0];
-			} else {
-				app.dropCity.selected = selectedCity;
-			}
-			app.dropCityChanged(selectedCountry, selectedCity);
-			app.dropLocation.selected = selectedLocation;
-		});
-	};
+    app.dropCityChanged = function() {
+        LocationService.getAjax({
+                country: app.countries.selected.id,
+                city: app.dropCities.selected.id
+            })
+            .then(function(data) {
+                app.dropLocations = data;
+                if (data.length == 1) {
+                    app.dropLocations.selected = data[0];
+                }
+            });
+    };
 
-	app.dropCityChanged = function(selectedCountry, selectedDropCity) {
-		app.clearFields("dropCity");
-		LocationService.getAjax({
-			country: selectedCountry.id,
-			city: selectedDropCity.id
-		})
-		.then(function(data) {
-			app.dropLocations = data;
-			if(data.length == 1) {
-				app.dropLocation.selected = data[0];
-			}
-		});
-	};
+    app.clearFields = function(field) {
+        switch (field) {
+            case "country":
+                app.cities = null;
+            case "city":
+                app.locations = null;
+            case "location":
+                app.dropCountries = null;
+                app.dropCities = null;
+            case "dropCity":
+                app.dropLocations = null;
+        }
+    }
 
-	app.clearFields = function(field){
-		switch(field) {
-			case "country":
-				app.city = { selected: null };
-				app.cities = null;
-			case "city":
-				app.location = { selected: null };
-				app.locations = null;
-			case "location":
-				app.dropCountry = { selected: null };
-				app.dropCountries = null;
-				app.dropCity = { selected: null };
-				app.dropCities = null;
-			case "dropCity":
-				app.dropLocation = { selected: null };
-				app.dropLocations = null;
-		}
-	}
+    var params = $route.current.params;
+
+    if (params.country && ($filter('filter')(app.countries, {
+            name: params.country
+        }, true).length > 0)) {
+        app.countries.selected = {
+            id: params.country.split('+').join(' '),
+            name: params.country.split('+').join(' ')
+        }
+        LocationService.getAjax({
+                country: app.countries.selected.id
+            })
+            .then(function(data) {
+                app.cities = data;
+                var found = $filter('filter')(app.cities, {
+                        name: params.city
+                    }, true);
+                if (params.city && found) {
+                    app.cities.selected = found[0]
+                    LocationService.getAjax({
+                            country: app.countries.selected.id,
+                            city: app.cities.selected.id
+                        })
+                        .then(function(data) {
+                            app.locations = data;
+                            var found = $filter('filter')(app.locations, {
+                                    name: params.location
+                                }, true);
+                            if (params.location && found) {
+                                app.locations.selected = found[0];
+                                app.locationChanged();
+                            } else {
+                                if (data.length == 1) {
+                                    app.locations.selected = data[0];
+                                    app.locationChanged();
+                                }
+                            }
+                        });
+                } else {
+                    if (data.length == 1) {
+                        app.cities.selected = data[0];
+                        app.cityChanged();
+                    }
+                }
+            });
+    }
 })

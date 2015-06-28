@@ -21,7 +21,7 @@ angular.module('searchApp.services', ['ngCookies'])
 			if (SessionService.jessionid) baseUrl += ";jsessionid=" + SessionService.jessionid;
 
 			for(var prop in params) {
-				queryStr += prop + '=' + params[prop] + '&';
+				queryStr += prop + '=' + decodeURIComponent(params[prop]) + '&';
 			}
 			queryStr += 'wrapNonAirports=true&preflang=' + SessionService.preflang + SessionService.addAjaxReq;
 			$http({
@@ -103,8 +103,6 @@ angular.module('searchApp.services', ['ngCookies'])
 	}
 
 	factory.jsessionid = $cookies.get('JSESSIONID');
-
-	console.log(factory)
 
 	return factory;
 
