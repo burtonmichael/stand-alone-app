@@ -34,10 +34,13 @@ angular.module('searchApp.controllers', ['ngRoute'])
 
     app.countries = countries;
 
+    app.loading = {};
+
     app.localeChanged = function(level) {
         app.clearFields(level);
         switch (level) {
             case "country":
+                app.loading.country = true;
                 app.countryChanged();
                 break;
             case "city":
