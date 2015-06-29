@@ -40,7 +40,6 @@ angular.module('searchApp.controllers', ['ngRoute'])
         app.clearFields(level);
         switch (level) {
             case "country":
-                app.loading.country = true;
                 app.countryChanged();
                 break;
             case "city":
@@ -57,10 +56,12 @@ angular.module('searchApp.controllers', ['ngRoute'])
     }
 
     app.countryChanged = function(preselect) {
+        app.loading.cities = true;
         LocationService.getAjax({
                 country: app.countries.selected.id
             })
             .then(function(data) {
+                app.loading.cities = null;
                 app.cities = data;
                 if (data.length == 1) {
                     app.cities.selected = data[0];
@@ -70,11 +71,13 @@ angular.module('searchApp.controllers', ['ngRoute'])
     };
 
     app.cityChanged = function(preselect) {
+        app.loading.locations = true;
         LocationService.getAjax({
                 country: app.countries.selected.id,
                 city: app.cities.selected.id
             })
             .then(function(data) {
+                app.loading.locations = null;
                 app.locations = data;
                 if (data.length == 1) {
                     app.locations.selected = data[0];
@@ -93,11 +96,13 @@ angular.module('searchApp.controllers', ['ngRoute'])
     };
 
     app.dropCityChanged = function() {
+        app.loading.dropLocations = true;
         LocationService.getAjax({
                 country: app.countries.selected.id,
                 city: app.dropCities.selected.id
             })
             .then(function(data) {
+                app.loading.dropLocations = null;
                 app.dropLocations = data;
                 if (data.length == 1) {
                     app.dropLocations.selected = data[0];

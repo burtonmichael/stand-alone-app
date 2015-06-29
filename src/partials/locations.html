@@ -15,7 +15,6 @@
                 ng-change="locale.localeChanged('country')">
                     <option disabled value="">{{main.translations.emptySelect}}</option>
                 </select>
-                <div class="loading"></div>
             </div>
         </div>
     </div>
@@ -34,6 +33,7 @@
                 ng-change="locale.localeChanged('city')">
                     <option disabled value="">{{main.translations.emptySelect}}</option>
                 </select>
+                <div class="loading" ng-show="locale.loading.cities"></div>
             </div>
         </div>
     </div>
@@ -52,6 +52,7 @@
                 ng-change="locale.localeChanged('location')">
                     <option disabled value="">{{main.translations.emptySelect}}</option>
                 </select>
+                <div class="loading" ng-show="locale.loading.locations"></div>
             </div>
         </div>
     </div>
@@ -108,6 +109,7 @@
                 ng-options="location as location.name for location in locale.dropLocations track by location.id">
                     <option disabled value="">{{main.translations.emptySelect}}</option>
                 </select>
+                <div class="loading" ng-show="locale.loading.dropLocations"></div>
             </div>
         </div>
     </div>
