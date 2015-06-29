@@ -17,13 +17,9 @@ angular.module('searchApp.controllers', ['ngRoute'])
         });
 })
 
-.controller('LocaleCtrl', function($route, $filter, countries, LocationService, SessionService) {
+.controller('LocaleCtrl', function($route, $filter, LocationService, SessionService) {
 
     var app = this;
-
-    app.countries = countries;
-
-    app.loading = {};
 
     app.localeChanged = function(level) {
         app.clearFields(level);
@@ -113,50 +109,59 @@ angular.module('searchApp.controllers', ['ngRoute'])
         }
     }
 
-    var params = $route.current.params;
 
-    if (params.country && ($filter('filter')(app.countries, {
-            name: params.country
-        }, true).length > 0)) {
-        app.countries.selected = {
-            id: params.country.split('+').join(' '),
-            name: params.country.split('+').join(' ')
-        }
-        LocationService.getAjax({
-                country: app.countries.selected.id
-            })
-            .then(function(data) {
-                app.cities = data;
-                var found = $filter('filter')(app.cities, {
+
+    LocationService.getCountries().then(function(data) {
+        app.countries = data;
+
+        var params = $route.current.params;
+
+        if (params.country && ($filter('filter')(app.countries, {
+                name: params.country
+            }, true).length > 0)) {
+            app.countries.selected = {
+                id: params.country.split('+').join(' '),
+                name: params.country.split('+').join(' ')
+            }
+            LocationService.getAjax({
+                    country: app.countries.selected.id
+                })
+                .then(function(data) {
+                    app.cities = data;
+                    var found = $filter('filter')(app.cities, {
                         name: params.city
                     }, true);
-                if (params.city && found) {
-                    app.cities.selected = found[0]
-                    LocationService.getAjax({
-                            country: app.countries.selected.id,
-                            city: app.cities.selected.id
-                        })
-                        .then(function(data) {
-                            app.locations = data;
-                            var found = $filter('filter')(app.locations, {
+                    if (params.city && found) {
+                        app.cities.selected = found[0]
+                        LocationService.getAjax({
+                                country: app.countries.selected.id,
+                                city: app.cities.selected.id
+                            })
+                            .then(function(data) {
+                                app.locations = data;
+                                var found = $filter('filter')(app.locations, {
                                     name: params.location
                                 }, true);
-                            if (params.location && found) {
-                                app.locations.selected = found[0];
-                                app.locationChanged();
-                            } else {
-                                if (data.length == 1) {
-                                    app.locations.selected = data[0];
+                                if (params.location && found) {
+                                    app.locations.selected = found[0];
                                     app.locationChanged();
+                                } else {
+                                    if (data.length == 1) {
+                                        app.locations.selected = data[0];
+                                        app.locationChanged();
+                                    }
                                 }
-                            }
-                        });
-                } else {
-                    if (data.length == 1) {
-                        app.cities.selected = data[0];
-                        app.cityChanged();
+                            });
+                    } else {
+                        if (data.length == 1) {
+                            app.cities.selected = data[0];
+                            app.cityChanged();
+                        }
                     }
-                }
-            });
-    }
+                });
+        }
+    });
+
+    app.loading = {};
+
 })

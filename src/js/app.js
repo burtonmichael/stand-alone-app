@@ -13,12 +13,7 @@ var searchApp = angular.module('searchApp', ['ngRoute',
         .when('/', {
         templateUrl: 'partials/locations.html',
         controller: 'LocaleCtrl',
-        controllerAs: 'locale',
-        resolve: {
-            countries: function(LocationService) {
-                return LocationService.getCountries();
-            }
-        }
+        controllerAs: 'locale'
 
     })
 
