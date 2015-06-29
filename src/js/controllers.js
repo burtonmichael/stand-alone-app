@@ -1,10 +1,13 @@
 angular.module('searchApp.controllers', ['ngRoute'])
 
-.controller('MainCtrl', function(TranslationsService) {
+.controller('MainCtrl', function(TranslationsService, TimeService) {
     var app = this;
 
     app.pickup = {};
     app.dropoff = {};
+
+    app.hours = TimeService.getHours();
+    app.minutes = TimeService.getMinutes();
 
     app.frame = "pickup";
 
@@ -12,20 +15,6 @@ angular.module('searchApp.controllers', ['ngRoute'])
         .then(function(data) {
             app.translations = data
         });
-
-    app.puSelect = function(pikaday) {
-        var date = pikaday.getDate();
-        app.pickup.day = date.getDate();
-        app.pickup.month = date.getMonth() + 1;
-        app.pickup.year = date.getFullYear();
-    }
-
-    app.doSelect = function(pikaday) {
-        var date = pikaday.getDate();
-        app.dropoff.day = date.getDate();
-        app.dropoff.month = date.getMonth() + 1;
-        app.dropoff.year = date.getFullYear();
-    }
 })
 
 .controller('LocaleCtrl', function($route, $filter, countries, LocationService, SessionService) {

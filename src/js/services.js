@@ -1,5 +1,41 @@
 angular.module('searchApp.services', ['ngCookies'])
 
+.factory('TimeService', function(){
+	return {
+		getHours: function() {
+	    	var hours = [];
+
+	    	if (hours.length > 0) return hours;
+
+	    	for (var i = 0; i < 24; i++) {
+	    		var label = i < 10 ? '0' + i : '' + i;
+	    		hours.push({
+	    			name: label,
+	    			value: i
+	    		})
+	    	};
+
+	    	return hours;
+		},
+		getMinutes: function() {
+	    	var minutes = [];
+
+	    	if (minutes.length > 0) return minutes;
+
+	    	for (var i = 0; i < 4; i++) {
+	    		j = i * 15;
+	    		var label = j === 0 ? '0' + j : '' + j;
+	    		minutes.push({
+	    			name: label,
+	    			value: j
+	    		})
+	    	};
+
+	    	return minutes;
+		}
+	};
+})
+
 .factory('LocationService', function($q, $http, $cookies, SessionService){
 	return {
 		getCountries: function() {
