@@ -1,6 +1,8 @@
 angular.module('searchApp.controllers', ['ngRoute'])
 
-.controller('MainCtrl', function($scope, $http, $timeout, TranslationsService, TimeService) {
+.controller('MainCtrl', function($scope, $http, $location, TranslationsService, TimeService) {
+
+    $scope.params = $location.search();
 
     $scope.loading = {};
 
@@ -25,17 +27,25 @@ angular.module('searchApp.controllers', ['ngRoute'])
         $scope.pickup.date._o.i18n = $scope.dropoff.date._o.i18n = data.i18n
     }
 
-    TranslationsService.get()
-        .then(function(data) {
-            $scope.translations = data
-            $scope.dateConfig(data);
-            $timeout(function(){
+    TranslationsService.getDefault()
+        .then(function(defaultData) {
+            if ($scope.params.messages) {
+                TranslationsService.getCustom($scope.params.messages)
+                    .then(function(customData) {
+                        var customData = angular.extend({}, defaultData, customData);
+                        $scope.translations = customData
+                        $scope.dateConfig(customData);
+                        $scope.loading.app = false;
+                    });
+            } else {
+                $scope.translations = defaultData;
+                $scope.dateConfig(defaultData);
                 $scope.loading.app = false;
-            }, 1500)
+            }
         });
 })
 
-.controller('LocaleCtrl', function($scope, $location, $filter, LocationService, SessionService) {
+.controller('LocaleCtrl', function($scope, $filter, LocationService, SessionService) {
 
     $scope.localeChanged = function(level) {
         $scope.clearFields(level);
@@ -132,14 +142,12 @@ angular.module('searchApp.controllers', ['ngRoute'])
     LocationService.getCountries().then(function(data) {
         $scope.pickup.countries = data;
 
-        var params = $location.search();
-
-        if (params.country && ($filter('filter')($scope.pickup.countries, {
-                name: params.country
+        if ($scope.params.country && ($filter('filter')($scope.pickup.countries, {
+                name: $scope.params.country
             }, true).length > 0)) {
             $scope.pickup.country = {
-                id: params.country.split('+').join(' '),
-                name: params.country.split('+').join(' ')
+                id: $scope.params.country.split('+').join(' '),
+                name: $scope.params.country.split('+').join(' ')
             }
             LocationService.getAjax({
                     country: $scope.pickup.country.id
@@ -147,9 +155,9 @@ angular.module('searchApp.controllers', ['ngRoute'])
                 .then(function(data) {
                     $scope.pickup.cities = data;
                     var found = $filter('filter')($scope.pickup.cities, {
-                        name: params.city
+                        name: $scope.params.city
                     }, true);
-                    if (params.city && found) {
+                    if ($scope.params.city && found) {
                         $scope.pickup.city = found[0]
                         LocationService.getAjax({
                                 country: $scope.pickup.country.id,
@@ -158,9 +166,9 @@ angular.module('searchApp.controllers', ['ngRoute'])
                             .then(function(data) {
                                 $scope.pickup.locations = data;
                                 var found = $filter('filter')($scope.pickup.locations, {
-                                    name: params.location
+                                    name: $scope.params.location
                                 }, true);
-                                if (params.location && found) {
+                                if ($scope.params.location && found) {
                                     $scope.pickup.location = found[0];
                                     $scope.locationChanged();
                                 } else {
