@@ -1,167 +1,162 @@
 angular.module('searchApp.controllers', ['ngRoute'])
 
-.controller('MainCtrl', function(TranslationsService, TimeService) {
-    var app = this;
+.controller('MainCtrl', function($scope, TranslationsService, TimeService) {
 
-    app.pickup = {};
-    app.dropoff = {};
+    $scope.pickup = {};
+    $scope.dropoff = {};
 
-    app.hours = TimeService.getHours();
-    app.minutes = TimeService.getMinutes();
+    $scope.hours = TimeService.getHours();
+    $scope.minutes = TimeService.getMinutes();
 
-    app.frame = "pickup";
+    $scope.frame = "pickup";
 
     TranslationsService.get()
         .then(function(data) {
-            app.translations = data
+            $scope.translations = data
         });
 })
 
-.controller('LocaleCtrl', function($route, $filter, LocationService, SessionService) {
+.controller('LocaleCtrl', function($scope, $location, $filter, LocationService, SessionService) {
 
-    var app = this;
+    $scope.loading = {};
 
-    app.localeChanged = function(level) {
-        app.clearFields(level);
+    $scope.localeChanged = function(level) {
+        $scope.clearFields(level);
         switch (level) {
             case "country":
-                app.countryChanged();
+                $scope.countryChanged();
                 break;
             case "city":
-                app.cityChanged();
+                $scope.cityChanged();
                 break;
             case "location":
-                app.locationChanged();
+                $scope.locationChanged();
                 break;
             case "dropCity":
-                app.dropCityChanged();
+                $scope.dropCityChanged();
                 break;
         }
 
     }
 
-    app.countryChanged = function(preselect) {
-        app.loading.cities = true;
+    $scope.countryChanged = function(preselect) {
+        $scope.loading.cities = true;
         LocationService.getAjax({
-                country: app.countries.selected.id
+                country: $scope.pickup.country.id
             })
             .then(function(data) {
-                app.loading.cities = null;
-                app.cities = data;
+                $scope.loading.cities = null;
+                $scope.pickup.cities = data;
                 if (data.length == 1) {
-                    app.cities.selected = data[0];
-                    app.cityChanged();
+                    $scope.pickup.city = data[0];
+                    $scope.cityChanged();
                 }
             });
     };
 
-    app.cityChanged = function(preselect) {
-        app.loading.locations = true;
+    $scope.cityChanged = function(preselect) {
+        $scope.loading.locations = true;
         LocationService.getAjax({
-                country: app.countries.selected.id,
-                city: app.cities.selected.id
+                country: $scope.pickup.country.id,
+                city: $scope.pickup.city.id
             })
             .then(function(data) {
-                app.loading.locations = null;
-                app.locations = data;
+                $scope.loading.locations = null;
+                $scope.pickup.locations = data;
                 if (data.length == 1) {
-                    app.locations.selected = data[0];
-                    app.locationChanged();
+                    $scope.pickup.location = data[0];
+                    $scope.locationChanged();
                 }
             });
     };
 
-    app.locationChanged = function() {
-        app.dropCountries = [app.countries.selected];
-        app.dropCountries.selected = app.countries.selected;
-        app.dropCities = angular.copy(app.cities);
-        app.dropCities.selected = angular.copy(app.cities.selected);
-        app.dropLocations = angular.copy(app.locations);
-        app.dropLocations.selected = angular.copy(app.locations.selected);
+    $scope.locationChanged = function() {
+        $scope.dropoff.countries = [$scope.pickup.country];
+        $scope.dropoff.country = $scope.pickup.country;
+        $scope.dropoff.cities = angular.copy($scope.pickup.cities);
+        $scope.dropoff.city = angular.copy($scope.pickup.city);
+        $scope.dropoff.locations = angular.copy($scope.pickup.locations);
+        $scope.dropoff.location = angular.copy($scope.pickup.location);
     };
 
-    app.dropCityChanged = function() {
-        app.loading.dropLocations = true;
+    $scope.dropCityChanged = function() {
+        $scope.loading.dropLocations = true;
         LocationService.getAjax({
-                country: app.countries.selected.id,
-                city: app.dropCities.selected.id
+                country: $scope.pickup.country.id,
+                city: $scope.dropoff.city.id
             })
             .then(function(data) {
-                app.loading.dropLocations = null;
-                app.dropLocations = data;
+                $scope.loading.dropLocations = null;
+                $scope.dropoff.locations = data;
                 if (data.length == 1) {
-                    app.dropLocations.selected = data[0];
+                    $scope.dropoff.location = data[0];
                 }
             });
     };
 
-    app.clearFields = function(field) {
+    $scope.clearFields = function(field) {
         switch (field) {
             case "country":
-                app.cities = null;
+                $scope.pickup.cities = null;
             case "city":
-                app.locations = null;
+                $scope.pickup.locations = null;
             case "location":
-                app.dropCountries = null;
-                app.dropCities = null;
+                $scope.dropoff.countries = null;
+                $scope.dropoff.cities = null;
             case "dropCity":
-                app.dropLocations = null;
+                $scope.dropoff.locations = null;
         }
     }
 
-
-
     LocationService.getCountries().then(function(data) {
-        app.countries = data;
+        $scope.pickup.countries = data;
 
-        var params = $route.current.params;
+        var params = $location.search();
 
-        if (params.country && ($filter('filter')(app.countries, {
+        if (params.country && ($filter('filter')($scope.pickup.countries, {
                 name: params.country
             }, true).length > 0)) {
-            app.countries.selected = {
+            $scope.pickup.country = {
                 id: params.country.split('+').join(' '),
                 name: params.country.split('+').join(' ')
             }
             LocationService.getAjax({
-                    country: app.countries.selected.id
+                    country: $scope.pickup.country.id
                 })
                 .then(function(data) {
-                    app.cities = data;
-                    var found = $filter('filter')(app.cities, {
+                    $scope.pickup.cities = data;
+                    var found = $filter('filter')($scope.pickup.cities, {
                         name: params.city
                     }, true);
                     if (params.city && found) {
-                        app.cities.selected = found[0]
+                        $scope.pickup.city = found[0]
                         LocationService.getAjax({
-                                country: app.countries.selected.id,
-                                city: app.cities.selected.id
+                                country: $scope.pickup.country.id,
+                                city: $scope.pickup.city.id
                             })
                             .then(function(data) {
-                                app.locations = data;
-                                var found = $filter('filter')(app.locations, {
+                                $scope.pickup.locations = data;
+                                var found = $filter('filter')($scope.pickup.locations, {
                                     name: params.location
                                 }, true);
                                 if (params.location && found) {
-                                    app.locations.selected = found[0];
-                                    app.locationChanged();
+                                    $scope.pickup.location = found[0];
+                                    $scope.locationChanged();
                                 } else {
                                     if (data.length == 1) {
-                                        app.locations.selected = data[0];
-                                        app.locationChanged();
+                                        $scope.pickup.location = data[0];
+                                        $scope.locationChanged();
                                     }
                                 }
                             });
                     } else {
                         if (data.length == 1) {
-                            app.cities.selected = data[0];
-                            app.cityChanged();
+                            $scope.pickup.city = data[0];
+                            $scope.cityChanged();
                         }
                     }
                 });
         }
     });
-
-    app.loading = {};
 
 })
