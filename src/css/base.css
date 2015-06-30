@@ -19,7 +19,7 @@
 	content: "\e062";
 }
 
-form {
+.app {
 	background: #f5d361;
 	background: -moz-linear-gradient(top, #f5d361 0%, #e7bf3b 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f5d361), color-stop(100%,#e7bf3b));
@@ -37,12 +37,6 @@ form {
 }
 
 .loading {
-	position: absolute;
-	right: 18px;
-	top: 50%;
-	margin-top: -6px;
-	width: 12px;
-	height: 12px;
 	background: url(../img/loading.png) center center no-repeat;
 	-webkit-background-size: contain;
 	background-size: contain;
@@ -51,6 +45,30 @@ form {
 	-ms-animation: rotating 2s linear infinite;
 	-o-animation: rotating 2s linear infinite;
 	animation: rotating 2s linear infinite;
+}
+
+.loader {
+	padding: 24px;
+	text-align: center;
+}
+
+.loading--app {
+	width: 72px;
+	height: 72px;
+	box-shadow: 0 0 3px;
+	border-radius: 100px;
+	background-color: #fff;
+	border: 12px solid #fff;
+	display: inline-block;
+}
+
+.loading--select {
+	position: absolute;
+	right: 18px;
+	top: 50%;
+	margin-top: -6px;
+	width: 12px;
+	height: 12px;
 }
 
 @-webkit-keyframes rotating /* Safari and Chrome */ {

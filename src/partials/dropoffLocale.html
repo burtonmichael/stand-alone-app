@@ -49,7 +49,7 @@
                 ng-options="location as location.name for location in dropoff.locations track by location.id">
                     <option disabled value="">{{translations.emptySelect}}</option>
                 </select>
-                <div class="loading" ng-show="loading.dropoff.locations"></div>
+                <div class="loading loading--select" ng-show="loading.dropoff.locations"></div>
             </div>
         </div>
     </div>

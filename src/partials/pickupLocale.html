@@ -33,7 +33,7 @@
                 ng-change="localeChanged('city')">
                     <option disabled value="">{{translations.emptySelect}}</option>
                 </select>
-                <div class="loading" ng-show="loading.cities"></div>
+                <div class="loading loading--select" ng-show="loading.cities"></div>
             </div>
         </div>
     </div>
@@ -52,7 +52,7 @@
                 ng-change="localeChanged('location')">
                     <option disabled value="">{{translations.emptySelect}}</option>
                 </select>
-                <div class="loading" ng-show="loading.locations"></div>
+                <div class="loading loading--select" ng-show="loading.locations"></div>
             </div>
         </div>
     </div>

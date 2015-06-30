@@ -30,52 +30,58 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<form class="form-horizontal" role="form">
-					<h3>{{translations.title}}</h3>
-					<label class="radio-inline">
-						<input ng-model="frame" selected="selected" type="radio" name="radio" id="radio-pickup" value="pickup">{{translations.pickUp}}
-					</label>
-					<label class="radio-inline">
-						<input ng-model="frame" type="radio" name="radio" id="radio-dropoff" value="dropoff">{{translations.dropOff}}
-					</label>
-					<div pickup-locale-selection="locale"></div>
-					<div dropoff-locale-selection="locale"></div>
-					<div class="form-group">
-						<label class="col-md-12">{{translations.pickUpDateTime}}</label>
-						<div class="col-md-6">
-							<input class="form-control" ng-model="pickup.date" pikaday="pikaday.pickup">
-							<input type="hidden" ng-model="pickup.day" name="puDay">
-							<input type="hidden" ng-model="pickup.month" name="puMonth">
-							<input type="hidden" ng-model="pickup.year" name="puYear">
-						</div>
-						<div class="col-md-3">
-							<select class="form-control" ng-init="dropoff.hour = { name: '10', value: 10 }" ng-model="dropoff.hour" ng-options="hour.name for hour in hours track by hour.value"></select>
-						</div>
-						<div class="col-md-3">
-							<select class="form-control" ng-init="dropoff.minute = { name: '30', value: 30 }" ng-model="dropoff.minute" ng-options="minute.name for minute in minutes track by minute.value"></select>
+				<div class="app">
+					<div class="loader" ng-show="loading.app">
+						<div class="loading loading--app" >
 						</div>
 					</div>
-					<div class="form-group">
-						<label class="col-md-12">{{translations.dropOffDateTime}}</label>
-						<div class="col-md-6">
-							<input class="form-control" ng-model="dropoff.date" pikaday="pikaday.dropoff">
-							<input type="hidden" ng-model="dropoff.day" name="doDay">
-							<input type="hidden" ng-model="dropoff.month" name="doMonth">
-							<input type="hidden" ng-model="dropoff.year" name="doYear">
+					<form class="form-horizontal" role="form" ng-show="!loading.app" ng-submit="changeDate()">
+						<h3>{{translations.title}}</h3>
+						<label class="radio-inline">
+							<input ng-model="frame" selected="selected" type="radio" name="radio" id="radio-pickup" value="pickup">{{translations.pickUp}}
+						</label>
+						<label class="radio-inline">
+							<input ng-model="frame" type="radio" name="radio" id="radio-dropoff" value="dropoff">{{translations.dropOff}}
+						</label>
+						<div pickup-locale-selection="locale"></div>
+						<div dropoff-locale-selection="locale"></div>
+						<div class="form-group">
+							<label class="col-md-12">{{translations.pickUpDateTime}}</label>
+							<div class="col-md-6">
+								<input class="form-control" pikaday="pickup.date">
+							</div>
+							<div class="col-md-3">
+								<select class="form-control" ng-init="dropoff.hour = { name: '10', value: 10 }" ng-model="dropoff.hour" ng-options="hour.name for hour in hours track by hour.value"></select>
+							</div>
+							<div class="col-md-3">
+								<select class="form-control" ng-init="dropoff.minute = { name: '30', value: 30 }" ng-model="dropoff.minute" ng-options="minute.name for minute in minutes track by minute.value"></select>
+							</div>
 						</div>
-						<div class="col-md-3">
-							<select class="form-control" ng-init="pickup.hour = { name: '10', value: 10 }" ng-model="pickup.hour" ng-options="hour.name for hour in hours track by hour.value"></select>
+						<div class="form-group">
+							<label class="col-md-12">{{translations.dropOffDateTime}}</label>
+							<div class="col-md-6">
+								<input class="form-control" pikaday="dropoff.date">
+							</div>
+							<div class="col-md-3">
+								<select class="form-control" ng-init="pickup.hour = { name: '10', value: 10 }" ng-model="pickup.hour" ng-options="hour.name for hour in hours track by hour.value"></select>
+							</div>
+							<div class="col-md-3">
+								<select class="form-control" ng-init="pickup.minute = { name: '30', value: 30 }" ng-model="pickup.minute" ng-options="minute.name for minute in minutes track by minute.value"></select>
+							</div>
 						</div>
-						<div class="col-md-3">
-							<select class="form-control" ng-init="pickup.minute = { name: '30', value: 30 }" ng-model="pickup.minute" ng-options="minute.name for minute in minutes track by minute.value"></select>
+						<div class="form-group">
+							<label class="col-md-12">{{translations.driverAge}}</label>
+							<div class="col-md-3">
+								<input type="text" numbers-only ng-model="age" class="form-control">
+							</div>
 						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-md-12">
-							<button href="#" class="btn btn-primary btn-lg pull-right">{{translations.search}}</button>
+						<div class="form-group">
+							<div class="col-md-12">
+								<button type="submit" href="#" class="btn btn-primary btn-lg pull-right">{{translations.search}}</button>
+							</div>
 						</div>
-					</div>
-				</form>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>

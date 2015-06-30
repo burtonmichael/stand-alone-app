@@ -1,24 +1,41 @@
 angular.module('searchApp.controllers', ['ngRoute'])
 
-.controller('MainCtrl', function($scope, TranslationsService, TimeService) {
+.controller('MainCtrl', function($scope, $http, $timeout, TranslationsService, TimeService) {
 
-    $scope.pickup = {};
-    $scope.dropoff = {};
+    $scope.loading = {};
+
+    $scope.loading.app = true;
+
+    $scope.messages;
+
+    $scope.age = 25;
 
     $scope.hours = TimeService.getHours();
     $scope.minutes = TimeService.getMinutes();
 
     $scope.frame = "pickup";
 
+    $scope.changeDate = function() {
+        var date = new Date;
+        date.setDate(date.getDate() + 19)
+        $scope.pikaday.pickup.setDate(date)
+    }
+
+    $scope.dateConfig = function(data) {
+        $scope.pickup.date._o.i18n = $scope.dropoff.date._o.i18n = data.i18n
+    }
+
     TranslationsService.get()
         .then(function(data) {
             $scope.translations = data
+            $scope.dateConfig(data);
+            $timeout(function(){
+                $scope.loading.app = false;
+            }, 1500)
         });
 })
 
 .controller('LocaleCtrl', function($scope, $location, $filter, LocationService, SessionService) {
-
-    $scope.loading = {};
 
     $scope.localeChanged = function(level) {
         $scope.clearFields(level);
@@ -55,28 +72,32 @@ angular.module('searchApp.controllers', ['ngRoute'])
     };
 
     $scope.cityChanged = function(preselect) {
-        $scope.loading.locations = true;
-        LocationService.getAjax({
-                country: $scope.pickup.country.id,
-                city: $scope.pickup.city.id
-            })
-            .then(function(data) {
-                $scope.loading.locations = null;
-                $scope.pickup.locations = data;
-                if (data.length == 1) {
-                    $scope.pickup.location = data[0];
-                    $scope.locationChanged();
-                }
-            });
+        if ($scope.pickup.cities) {
+            $scope.loading.locations = true;
+            LocationService.getAjax({
+                    country: $scope.pickup.country.id,
+                    city: $scope.pickup.city.id
+                })
+                .then(function(data) {
+                    $scope.loading.locations = null;
+                    $scope.pickup.locations = data;
+                    if (data.length == 1) {
+                        $scope.pickup.location = data[0];
+                        $scope.locationChanged();
+                    }
+                });
+        }
     };
 
     $scope.locationChanged = function() {
-        $scope.dropoff.countries = [$scope.pickup.country];
-        $scope.dropoff.country = $scope.pickup.country;
-        $scope.dropoff.cities = angular.copy($scope.pickup.cities);
-        $scope.dropoff.city = angular.copy($scope.pickup.city);
-        $scope.dropoff.locations = angular.copy($scope.pickup.locations);
-        $scope.dropoff.location = angular.copy($scope.pickup.location);
+        if ($scope.pickup.locations) {
+            $scope.dropoff.countries = [$scope.pickup.country];
+            $scope.dropoff.country = $scope.pickup.country;
+            $scope.dropoff.cities = angular.copy($scope.pickup.cities);
+            $scope.dropoff.city = angular.copy($scope.pickup.city);
+            $scope.dropoff.locations = angular.copy($scope.pickup.locations);
+            $scope.dropoff.location = angular.copy($scope.pickup.location);
+        }
     };
 
     $scope.dropCityChanged = function() {
