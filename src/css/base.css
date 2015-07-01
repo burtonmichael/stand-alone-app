@@ -35,6 +35,10 @@
 .select-wrap {
 	position: relative;
 }
+.form-control[readonly] {
+    cursor: pointer;
+    background-color: #FFF;
+}
 
 .loading {
 	background: url(../img/loading.png) center center no-repeat;

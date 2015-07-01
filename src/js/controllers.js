@@ -1,6 +1,6 @@
 angular.module('searchApp.controllers', ['ngRoute'])
 
-.controller('MainCtrl', function($scope, $http, $location, TranslationsService, TimeService) {
+.controller('MainCtrl', function($scope, $http, $location, $window, TranslationsService, TimeService) {
 
     $scope.params = $location.search();
 
@@ -24,13 +24,15 @@ angular.module('searchApp.controllers', ['ngRoute'])
     }
 
     $scope.dateConfig = function(data) {
-        $scope.pickup.date._o.i18n = $scope.dropoff.date._o.i18n = data.i18n
-        var pickupDate = new Date();
-        var dropoffDate = new Date();
-        dropoffDate.setDate(pickupDate.getDate() + 3);
+        var config = {
+            format: data.format,
+            i18n: data.i18n
+        }
+        $scope.pickup.date._o = angular.extend({}, $scope.pickup.date._o, config);
+        $scope.dropoff.date._o = angular.extend({}, $scope.dropoff.date._o, config);
 
-        $scope.pickup.date.setDate(pickupDate)
-        $scope.dropoff.date.setDate(dropoffDate)
+        $scope.pickup.date.setMoment(moment())
+        $scope.dropoff.date.setMoment(moment().add(3, 'days'))
     }
 
     TranslationsService.getDefault()
