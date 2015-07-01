@@ -25,6 +25,12 @@ angular.module('searchApp.controllers', ['ngRoute'])
 
     $scope.dateConfig = function(data) {
         $scope.pickup.date._o.i18n = $scope.dropoff.date._o.i18n = data.i18n
+        var pickupDate = new Date();
+        var dropoffDate = new Date();
+        dropoffDate.setDate(pickupDate.getDate() + 3);
+
+        $scope.pickup.date.setDate(pickupDate)
+        $scope.dropoff.date.setDate(dropoffDate)
     }
 
     TranslationsService.getDefault()
