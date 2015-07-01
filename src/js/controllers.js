@@ -24,15 +24,22 @@ angular.module('searchApp.controllers', ['ngRoute'])
     }
 
     $scope.dateConfig = function(data) {
-        var config = {
-            format: data.format,
-            i18n: data.i18n
-        }
-        $scope.pickup.date._o = angular.extend({}, $scope.pickup.date._o, config);
-        $scope.dropoff.date._o = angular.extend({}, $scope.dropoff.date._o, config);
+        // var config = {
+        //     format: data.format,
+        //     i18n: data.i18n
+        // }
+        // $scope.pickup.date._o = angular.extend({}, $scope.pickup.date._o, config);
+        // $scope.dropoff.date._o = angular.extend({}, $scope.dropoff.date._o, config);
 
-        $scope.pickup.date.setMoment(moment())
-        $scope.dropoff.date.setMoment(moment().add(3, 'days'))
+        // $scope.pickup.date.setMoment(moment())
+        // $scope.dropoff.date.setMoment(moment().add(3, 'days'))
+    }
+
+    $scope.dateChanged = function(date) {
+        $scope.dropoff.date.setMinDate(moment(date))
+        if (moment(date).isAfter($scope.dropoff.date)) {
+            $scope.dropoff.date.setMoment(moment(date))
+        }
     }
 
     TranslationsService.getDefault()
