@@ -4,42 +4,51 @@ angular.module('searchApp.controllers', ['ngRoute'])
 
     $scope.params = $location.search();
 
-    $scope.loading = {};
-
-    $scope.loading.app = true;
-
-    $scope.messages;
+    $scope.loading = {
+        app: true
+    };
 
     $scope.age = 25;
 
-    $scope.hours = TimeService.getHours();
-    $scope.minutes = TimeService.getMinutes();
-
     $scope.frame = "pickup";
-
-    $scope.changeDate = function() {
-        var date = new Date;
-        date.setDate(date.getDate() + 19)
-        $scope.pikaday.pickup.setDate(date)
-    }
 
     $scope.dateConfig = function(data) {
         var config = {
             format: data.format,
             i18n: data.i18n
         }
+
         $scope.pickup.date._o = angular.extend({}, $scope.pickup.date._o, config);
         $scope.dropoff.date._o = angular.extend({}, $scope.dropoff.date._o, config);
 
-        $scope.pickup.date.setMoment(moment())
-        $scope.dropoff.date.setMoment(moment().add(3, 'days'))
+        var startDate = new Date();
+        var endDate = new Date();
+        endDate.setDate(startDate.getDate() + 3);
+
+        $scope.pickup.date.setMoment(moment(startDate))
+        $scope.dropoff.date.setMoment(moment(endDate))
+
+        $scope.pickup.date.setStartRange(startDate);
+        $scope.pickup.date.setEndRange(endDate);
+        $scope.dropoff.date.setMinDate(startDate);
+        $scope.dropoff.date.setStartRange(startDate);
+        $scope.dropoff.date.setEndRange(endDate);
     }
 
-    $scope.dateChanged = function(date) {
-        $scope.dropoff.date.setMinDate(date)
-        if (moment(date).isAfter($scope.dropoff.date.getMoment())) {
-            $scope.dropoff.date.setMoment(moment(date))
+    $scope.pickupDateChanged = function(date) {
+        $scope.dropoff.date.setMinDate(date);
+        var momentDate = moment(date);
+        if (momentDate.isAfter($scope.dropoff.date.getMoment())) {
+            $scope.dropoff.date.setMoment(momentDate)
+            $scope.pickup.date.setEndRange(momentDate);
         }
+        $scope.pickup.date.setStartRange(date);
+        $scope.dropoff.date.setStartRange(date);
+    }
+
+    $scope.dropoffDateChanged = function(date) {
+        $scope.pickup.date.setEndRange(date);
+        $scope.dropoff.date.setEndRange(date);
     }
 
     TranslationsService.getDefault()
