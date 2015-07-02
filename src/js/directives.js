@@ -18,7 +18,7 @@ angular.module('searchApp.directives', [])
     };
 })
 
-.directive('numbersOnly', function(){
+.directive('number', function(){
    return {
      require: 'ngModel',
      link: function(scope, element, attrs, modelCtrl) {
@@ -34,4 +34,28 @@ angular.module('searchApp.directives', [])
        });
      }
    };
+})
+
+.directive('hours', function(){
+  return {
+    scope: {
+      selectedHour: "="
+    },
+    controller: function($scope, TimeService) {
+      $scope.hours = TimeService.getHours();
+    },
+    templateUrl: 'partials/hours.html'
+  }
+})
+
+.directive('minutes', function(){
+  return {
+    scope: {
+      selectedMinute: "="
+    },
+    controller: function($scope, TimeService) {
+      $scope.minutes = TimeService.getMinutes();
+    },
+    templateUrl: 'partials/minutes.html'
+  }
 })

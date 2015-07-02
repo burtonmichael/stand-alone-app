@@ -4,42 +4,40 @@ angular.module('searchApp.controllers', ['ngRoute'])
 
     $scope.params = $location.search();
 
-    $scope.loading = {};
-
-    $scope.loading.app = true;
-
-    $scope.messages;
+    $scope.loading = {
+        app: true
+    };
 
     $scope.age = 25;
 
-    $scope.hours = TimeService.getHours();
-    $scope.minutes = TimeService.getMinutes();
-
     $scope.frame = "pickup";
 
-    $scope.changeDate = function() {
-        var date = new Date;
-        date.setDate(date.getDate() + 19)
-        $scope.pikaday.pickup.setDate(date)
-    }
-
     $scope.dateConfig = function(data) {
-        // var config = {
-        //     format: data.format,
-        //     i18n: data.i18n
-        // }
-        // $scope.pickup.date._o = angular.extend({}, $scope.pickup.date._o, config);
-        // $scope.dropoff.date._o = angular.extend({}, $scope.dropoff.date._o, config);
+        var config = {
+            format: data.format,
+            i18n: data.i18n
+        }
 
-        // $scope.pickup.date.setMoment(moment())
-        // $scope.dropoff.date.setMoment(moment().add(3, 'days'))
+        $scope.pickup.date._o = angular.extend({}, $scope.pickup.date._o, config);
+        $scope.dropoff.date._o = angular.extend({}, $scope.dropoff.date._o, config);
+
+        var startDate = new Date();
+        var endDate = new Date();
+        endDate.setDate(startDate.getDate() + 3);
+
+        $scope.pickup.date.setDate(startDate)
+        $scope.dropoff.date.setDate(endDate)
+
+        $scope.pickup.date.setStartRange(startDate);
+        $scope.pickup.date.setEndRange(endDate);
+        $scope.dropoff.date.setMinDate(startDate);
+        $scope.dropoff.date.setStartRange(startDate);
+        $scope.dropoff.date.setEndRange(endDate);
     }
 
     $scope.dateChanged = function(date) {
-        $scope.dropoff.date.setMinDate(moment(date))
-        if (moment(date).isAfter($scope.dropoff.date)) {
-            $scope.dropoff.date.setMoment(moment(date))
-        }
+        console.log(date)
+        $scope.dropoff.date.setMinDate(date)
     }
 
     TranslationsService.getDefault()
