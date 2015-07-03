@@ -16,10 +16,10 @@
 	<script src="libs/angular/angular.js"></script>
 	<script src="libs/angular-route/angular-route.min.js"></script>
 	<script src="libs/angular-cookies/angular-cookies.min.js"></script>
-	<script src="libs/angular-sanitize/angular-sanitize.min.js"></script>
 	<script src="libs/moment/min/moment.min.js"></script>
 	<script src="libs/pikaday/pikaday.js"></script>
 	<script src="libs/pikaday-angular/pikaday-angular.js"></script>
+	<script src="js/ui-bootstrap/ui-bootstrap-custom-tpls-0.13.0.min.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/services.js"></script>
 	<script src="js/directives.js"></script>
@@ -36,7 +36,7 @@
 						<div class="loading loading--app" >
 						</div>
 					</div>
-					<form class="form-horizontal" role="form" ng-show="!loading.app" ng-submit="changeDate()">
+					<form class="form-horizontal" role="form" ng-show="!loading.app" ng-submit="submit()">
 						<h3>{{translations.title}}</h3>
 						<label class="radio-inline">
 							<input ng-model="frame" selected="selected" type="radio" name="radio" value="pickup">{{translations.pickUp}}
@@ -46,34 +46,34 @@
 						</label>
 						<div pickup-locale-selection="locale"></div>
 						<div dropoff-locale-selection="locale"></div>
-						<div class="form-group">
+						<div class="form-group" ng-class="{'has-error': errors.date}">
 							<label class="col-md-12">{{translations.pickUpDateTime}}</label>
 							<div class="col-md-6">
-								<input readonly class="form-control pikaday" on-select="pickupDateChanged(date)" pikaday="pickup.date">
+								<input readonly class="form-control pikaday" on-select="pickupDateChanged(date)" pikaday="form.pickup.date">
 							</div>
 							<div class="col-md-3">
-								<sel selected-hour="pickup.hour" hours></sel>
+								<sel selected-hour="form.pickup.hour" hours></sel>
 							</div>
 							<div class="col-md-3">
-								<sel selected-minute="pickup.minute" minutes></sel>
+								<sel selected-minute="form.pickup.minute" minutes></sel>
 							</div>
 						</div>
-						<div class="form-group">
+						<div class="form-group" ng-class="{'has-error': errors.date}">
 							<label class="col-md-12">{{translations.dropOffDateTime}}</label>
 							<div class="col-md-6">
-								<input readonly class="form-control pikaday" on-select="dropoffDateChanged(date)" pikaday="dropoff.date">
+								<input readonly class="form-control pikaday" on-select="dropoffDateChanged(date)" pikaday="form.dropoff.date">
 							</div>
 							<div class="col-md-3">
-								<sel selected-hour="dropoff.hour" hours></sel>
+								<sel selected-hour="form.dropoff.hour" hours></sel>
 							</div>
 							<div class="col-md-3">
-								<sel selected-minute="dropoff.minute" minutes></sel>
+								<sel selected-minute="form.dropoff.minute" minutes></sel>
 							</div>
 						</div>
-						<div class="form-group">
+						<div class="form-group" ng-class="{'has-error': errors.age}">
 							<label class="col-md-12">{{translations.driverAge}}</label>
 							<div class="col-md-3">
-								<input type="text" number ng-model="age" class="form-control">
+								<input type="text" number ng-init="form.age = 25" ng-model="form.age" class="form-control">
 							</div>
 						</div>
 						<div class="form-group">

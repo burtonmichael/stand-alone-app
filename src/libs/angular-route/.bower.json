@@ -15,5 +15,6 @@
   },
   "_source": "https://github.com/angular/bower-angular-route.git",
   "_target": "~1.4.1",
-  "_originalSource": "angular-route"
+  "_originalSource": "angular-route",
+  "_direct": true
 }

@@ -1,14 +1,12 @@
 angular.module('searchApp.controllers', ['ngRoute'])
 
-.controller('MainCtrl', function($scope, $http, $location, $window, TranslationsService, TimeService) {
+.controller('MainCtrl', function($scope, $http, $location, $window, $modal, TranslationsService, TimeService) {
 
     $scope.params = $location.search();
 
     $scope.loading = {
         app: true
     };
-
-    $scope.age = 25;
 
     $scope.frame = "pickup";
 
@@ -18,39 +16,99 @@ angular.module('searchApp.controllers', ['ngRoute'])
             i18n: data.i18n
         }
 
-        $scope.pickup.date._o = angular.extend({}, $scope.pickup.date._o, config);
-        $scope.dropoff.date._o = angular.extend({}, $scope.dropoff.date._o, config);
+        var $pickup = $scope.form.pickup.date;
+        var $dropoff = $scope.form.dropoff.date;
+
+        $pickup._o = angular.extend({}, $pickup._o, config);
+        $dropoff._o = angular.extend({}, $dropoff._o, config);
 
         var startDate = new Date();
         var endDate = new Date();
         endDate.setDate(startDate.getDate() + 3);
 
-        $scope.pickup.date.setStartRange(startDate);
-        $scope.pickup.date.setEndRange(endDate);
+        $pickup.setStartRange(startDate);
+        $pickup.setEndRange(endDate);
 
-        $scope.dropoff.date.setMinDate(startDate);
+        $pickup.setMinDate(startDate);
+        $dropoff.setMinDate(startDate);
 
-        $scope.dropoff.date.setStartRange(startDate);
-        $scope.dropoff.date.setEndRange(endDate);
+        $dropoff.setStartRange(startDate);
+        $dropoff.setEndRange(endDate);
 
-        $scope.pickup.date.setMoment(moment(startDate))
-        $scope.dropoff.date.setMoment(moment(endDate))
+        $pickup.setMoment(moment(startDate))
+        $dropoff.setMoment(moment(endDate))
     }
 
     $scope.pickupDateChanged = function(date) {
-        $scope.dropoff.date.setMinDate(date);
+        $scope.form.dropoff.date.setMinDate(date);
         var momentDate = moment(date);
-        if (momentDate.isAfter($scope.dropoff.date.getMoment())) {
-            $scope.dropoff.date.setMoment(momentDate)
-            $scope.pickup.date.setEndRange(momentDate);
+        if (momentDate.isAfter($scope.form.dropoff.date.getMoment())) {
+            $scope.form.dropoff.date.setMoment(momentDate)
+            $scope.form.pickup.date.setEndRange(momentDate);
         }
-        $scope.pickup.date.setStartRange(date);
-        $scope.dropoff.date.setStartRange(date);
+        $scope.form.pickup.date.setStartRange(date);
+        $scope.form.dropoff.date.setStartRange(date);
     }
 
     $scope.dropoffDateChanged = function(date) {
-        $scope.pickup.date.setEndRange(date);
-        $scope.dropoff.date.setEndRange(date);
+        $scope.form.pickup.date.setEndRange(date);
+        $scope.form.dropoff.date.setEndRange(date);
+    }
+
+    $scope.submit = function() {
+        $scope.errors = {};
+        $scope.messages = [];
+
+        var form = $scope.form;
+
+        var pickupError = false;
+        var dropoffError = false;
+
+        if (!form.pickup.country) $scope.errors.country = pickupError = true;
+        if (!form.pickup.city) $scope.errors.city = pickupError = true;
+        if (!form.pickup.location) $scope.errors.location = pickupError = true;
+
+        if (pickupError) $scope.messages.push('Pick up Location information is incomplete.')
+
+        if (!form.dropoff.country) $scope.errors.dropCountry = dropoffError = true;
+        if (!form.dropoff.city) $scope.errors.dropCity = dropoffError = true;
+        if (!form.dropoff.location) $scope.errors.dropLocation = dropoffError = true;
+
+        if (dropoffError) $scope.messages.push('Drop off location information is incomplete.')
+
+        if (!form.age) {
+            $scope.errors.age = true;
+            $scope.messages.push('Enter driver\'s age.')
+        }
+
+        var pickupDateTime = form.pickup.date.getMoment();
+        pickupDateTime.hour(form.pickup.hour.value);
+        pickupDateTime.minute(form.pickup.minute.value);
+
+        var dropoffDateTime = form.dropoff.date.getMoment();
+        dropoffDateTime.hour(form.dropoff.hour.value);
+        dropoffDateTime.minute(form.dropoff.minute.value);
+
+        if (dropoffDateTime.diff(pickupDateTime, 'minutes') < 60) {
+            $scope.errors.date = true;
+            $scope.messages.push('There must be at least one hour between pick up and drop off.')
+        }
+
+        if ($scope.messages.length > 0) {
+            var modal = $modal.open({
+                animation: false,
+                templateUrl: 'partials/modal.html',
+                controller: 'modalCtrl',
+                size: 'sm',
+                resolve: {
+                    messages: function() {
+                        return $scope.messages;
+                    }
+                }
+            });
+        } else {
+            $window.open('http://www.rentalcars.com')
+        }
     }
 
     TranslationsService.getDefault()
@@ -69,6 +127,15 @@ angular.module('searchApp.controllers', ['ngRoute'])
                 $scope.loading.app = false;
             }
         });
+})
+
+.controller('modalCtrl', function ($scope, $modalInstance, messages) {
+
+  $scope.messages = messages;
+
+  $scope.close = function () {
+    $modalInstance.close();
+  };
 })
 
 .controller('LocaleCtrl', function($scope, $filter, LocationService, SessionService) {
@@ -95,30 +162,30 @@ angular.module('searchApp.controllers', ['ngRoute'])
     $scope.countryChanged = function(preselect) {
         $scope.loading.cities = true;
         LocationService.getAjax({
-                country: $scope.pickup.country.id
+                country: $scope.form.pickup.country.id
             })
             .then(function(data) {
                 $scope.loading.cities = null;
-                $scope.pickup.cities = data;
+                $scope.cities = data;
                 if (data.length == 1) {
-                    $scope.pickup.city = data[0];
+                    $scope.form.pickup.city = data[0];
                     $scope.cityChanged();
                 }
             });
     };
 
     $scope.cityChanged = function(preselect) {
-        if ($scope.pickup.cities) {
+        if ($scope.cities) {
             $scope.loading.locations = true;
             LocationService.getAjax({
-                    country: $scope.pickup.country.id,
-                    city: $scope.pickup.city.id
+                    country: $scope.form.pickup.country.id,
+                    city: $scope.form.pickup.city.id
                 })
                 .then(function(data) {
                     $scope.loading.locations = null;
-                    $scope.pickup.locations = data;
+                    $scope.locations = data;
                     if (data.length == 1) {
-                        $scope.pickup.location = data[0];
+                        $scope.form.pickup.location = data[0];
                         $scope.locationChanged();
                     }
                 });
@@ -126,87 +193,89 @@ angular.module('searchApp.controllers', ['ngRoute'])
     };
 
     $scope.locationChanged = function() {
-        if ($scope.pickup.locations) {
-            $scope.dropoff.countries = [$scope.pickup.country];
-            $scope.dropoff.country = $scope.pickup.country;
-            $scope.dropoff.cities = angular.copy($scope.pickup.cities);
-            $scope.dropoff.city = angular.copy($scope.pickup.city);
-            $scope.dropoff.locations = angular.copy($scope.pickup.locations);
-            $scope.dropoff.location = angular.copy($scope.pickup.location);
+        if ($scope.locations) {
+            $scope.dropCountries = [$scope.form.pickup.country];
+            $scope.form.dropoff.country = $scope.form.pickup.country;
+            $scope.dropCities = angular.copy($scope.cities);
+            $scope.form.dropoff.city = angular.copy($scope.form.pickup.city);
+            $scope.dropLocations = angular.copy($scope.locations);
+            $scope.form.dropoff.location = angular.copy($scope.form.pickup.location);
         }
     };
 
     $scope.dropCityChanged = function() {
-        $scope.loading.dropLocations = true;
-        LocationService.getAjax({
-                country: $scope.pickup.country.id,
-                city: $scope.dropoff.city.id
-            })
-            .then(function(data) {
-                $scope.loading.dropLocations = null;
-                $scope.dropoff.locations = data;
-                if (data.length == 1) {
-                    $scope.dropoff.location = data[0];
-                }
-            });
+        if ($scope.dropCities) {
+            $scope.loading.dropLocations = true;
+            LocationService.getAjax({
+                    country: $scope.form.pickup.country.id,
+                    city: $scope.form.dropoff.city.id
+                })
+                .then(function(data) {
+                    $scope.loading.dropLocations = null;
+                    $scope.dropLocations = data;
+                    if (data.length == 1) {
+                        $scope.form.dropoff.location = data[0];
+                    }
+                });
+        }
     };
 
     $scope.clearFields = function(field) {
         switch (field) {
             case "country":
-                $scope.pickup.cities = null;
+                $scope.cities = null;
             case "city":
-                $scope.pickup.locations = null;
+                $scope.locations = null;
             case "location":
-                $scope.dropoff.countries = null;
-                $scope.dropoff.cities = null;
+                $scope.dropCountries = null;
+                $scope.dropCities = null;
             case "dropCity":
-                $scope.dropoff.locations = null;
+                $scope.dropLocations = null;
         }
     }
 
     LocationService.getCountries().then(function(data) {
-        $scope.pickup.countries = data;
+        $scope.countries = data;
 
-        if ($scope.params.country && ($filter('filter')($scope.pickup.countries, {
+        if ($scope.params.country && ($filter('filter')($scope.countries, {
                 name: $scope.params.country
             }, true).length > 0)) {
-            $scope.pickup.country = {
+            $scope.form.pickup.country = {
                 id: $scope.params.country.split('+').join(' '),
                 name: $scope.params.country.split('+').join(' ')
             }
             LocationService.getAjax({
-                    country: $scope.pickup.country.id
+                    country: $scope.form.pickup.country.id
                 })
                 .then(function(data) {
-                    $scope.pickup.cities = data;
-                    var found = $filter('filter')($scope.pickup.cities, {
+                    $scope.cities = data;
+                    var found = $filter('filter')($scope.cities, {
                         name: $scope.params.city
                     }, true);
                     if ($scope.params.city && found) {
-                        $scope.pickup.city = found[0]
+                        $scope.form.pickup.city = found[0]
                         LocationService.getAjax({
-                                country: $scope.pickup.country.id,
-                                city: $scope.pickup.city.id
+                                country: $scope.form.pickup.country.id,
+                                city: $scope.form.pickup.city.id
                             })
                             .then(function(data) {
-                                $scope.pickup.locations = data;
-                                var found = $filter('filter')($scope.pickup.locations, {
+                                $scope.locations = data;
+                                var found = $filter('filter')($scope.locations, {
                                     name: $scope.params.location
                                 }, true);
                                 if ($scope.params.location && found) {
-                                    $scope.pickup.location = found[0];
+                                    $scope.form.pickup.location = found[0];
                                     $scope.locationChanged();
                                 } else {
                                     if (data.length == 1) {
-                                        $scope.pickup.location = data[0];
+                                        $scope.form.pickup.location = data[0];
                                         $scope.locationChanged();
                                     }
                                 }
                             });
                     } else {
                         if (data.length == 1) {
-                            $scope.pickup.city = data[0];
+                            $scope.form.pickup.city = data[0];
                             $scope.cityChanged();
                         }
                     }

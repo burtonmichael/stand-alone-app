@@ -1,109 +1,112 @@
 @font-face {
     font-family: 'Glyphicons Halflings';
     src: url(//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/fonts/glyphicons-halflings-regular.eot);
-    src: url(//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/fonts/glyphicons-halflings-regular.eot?#iefix) format('embedded-opentype'),
-    url(//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/fonts/glyphicons-halflings-regular.woff) format('woff'),
-    url(//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/fonts/glyphicons-halflings-regular.ttf) format('truetype'),
-    url(//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format('svg')
+    src: url(//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/fonts/glyphicons-halflings-regular.eot?#iefix) format('embedded-opentype'), url(//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/fonts/glyphicons-halflings-regular.woff) format('woff'), url(//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/fonts/glyphicons-halflings-regular.ttf) format('truetype'), url(//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format('svg')
+}
+
+.has-error label {
+    color: #A94442;
 }
 
 .glyphicon-airport:before {
-	content: "\e108";
+    content: "\e108";
 }
 
 .glyphicon-allareas:before {
-	content: "\e135";
+    content: "\e135";
 }
 
 .glyphicon-location:before {
-	content: "\e062";
+    content: "\e062";
 }
 
 .app {
-	background: #f5d361;
-	background: -moz-linear-gradient(top, #f5d361 0%, #e7bf3b 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f5d361), color-stop(100%,#e7bf3b));
-	background: -webkit-linear-gradient(top, #f5d361 0%,#e7bf3b 100%);
-	background: -o-linear-gradient(top, #f5d361 0%,#e7bf3b 100%);
-	background: -ms-linear-gradient(top, #f5d361 0%,#e7bf3b 100%);
-	background: linear-gradient(to bottom, #f5d361 0%,#e7bf3b 100%);
-	border-radius: 8px;
-	box-shadow: 0 2px 2px rgba(0,0,0,0.4);
-	padding: 12px 24px;
+    background: #f5d361;
+    background: -moz-linear-gradient(top, #f5d361 0%, #e7bf3b 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f5d361), color-stop(100%, #e7bf3b));
+    background: -webkit-linear-gradient(top, #f5d361 0%, #e7bf3b 100%);
+    background: -o-linear-gradient(top, #f5d361 0%, #e7bf3b 100%);
+    background: -ms-linear-gradient(top, #f5d361 0%, #e7bf3b 100%);
+    background: linear-gradient(to bottom, #f5d361 0%, #e7bf3b 100%);
+    border-radius: 8px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+    padding: 12px 24px;
 }
 
 .select-wrap {
-	position: relative;
+    position: relative;
 }
+
 .form-control[readonly] {
     cursor: pointer;
     background-color: #FFF;
 }
 
 .loading {
-	background: url(../img/loading.png) center center no-repeat;
-	-webkit-background-size: contain;
-	background-size: contain;
-	-webkit-animation: rotating 2s linear infinite;
-	-moz-animation: rotating 2s linear infinite;
-	-ms-animation: rotating 2s linear infinite;
-	-o-animation: rotating 2s linear infinite;
-	animation: rotating 2s linear infinite;
+    background: url(../img/loading.png) center center no-repeat;
+    -webkit-background-size: contain;
+    background-size: contain;
+    -webkit-animation: rotating 2s linear infinite;
+    -moz-animation: rotating 2s linear infinite;
+    -ms-animation: rotating 2s linear infinite;
+    -o-animation: rotating 2s linear infinite;
+    animation: rotating 2s linear infinite;
 }
 
 .loader {
-	padding: 24px;
-	text-align: center;
+    padding: 24px;
+    text-align: center;
 }
 
 .loading--app {
-	width: 72px;
-	height: 72px;
-	box-shadow: 0 0 3px;
-	border-radius: 100px;
-	background-color: #fff;
-	border: 12px solid #fff;
-	display: inline-block;
+    width: 72px;
+    height: 72px;
+    box-shadow: 0 0 3px;
+    border-radius: 100px;
+    background-color: #fff;
+    border: 12px solid #fff;
+    display: inline-block;
 }
 
 .loading--select {
-	position: absolute;
-	right: 18px;
-	top: 50%;
-	margin-top: -6px;
-	width: 12px;
-	height: 12px;
+    position: absolute;
+    right: 34px;
+    top: 50%;
+    margin-top: -6px;
+    width: 12px;
+    height: 12px;
 }
 
-@-webkit-keyframes rotating /* Safari and Chrome */ {
-	from {
-		-ms-transform: rotate(0deg);
-		-moz-transform: rotate(0deg);
-		-webkit-transform: rotate(0deg);
-		-o-transform: rotate(0deg);
-		transform: rotate(0deg);
-	}
-	to {
-		-ms-transform: rotate(360deg);
-		-moz-transform: rotate(360deg);
-		-webkit-transform: rotate(360deg);
-		-o-transform: rotate(360deg);
-		transform: rotate(360deg);
-	}
+@-webkit-keyframes rotating{
+    from {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -ms-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
 }
+
 @keyframes rotating {
-	from {
-		-ms-transform: rotate(0deg);
-		-moz-transform: rotate(0deg);
-		-webkit-transform: rotate(0deg);
-		-o-transform: rotate(0deg);
-		transform: rotate(0deg);
-	}
-	to {
-		-ms-transform: rotate(360deg);
-		-moz-transform: rotate(360deg);
-		-webkit-transform: rotate(360deg);
-		-o-transform: rotate(360deg);
-		transform: rotate(360deg);
-	}
+    from {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -ms-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
 }

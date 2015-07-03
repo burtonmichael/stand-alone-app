@@ -1,6 +1,6 @@
 var searchApp = angular.module('searchApp', ['ngRoute',
+	'ui.bootstrap',
     'pikaday',
-    'ngSanitize',
     'searchApp.services',
     'searchApp.directives',
     'searchApp.filters',
