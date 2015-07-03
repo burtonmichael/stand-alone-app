@@ -14,7 +14,7 @@
 	"errorSelectCountry": "Country required",
 	"errorSelectCity": "City required",
 	"errorSelectLocation": "Location required",
-	"format": "D MMM YYYY",
+	"format": "ll",
 	"i18n": {
 	    "previousMonth" : "Previous Month",
 	    "nextMonth"     : "Next Month",

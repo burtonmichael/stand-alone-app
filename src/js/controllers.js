@@ -25,14 +25,16 @@ angular.module('searchApp.controllers', ['ngRoute'])
         var endDate = new Date();
         endDate.setDate(startDate.getDate() + 3);
 
-        $scope.pickup.date.setMoment(moment(startDate))
-        $scope.dropoff.date.setMoment(moment(endDate))
-
         $scope.pickup.date.setStartRange(startDate);
         $scope.pickup.date.setEndRange(endDate);
+
         $scope.dropoff.date.setMinDate(startDate);
+
         $scope.dropoff.date.setStartRange(startDate);
         $scope.dropoff.date.setEndRange(endDate);
+
+        $scope.pickup.date.setMoment(moment(startDate))
+        $scope.dropoff.date.setMoment(moment(endDate))
     }
 
     $scope.pickupDateChanged = function(date) {
