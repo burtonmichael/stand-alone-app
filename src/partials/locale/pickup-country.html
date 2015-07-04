@@ -1,0 +1,9 @@
+<span class="select-value">{{form.country.name || translations.emptySelect}}</span>
+<select
+class="form-control"
+ng-disabled="!countries"
+ng-model="form.country"
+ng-options="country as country.name for country in countries track by country.id"
+ng-change="localeChanged('country')">
+    <option disabled value="">{{translations.emptySelect}}</option>
+</select>

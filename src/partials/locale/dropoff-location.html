@@ -1,0 +1,9 @@
+<span class="select-value">{{form.dropLocation.name || translations.emptySelect}}</span>
+<select
+class="form-control"
+ng-disabled="!dropLocations"
+ng-model="form.dropLocation"
+ng-options="location as location.name for location in dropLocations track by location.id">
+    <option disabled value="">{{translations.emptySelect}}</option>
+</select>
+<div class="loading loading--select" ng-show="loading.dropLocations"></div>

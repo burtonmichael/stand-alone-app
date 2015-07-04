@@ -2,90 +2,126 @@
 <html lang="en" ng-app="searchApp">
 
 <head>
-	<meta charset="UTF-8">
-	<title>rentalcars.com</title>
-
-	<base href="/stand-alone-select/src/">
-
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="libs/pikaday/css/pikaday.css">
-	<link rel="stylesheet" href="css/base.css">
-
-	<script src="libs/angular/angular.js"></script>
-	<script src="libs/angular-route/angular-route.min.js"></script>
-	<script src="libs/angular-cookies/angular-cookies.min.js"></script>
-	<script src="libs/moment/min/moment.min.js"></script>
-	<script src="libs/pikaday/pikaday.js"></script>
-	<script src="libs/pikaday-angular/pikaday-angular.js"></script>
-	<script src="js/ui-bootstrap/ui-bootstrap-custom-tpls-0.13.0.min.js"></script>
-	<script src="js/app.js"></script>
-	<script src="js/services.js"></script>
-	<script src="js/directives.js"></script>
-	<script src="js/filters.js"></script>
-	<script src="js/controllers.js"></script>
+    <meta charset="UTF-8">
+    <title>rentalcars.com</title>
+    <base href="/stand-alone-select/src/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="libs/pikaday/css/pikaday.css">
+    <link rel="stylesheet" href="css/base.css">
+    <script src="libs/angular/angular.js"></script>
+    <script src="libs/angular-route/angular-route.min.js"></script>
+    <script src="libs/angular-cookies/angular-cookies.min.js"></script>
+    <script src="libs/moment/min/moment.min.js"></script>
+    <script src="libs/pikaday/pikaday.js"></script>
+    <script src="libs/pikaday-angular/pikaday-angular.js"></script>
+    <script src="js/ui-bootstrap/ui-bootstrap-custom-tpls-0.13.0.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/directives.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/controllers.js"></script>
 </head>
 
 <body ng-controller="MainCtrl">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<div class="app">
-					<div class="loader" ng-show="loading.app">
-						<div class="loading loading--app" >
-						</div>
-					</div>
-					<form class="form-horizontal" role="form" ng-show="!loading.app" ng-submit="submit()">
-						<h3>{{translations.title}}</h3>
-						<label class="radio-inline">
-							<input ng-model="frame" selected="selected" type="radio" name="radio" value="pickup">{{translations.pickUp}}
-						</label>
-						<label class="radio-inline">
-							<input ng-model="frame" type="radio" name="radio" value="dropoff">{{translations.dropOff}}
-						</label>
-						<div pickup-locale-selection="locale"></div>
-						<div dropoff-locale-selection="locale"></div>
-						<div class="form-group" ng-class="{'has-error': errors.date}">
-							<label class="col-md-12">{{translations.pickUpDateTime}}</label>
-							<div class="col-md-6">
-								<input readonly class="form-control pikaday" on-select="pickupDateChanged(date)" pikaday="pikaday.pickup">
-							</div>
-							<div class="col-md-3">
-								<sel selected-hour="form.puHour" hours></sel>
-							</div>
-							<div class="col-md-3">
-								<sel selected-minute="form.puMinute" minutes></sel>
-							</div>
-						</div>
-						<div class="form-group" ng-class="{'has-error': errors.date}">
-							<label class="col-md-12">{{translations.dropOffDateTime}}</label>
-							<div class="col-md-6">
-								<input readonly class="form-control pikaday" on-select="dropoffDateChanged(date)" pikaday="pikaday.dropoff">
-							</div>
-							<div class="col-md-3">
-								<sel selected-hour="form.doHour" hours></sel>
-							</div>
-							<div class="col-md-3">
-								<sel selected-minute="form.doMinute" minutes></sel>
-							</div>
-						</div>
-						<div class="form-group" ng-class="{'has-error': errors.driversAge}">
-							<label class="col-md-12">{{translations.driverAge}}</label>
-							<div class="col-md-3">
-								<input type="text" number ng-init="form.driversAge = 25" ng-model="form.driversAge" class="form-control">
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-md-12">
-								<button type="submit" href="#" class="btn btn-primary btn-lg pull-right">{{translations.search}}</button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="app">
+                    <div class="loader" ng-show="loading.app">
+                        <div class="loading loading--app">
+                        </div>
+                    </div>
+                    <form class="form-horizontal" role="form" ng-show="!loading.app" ng-submit="submit()">
+                        <h3>{{translations.title}}</h3>
+                        <label class="radio-inline">
+                            <input ng-model="frame" selected="selected" type="radio" name="radio" value="pickup">{{translations.pickUp}}
+                        </label>
+                        <label class="radio-inline">
+                            <input ng-model="frame" type="radio" name="radio" value="dropoff">{{translations.dropOff}}
+                        </label>
+                        <div class="location locations-pickup" ng-show="frame === 'pickup'">
+                            <h4>{{translations.pickUp}}</h4>
+                            <div class="form-group" ng-class="{'has-error': errors.country}">
+                                <label class="col-sm-2 control-label">{{translations.country}}</label>
+                                <div class="col-sm-10">
+                                    <div class="select-wrap" pickup-country></div>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error': errors.city}">
+                                <label class="col-sm-2 control-label">{{translations.city}}</label>
+                                <div class="col-sm-10">
+                                    <div class="select-wrap" pickup-city></div>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error': errors.location}">
+                                <label class="col-sm-2 control-label">{{translations.location}}</label>
+                                <div class="col-sm-10">
+                                    <div class="select-wrap" pickup-location></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="location locations-dropoff" ng-show="frame === 'dropoff'">
+                            <h4>{{translations.dropOff}}</h4>
+                            <div class="form-group" ng-class="{'has-error': errors.dropCountry}">
+                                <label class="col-sm-2 control-label">{{translations.country}}</label>
+                                <div class="col-sm-10">
+                                    <div class="select-wrap" dropoff-country></div>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error': errors.dropCity}">
+                                <label class="col-sm-2 control-label">{{translations.city}}</label>
+                                <div class="col-sm-10">
+                                    <div class="select-wrap" dropoff-city></div>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error': errors.dropLocation}">
+                                <label class="col-sm-2 control-label">{{translations.location}}</label>
+                                <div class="col-sm-10">
+                                    <div class="select-wrap" dropoff-location></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': errors.date}">
+                            <label class="col-md-12">{{translations.pickUpDateTime}}</label>
+                            <div class="col-md-6">
+                                <input readonly class="form-control pikaday" on-select="pickupDateChanged(date)" pikaday="pikaday.pickup">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="select-wrap" selected-hour="form.puHour" hours></div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="select-wrap" selected-minute="form.puMinute" minutes></div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': errors.date}">
+                            <label class="col-md-12">{{translations.dropOffDateTime}}</label>
+                            <div class="col-md-6">
+                                <input readonly class="form-control pikaday" on-select="dropoffDateChanged(date)" pikaday="pikaday.dropoff">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="select-wrap" selected-hour="form.doHour" hours></div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="select-wrap" selected-minute="form.doMinute" minutes></div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': errors.driversAge}">
+                            <label class="col-md-12">{{translations.driverAge}}</label>
+                            <div class="col-md-3">
+                                <input type="text" number ng-init="form.driversAge = 25" ng-model="form.driversAge" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <button type="submit" href="#" class="btn btn-primary btn-lg pull-right">{{translations.search}}</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

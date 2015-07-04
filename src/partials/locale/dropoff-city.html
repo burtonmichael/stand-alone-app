@@ -1,0 +1,9 @@
+<span class="select-value">{{form.dropCity.name || translations.emptySelect}}</span>
+<select
+class="form-control"
+ng-disabled="!dropCities"
+ng-model="form.dropCity"
+ng-options="city as city.name for city in dropCities track by city.id"
+ng-change="localeChanged('dropCity')">
+    <option disabled value="">{{translations.emptySelect}}</option>
+</select>

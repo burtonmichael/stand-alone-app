@@ -1,0 +1,12 @@
+<span class="select-value">{{form.city.name || translations.emptySelect}}</span>
+<select
+select-focus
+id="puCity"
+class="form-control"
+ng-disabled="!cities"
+ng-model="form.city"
+ng-options="city as city.name for city in cities track by city.id"
+ng-change="localeChanged('city')">
+    <option disabled value="">{{translations.emptySelect}}</option>
+</select>
+<div class="loading loading--select" ng-show="loading.cities"></div>

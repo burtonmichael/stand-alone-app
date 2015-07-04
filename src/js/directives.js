@@ -1,23 +1,5 @@
 angular.module('searchApp.directives', [])
 
-.directive('pickupLocaleSelection', function() {
-    return {
-        controller: 'LocaleCtrl',
-        restrict: 'A',
-        templateUrl: 'partials/pickupLocale.html',
-        replace: true
-    };
-})
-
-.directive('dropoffLocaleSelection', function() {
-    return {
-        controller: 'LocaleCtrl',
-        restrict: 'A',
-        templateUrl: 'partials/dropoffLocale.html',
-        replace: true
-    };
-})
-
 .directive('number', function(){
    return {
      require: 'ngModel',
@@ -36,12 +18,53 @@ angular.module('searchApp.directives', [])
    };
 })
 
+.directive('pickupCountry', function(){
+  return {
+    controller: 'LocaleCtrl',
+    templateUrl: 'partials/locale/pickup-country.html'
+  }
+})
+
+.directive('pickupCity', function(){
+  return {
+    controller: 'LocaleCtrl',
+    templateUrl: 'partials/locale/pickup-city.html'
+  }
+})
+
+.directive('pickupLocation', function(){
+  return {
+    controller: 'LocaleCtrl',
+    templateUrl: 'partials/locale/pickup-location.html'
+  }
+})
+
+.directive('dropoffCountry', function(){
+  return {
+    controller: 'LocaleCtrl',
+    templateUrl: 'partials/locale/dropoff-country.html'
+  }
+})
+
+.directive('dropoffCity', function(){
+  return {
+    controller: 'LocaleCtrl',
+    templateUrl: 'partials/locale/dropoff-city.html'
+  }
+})
+
+.directive('dropoffLocation', function(){
+  return {
+    controller: 'LocaleCtrl',
+    templateUrl: 'partials/locale/dropoff-location.html'
+  }
+})
+
 .directive('hours', function(){
   return {
     scope: {
       selectedHour: "="
     },
-    replace: true,
     controller: function($scope, TimeService) {
       $scope.hours = TimeService.getHours();
     },
@@ -54,7 +77,6 @@ angular.module('searchApp.directives', [])
     scope: {
       selectedMinute: "="
     },
-    replace: true,
     controller: function($scope, TimeService) {
       $scope.minutes = TimeService.getMinutes();
     },

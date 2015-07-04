@@ -115,7 +115,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
             var modal = $modal.open({
                 animation: false,
                 templateUrl: 'partials/modal.html',
-                controller: 'modalCtrl',
+                controller: 'ModalCtrl',
                 size: 'sm',
                 resolve: {
                     messages: function() {
@@ -153,7 +153,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
         });
 })
 
-.controller('modalCtrl', function ($scope, $modalInstance, messages) {
+.controller('ModalCtrl', function ($scope, $modalInstance, messages) {
 
   $scope.messages = messages;
 
