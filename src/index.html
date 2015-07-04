@@ -49,31 +49,31 @@
 						<div class="form-group" ng-class="{'has-error': errors.date}">
 							<label class="col-md-12">{{translations.pickUpDateTime}}</label>
 							<div class="col-md-6">
-								<input readonly class="form-control pikaday" on-select="pickupDateChanged(date)" pikaday="form.pickup.date">
+								<input readonly class="form-control pikaday" on-select="pickupDateChanged(date)" pikaday="pikaday.pickup">
 							</div>
 							<div class="col-md-3">
-								<sel selected-hour="form.pickup.hour" hours></sel>
+								<sel selected-hour="form.puHour" hours></sel>
 							</div>
 							<div class="col-md-3">
-								<sel selected-minute="form.pickup.minute" minutes></sel>
+								<sel selected-minute="form.puMinute" minutes></sel>
 							</div>
 						</div>
 						<div class="form-group" ng-class="{'has-error': errors.date}">
 							<label class="col-md-12">{{translations.dropOffDateTime}}</label>
 							<div class="col-md-6">
-								<input readonly class="form-control pikaday" on-select="dropoffDateChanged(date)" pikaday="form.dropoff.date">
+								<input readonly class="form-control pikaday" on-select="dropoffDateChanged(date)" pikaday="pikaday.dropoff">
 							</div>
 							<div class="col-md-3">
-								<sel selected-hour="form.dropoff.hour" hours></sel>
+								<sel selected-hour="form.doHour" hours></sel>
 							</div>
 							<div class="col-md-3">
-								<sel selected-minute="form.dropoff.minute" minutes></sel>
+								<sel selected-minute="form.doMinute" minutes></sel>
 							</div>
 						</div>
-						<div class="form-group" ng-class="{'has-error': errors.age}">
+						<div class="form-group" ng-class="{'has-error': errors.driversAge}">
 							<label class="col-md-12">{{translations.driverAge}}</label>
 							<div class="col-md-3">
-								<input type="text" number ng-init="form.age = 25" ng-model="form.age" class="form-control">
+								<input type="text" number ng-init="form.driversAge = 25" ng-model="form.driversAge" class="form-control">
 							</div>
 						</div>
 						<div class="form-group">

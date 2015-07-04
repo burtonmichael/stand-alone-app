@@ -41,6 +41,7 @@ angular.module('searchApp.directives', [])
     scope: {
       selectedHour: "="
     },
+    replace: true,
     controller: function($scope, TimeService) {
       $scope.hours = TimeService.getHours();
     },
@@ -53,6 +54,7 @@ angular.module('searchApp.directives', [])
     scope: {
       selectedMinute: "="
     },
+    replace: true,
     controller: function($scope, TimeService) {
       $scope.minutes = TimeService.getMinutes();
     },

@@ -4,6 +4,11 @@ angular.module('searchApp.controllers', ['ngRoute'])
 
     $scope.params = $location.search();
 
+    $scope.form = {
+        emptySearchResults: true,
+        fromLocChoose: true
+    }
+
     $scope.loading = {
         app: true
     };
@@ -16,8 +21,8 @@ angular.module('searchApp.controllers', ['ngRoute'])
             i18n: data.i18n
         }
 
-        var $pickup = $scope.form.pickup.date;
-        var $dropoff = $scope.form.dropoff.date;
+        var $pickup = $scope.pikaday.pickup;
+        var $dropoff = $scope.pikaday.dropoff;
 
         $pickup._o = angular.extend({}, $pickup._o, config);
         $dropoff._o = angular.extend({}, $dropoff._o, config);
@@ -25,6 +30,14 @@ angular.module('searchApp.controllers', ['ngRoute'])
         var startDate = new Date();
         var endDate = new Date();
         endDate.setDate(startDate.getDate() + 3);
+
+        $scope.form.puDay = startDate.getDate();
+        $scope.form.puMonth = startDate.getMonth() + 1;
+        $scope.form.puYear = startDate.getFullYear();
+
+        $scope.form.puDay = endDate.getDate();
+        $scope.form.puMonth = endDate.getMonth() + 1;
+        $scope.form.puYear = endDate.getFullYear();
 
         $pickup.setStartRange(startDate);
         $pickup.setEndRange(endDate);
@@ -40,19 +53,27 @@ angular.module('searchApp.controllers', ['ngRoute'])
     }
 
     $scope.pickupDateChanged = function(date) {
-        $scope.form.dropoff.date.setMinDate(date);
+        $scope.form.puDay = date.getDate();
+        $scope.form.puMonth = date.getMonth() + 1;
+        $scope.form.puYear = date.getFullYear();
+
         var momentDate = moment(date);
-        if (momentDate.isAfter($scope.form.dropoff.date.getMoment())) {
-            $scope.form.dropoff.date.setMoment(momentDate)
-            $scope.form.pickup.date.setEndRange(momentDate);
+        if (momentDate.isAfter($scope.pikaday.dropoff.getMoment())) {
+            $scope.pikaday.pickup.setEndRange(date);
+            $scope.pikaday.dropoff.setMoment(momentDate);
         }
-        $scope.form.pickup.date.setStartRange(date);
-        $scope.form.dropoff.date.setStartRange(date);
+        $scope.pikaday.dropoff.setMinDate(date);
+        $scope.pikaday.pickup.setStartRange(date);
+        $scope.pikaday.dropoff.setStartRange(date);
     }
 
     $scope.dropoffDateChanged = function(date) {
-        $scope.form.pickup.date.setEndRange(date);
-        $scope.form.dropoff.date.setEndRange(date);
+        $scope.form.doDay = date.getDate();
+        $scope.form.doMonth = date.getMonth() + 1;
+        $scope.form.doYear = date.getFullYear();
+
+        $scope.pikaday.pickup.setEndRange(date);
+        $scope.pikaday.dropoff.setEndRange(date);
     }
 
     $scope.submit = function() {
@@ -64,30 +85,26 @@ angular.module('searchApp.controllers', ['ngRoute'])
         var pickupError = false;
         var dropoffError = false;
 
-        if (!form.pickup.country) $scope.errors.country = pickupError = true;
-        if (!form.pickup.city) $scope.errors.city = pickupError = true;
-        if (!form.pickup.location) $scope.errors.location = pickupError = true;
+        if (!form.country) $scope.errors.country = pickupError = true;
+        if (!form.city) $scope.errors.city = pickupError = true;
+        if (!form.location) $scope.errors.location = pickupError = true;
 
         if (pickupError) $scope.messages.push('Pick up Location information is incomplete.')
 
-        if (!form.dropoff.country) $scope.errors.dropCountry = dropoffError = true;
-        if (!form.dropoff.city) $scope.errors.dropCity = dropoffError = true;
-        if (!form.dropoff.location) $scope.errors.dropLocation = dropoffError = true;
+        if (!form.dropCountry) $scope.errors.dropCountry = dropoffError = true;
+        if (!form.dropCity) $scope.errors.dropCity = dropoffError = true;
+        if (!form.dropLocation) $scope.errors.dropLocation = dropoffError = true;
 
         if (dropoffError) $scope.messages.push('Drop off location information is incomplete.')
 
-        if (!form.age) {
-            $scope.errors.age = true;
+        if (!form.driversAge) {
+            $scope.errors.driversAge = true;
             $scope.messages.push('Enter driver\'s age.')
         }
 
-        var pickupDateTime = form.pickup.date.getMoment();
-        pickupDateTime.hour(form.pickup.hour.value);
-        pickupDateTime.minute(form.pickup.minute.value);
+        var pickupDateTime = moment({ year: form.puYear, month: form.puMonth - 1, day: form.puDay, hour: form.puHour, minute: form.puMinute});
 
-        var dropoffDateTime = form.dropoff.date.getMoment();
-        dropoffDateTime.hour(form.dropoff.hour.value);
-        dropoffDateTime.minute(form.dropoff.minute.value);
+        var dropoffDateTime = moment({ year: form.doYear, month: form.doMonth - 1, day: form.doDay, hour: form.doHour, minute: form.doMinute});
 
         if (dropoffDateTime.diff(pickupDateTime, 'minutes') < 60) {
             $scope.errors.date = true;
@@ -107,7 +124,14 @@ angular.module('searchApp.controllers', ['ngRoute'])
                 }
             });
         } else {
-            $window.open('http://www.rentalcars.com')
+            parameters = Object.keys(form).map(function(k) {
+                if (typeof form[k] === 'object') {
+                    return encodeURIComponent(k) + '=' + encodeURIComponent(form[k].id)
+                } else {
+                    return encodeURIComponent(k) + '=' + encodeURIComponent(form[k])
+                }
+            }).join('&')
+            $window.open('http://www.rentalcars.com/LoadingSearchResults.do?' + parameters)
         }
     }
 
@@ -162,13 +186,13 @@ angular.module('searchApp.controllers', ['ngRoute'])
     $scope.countryChanged = function(preselect) {
         $scope.loading.cities = true;
         LocationService.getAjax({
-                country: $scope.form.pickup.country.id
+                country: $scope.form.country.id
             })
             .then(function(data) {
                 $scope.loading.cities = null;
                 $scope.cities = data;
                 if (data.length == 1) {
-                    $scope.form.pickup.city = data[0];
+                    $scope.form.city = data[0];
                     $scope.cityChanged();
                 }
             });
@@ -178,14 +202,14 @@ angular.module('searchApp.controllers', ['ngRoute'])
         if ($scope.cities) {
             $scope.loading.locations = true;
             LocationService.getAjax({
-                    country: $scope.form.pickup.country.id,
-                    city: $scope.form.pickup.city.id
+                    country: $scope.form.country.id,
+                    city: $scope.form.city.id
                 })
                 .then(function(data) {
                     $scope.loading.locations = null;
                     $scope.locations = data;
                     if (data.length == 1) {
-                        $scope.form.pickup.location = data[0];
+                        $scope.form.location = data[0];
                         $scope.locationChanged();
                     }
                 });
@@ -194,12 +218,12 @@ angular.module('searchApp.controllers', ['ngRoute'])
 
     $scope.locationChanged = function() {
         if ($scope.locations) {
-            $scope.dropCountries = [$scope.form.pickup.country];
-            $scope.form.dropoff.country = $scope.form.pickup.country;
+            $scope.dropCountries = [$scope.form.country];
+            $scope.form.dropCountry = $scope.form.country;
             $scope.dropCities = angular.copy($scope.cities);
-            $scope.form.dropoff.city = angular.copy($scope.form.pickup.city);
+            $scope.form.dropCity = angular.copy($scope.form.city);
             $scope.dropLocations = angular.copy($scope.locations);
-            $scope.form.dropoff.location = angular.copy($scope.form.pickup.location);
+            $scope.form.dropLocation = angular.copy($scope.form.location);
         }
     };
 
@@ -207,7 +231,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
         if ($scope.dropCities) {
             $scope.loading.dropLocations = true;
             LocationService.getAjax({
-                    country: $scope.form.pickup.country.id,
+                    country: $scope.form.country.id,
                     city: $scope.form.dropoff.city.id
                 })
                 .then(function(data) {
@@ -240,12 +264,12 @@ angular.module('searchApp.controllers', ['ngRoute'])
         if ($scope.params.country && ($filter('filter')($scope.countries, {
                 name: $scope.params.country
             }, true).length > 0)) {
-            $scope.form.pickup.country = {
+            $scope.form.country = {
                 id: $scope.params.country.split('+').join(' '),
                 name: $scope.params.country.split('+').join(' ')
             }
             LocationService.getAjax({
-                    country: $scope.form.pickup.country.id
+                    country: $scope.form.country.id
                 })
                 .then(function(data) {
                     $scope.cities = data;
@@ -253,10 +277,10 @@ angular.module('searchApp.controllers', ['ngRoute'])
                         name: $scope.params.city
                     }, true);
                     if ($scope.params.city && found) {
-                        $scope.form.pickup.city = found[0]
+                        $scope.form.city = found[0]
                         LocationService.getAjax({
-                                country: $scope.form.pickup.country.id,
-                                city: $scope.form.pickup.city.id
+                                country: $scope.form.country.id,
+                                city: $scope.form.city.id
                             })
                             .then(function(data) {
                                 $scope.locations = data;
@@ -264,18 +288,18 @@ angular.module('searchApp.controllers', ['ngRoute'])
                                     name: $scope.params.location
                                 }, true);
                                 if ($scope.params.location && found) {
-                                    $scope.form.pickup.location = found[0];
+                                    $scope.form.location = found[0];
                                     $scope.locationChanged();
                                 } else {
                                     if (data.length == 1) {
-                                        $scope.form.pickup.location = data[0];
+                                        $scope.form.location = data[0];
                                         $scope.locationChanged();
                                     }
                                 }
                             });
                     } else {
                         if (data.length == 1) {
-                            $scope.form.pickup.city = data[0];
+                            $scope.form.city = data[0];
                             $scope.cityChanged();
                         }
                     }

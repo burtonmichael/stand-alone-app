@@ -8,7 +8,7 @@
             id="puCountry"
             class="form-control"
             ng-disabled="!countries"
-            ng-model="form.pickup.country"
+            ng-model="form.country"
             ng-options="country as country.name for country in countries track by country.id"
             ng-change="localeChanged('country')">
                 <option disabled value="">{{translations.emptySelect}}</option>
@@ -23,7 +23,7 @@
             id="puCity"
             class="form-control"
             ng-disabled="!cities"
-            ng-model="form.pickup.city"
+            ng-model="form.city"
             ng-options="city as city.name for city in cities track by city.id"
             ng-change="localeChanged('city')">
                 <option disabled value="">{{translations.emptySelect}}</option>
@@ -39,7 +39,7 @@
             id="puLocation"
             class="form-control"
             ng-disabled="!locations"
-            ng-model="form.pickup.location"
+            ng-model="form.location"
             ng-options="location as location.name for location in locations track by location.id"
             ng-change="localeChanged('location')">
                 <option disabled value="">{{translations.emptySelect}}</option>
