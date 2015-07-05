@@ -1,2 +1,8 @@
 <span class="select-value">{{selected.value}}</span>
-<select class="form-control" ng-model="selected" ng-init="selected = { name: '10', value: 10 }; selectedHour = selected.value;" ng-change="selectedHour = selected.value" ng-options="hour.name for hour in hours track by hour.value"></select>
+<span class="glyphicon glyphicon-chevron-down"></span>
+<select
+ng-model="selected"
+ng-init="selected = { name: '10', value: 10 }; selectedHour = selected.value;"
+ng-change="selectedHour = selected.value"
+ng-options="hour.name for hour in hours track by hour.value">
+</select>

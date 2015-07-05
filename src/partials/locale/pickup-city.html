@@ -1,9 +1,6 @@
 <span class="select-value">{{form.city.name || translations.emptySelect}}</span>
+<span class="glyphicon glyphicon-chevron-down"></span>
 <select
-select-focus
-id="puCity"
-class="form-control"
-ng-disabled="!cities"
 ng-model="form.city"
 ng-options="city as city.name for city in cities track by city.id"
 ng-change="localeChanged('city')">

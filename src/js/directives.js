@@ -18,6 +18,33 @@ angular.module('searchApp.directives', [])
    };
 })
 
+.directive('selectReplace', function() {
+  return{
+    link: function(scope, elem, attrs) {
+      var sel = elem.find('select');
+
+      if (attrs.selectReplace) {
+        scope.$watch(attrs.selectReplace, function(newVal, oldVal){
+          if (newVal) {
+            sel.removeAttr('disabled');
+            elem.removeClass('is-disabled')
+          } else {
+            sel.attr('disabled', 'disabled');
+            elem.addClass('is-disabled')
+          }
+        })
+      }
+
+      sel.bind('focus', function(){
+          elem.addClass('has-focus')
+      })
+      sel.bind('blur', function(){
+          elem.removeClass('has-focus')
+      })
+    }
+  }
+})
+
 .directive('pickupCountry', function(){
   return {
     controller: 'LocaleCtrl',
