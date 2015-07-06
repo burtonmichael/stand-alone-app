@@ -1,7 +1,20 @@
 angular.module('searchApp.controllers', ['ngRoute'])
 
-.controller('MainCtrl', function($scope, $http, $location, $window, $modal, TranslationsService, TimeService) {
+.controller('HeadCtrl', function($scope, $location) {
+    $scope.params = $location.search();
 
+    if ($scope.params.css) {
+        var baseUrl = 'css/import/';
+        var exports = [];
+        var stylesheets = $scope.params.css.split('+');
+        angular.forEach(stylesheets, function(stylesheet) {
+            this.push(baseUrl + stylesheet + '.css')
+        }, exports)
+        $scope.stylesheets = exports;
+    }
+})
+
+.controller('MainCtrl', function($scope, $http, $location, $window, $modal, TranslationsService) {
     $scope.params = $location.search();
 
     $scope.form = {
@@ -31,14 +44,6 @@ angular.module('searchApp.controllers', ['ngRoute'])
         var endDate = new Date();
         endDate.setDate(startDate.getDate() + 3);
 
-        $scope.form.puDay = startDate.getDate();
-        $scope.form.puMonth = startDate.getMonth() + 1;
-        $scope.form.puYear = startDate.getFullYear();
-
-        $scope.form.puDay = endDate.getDate();
-        $scope.form.puMonth = endDate.getMonth() + 1;
-        $scope.form.puYear = endDate.getFullYear();
-
         $pickup.setStartRange(startDate);
         $pickup.setEndRange(endDate);
 
@@ -52,28 +57,22 @@ angular.module('searchApp.controllers', ['ngRoute'])
         $dropoff.setMoment(moment(endDate))
     }
 
-    $scope.pickupDateChanged = function(date) {
-        $scope.form.puDay = date.getDate();
-        $scope.form.puMonth = date.getMonth() + 1;
-        $scope.form.puYear = date.getFullYear();
-
-        var momentDate = moment(date);
-        if (momentDate.isAfter($scope.pikaday.dropoff.getMoment())) {
-            $scope.pikaday.pickup.setEndRange(date);
-            $scope.pikaday.dropoff.setMoment(momentDate);
+    $scope.dateChanged = function(origin, date, pikaday) {
+        if (origin === 'pickup') {
+            var momentDate = moment(date);
+            if (momentDate.isAfter($scope.pikaday.dropoff.getMoment())) {
+                $scope.pikaday.pickup.setEndRange(date);
+                $scope.pikaday.dropoff.setMoment(momentDate);
+            }
+            $scope.pikaday.dropoff.setMinDate(date);
+            $scope.pikaday.pickup.setStartRange(date);
+            $scope.pikaday.dropoff.setStartRange(date);
         }
-        $scope.pikaday.dropoff.setMinDate(date);
-        $scope.pikaday.pickup.setStartRange(date);
-        $scope.pikaday.dropoff.setStartRange(date);
-    }
 
-    $scope.dropoffDateChanged = function(date) {
-        $scope.form.doDay = date.getDate();
-        $scope.form.doMonth = date.getMonth() + 1;
-        $scope.form.doYear = date.getFullYear();
-
-        $scope.pikaday.pickup.setEndRange(date);
-        $scope.pikaday.dropoff.setEndRange(date);
+        if (origin === 'dropoff') {
+            $scope.pikaday.pickup.setEndRange(date);
+            $scope.pikaday.dropoff.setEndRange(date);
+        }
     }
 
     $scope.submit = function() {
@@ -102,13 +101,21 @@ angular.module('searchApp.controllers', ['ngRoute'])
             $scope.messages.push('Enter driver\'s age.')
         }
 
-        var pickupDateTime = moment({ year: form.puYear, month: form.puMonth - 1, day: form.puDay, hour: form.puHour, minute: form.puMinute});
+        var pickupDateTime = $scope.pikaday.pickup.getMoment().hour(form.puHour).minute(form.puMinute);
 
-        var dropoffDateTime = moment({ year: form.doYear, month: form.doMonth - 1, day: form.doDay, hour: form.doHour, minute: form.doMinute});
+        var dropoffDateTime = $scope.pikaday.dropoff.getMoment().hour(form.doHour).minute(form.doMinute);
 
         if (dropoffDateTime.diff(pickupDateTime, 'minutes') < 60) {
             $scope.errors.date = true;
             $scope.messages.push('There must be at least one hour between pick up and drop off.')
+        } else {
+            form.puDay = pickupDateTime.date();
+            form.puMonth = pickupDateTime.month() + 1;
+            form.puYear = pickupDateTime.year();
+
+            form.puDay = dropoffDateTime.date();
+            form.puMonth = dropoffDateTime.month() + 1;
+            form.puYear = dropoffDateTime.year();
         }
 
         if ($scope.messages.length > 0) {
@@ -232,13 +239,13 @@ angular.module('searchApp.controllers', ['ngRoute'])
             $scope.loading.dropLocations = true;
             LocationService.getAjax({
                     country: $scope.form.country.id,
-                    city: $scope.form.dropoff.city.id
+                    city: $scope.form.dropCity.id
                 })
                 .then(function(data) {
                     $scope.loading.dropLocations = null;
                     $scope.dropLocations = data;
                     if (data.length == 1) {
-                        $scope.form.dropoff.location = data[0];
+                        $scope.form.dropLocation = data[0];
                     }
                 });
         }
