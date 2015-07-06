@@ -31,7 +31,7 @@
         </div>
         <form role="form" ng-show="!loading.app" ng-submit="submit()">
             <h2>{{translations.title}}</h2>
-            <div class="form-group form-group--horizontal radio-group">
+            <div class="form-group form-group--radio">
                 <label class="input-label radio-label radio-label--pickup">
                     <input ng-model="frame" selected="selected" type="radio" name="radio" value="pickup">{{translations.pickUp}}
                 </label>
@@ -39,63 +39,67 @@
                     <input ng-model="frame" type="radio" name="radio" value="dropoff">{{translations.dropOff}}
                 </label>
             </div>
-            <div class="form-group form-group--horizontal locations-group locations-group--pickup" ng-show="frame === 'pickup'">
-                <div class="location-group" ng-class="{'has-error': errors.country}">
+            <div class="locations-group locations-group--pickup" ng-show="frame === 'pickup'">
+                <div class="form-group form-group--horizontal form-group--location" ng-class="{'has-error': errors.country}">
                     <label class="input-label">{{translations.country}}</label>
-                    <div class="element-wrap select-wrap" select-replace="countries" pickup-country></div>
+                    <div class="element-wrap element-wrap--select element-wrap--country" select-replace="countries" pickup-country></div>
                 </div>
-                <div class="location-group" ng-class="{'has-error': errors.city}">
+                <div class="form-group form-group--horizontal form-group--location" ng-class="{'has-error': errors.city}">
                     <label class="input-label">{{translations.city}}</label>
-                    <div class="element-wrap select-wrap input-style" select-replace="cities" pickup-city></div>
+                    <div class="element-wrap element-wrap--select element-wrap--city" select-replace="cities" pickup-city></div>
                 </div>
-                <div class="location-group" ng-class="{'has-error': errors.location}">
+                <div class="form-group form-group--horizontal form-group--location" ng-class="{'has-error': errors.location}">
                     <label class="input-label">{{translations.location}}</label>
-                    <div class="element-wrap select-wrap" select-replace="locations" pickup-location></div>
+                    <div class="element-wrap element-wrap--select element-wrap--location" select-replace="locations" pickup-location></div>
                 </div>
             </div>
-            <div class="form-group form-group--horizontal locations-group locations-group--dropoff" ng-show="frame === 'dropoff'">
-                <div class="location-group" ng-class="{'has-error': errors.dropCountry}">
+            <div class="locations-group locations-group--dropoff" ng-show="frame === 'dropoff'">
+                <div class="form-group form-group--horizontal form-group--drop-country" ng-class="{'has-error': errors.dropCountry}">
                     <label class="input-label">{{translations.country}}</label>
-                    <div class="element-wrap select-wrap" select-replace="dropCountries" dropoff-country></div>
+                    <div class="element-wrap element-wrap--select element-wrap--drop-country" select-replace="dropCountries" dropoff-country></div>
                 </div>
-                <div class="location-group" ng-class="{'has-error': errors.dropCity}">
+                <div class="form-group form-group--horizontal form-group--drop-city" ng-class="{'has-error': errors.dropCity}">
                     <label class="input-label">{{translations.city}}</label>
-                    <div class="element-wrap select-wrap" select-replace="dropCities" dropoff-city></div>
+                    <div class="element-wrap element-wrap--select element-wrap--drop-city" select-replace="dropCities" dropoff-city></div>
                 </div>
-                <div class="location-group" ng-class="{'has-error': errors.dropLocation}">
+                <div class="form-group form-group--horizontal form-group--drop-location" ng-class="{'has-error': errors.dropLocation}">
                     <label class="input-label">{{translations.location}}</label>
-                    <div class="element-wrap select-wrap" select-replace="dropLocations" dropoff-location></div>
+                    <div class="element-wrap element-wrap--select element-wrap--drop-location" select-replace="dropLocations" dropoff-location></div>
                 </div>
             </div>
-            <div class="form-group date-group date-group--pickup" ng-class="{'has-error': errors.date}">
+            <div class="date-time-group date-time-group--pickup">
                 <label class="input-label">{{translations.pickUpDateTime}}</label>
-                <div class="element-wrap input-wrap input-wrap--pikaday" ng-class="{'has-focus': pikaday.pickup.focus}">
-                    <input type="text" readonly on-open="pikaday.focus = true" on-close="pikaday.focus = false" on-select="dateChanged('pickup', date, pikaday)" pikaday="pikaday.pickup">
-                    <span ng-click="pikaday.pickup.show()" class="glyphicon glyphicon-calendar"></span>
+                <div class="form-group form-group--date" ng-class="{'has-error': errors.date}">
+                    <div class="element-wrap element-wrap--text element-wrap--pikaday" ng-class="{'has-focus': pikaday.pickup.focus}">
+                        <input type="text" readonly on-open="pikaday.focus = true" on-close="pikaday.focus = false" on-select="dateChanged('pickup', date, pikaday)" pikaday="pikaday.pickup">
+                        <span ng-click="pikaday.pickup.show()" class="glyphicon glyphicon-calendar"></span>
+                    </div>
                 </div>
-                <div class="time-group">
-                    <div class="element-wrap select-wrap select-wrap--hour" select-replace selected-hour="form.puHour" hours></div>
-                    <div class="element-wrap select-wrap select-wrap--minute" select-replace selected-minute="form.puMinute" minutes></div>
+                <div class="form-group form-group--time">
+                    <div class="element-wrap element-wrap--select element-wrap--hour" select-replace selected-hour="form.puHour" hours></div>
+                    <div class="element-wrap element-wrap--select element-wrap--minute" select-replace selected-minute="form.puMinute" minutes></div>
                 </div>
             </div>
-            <div class="form-group date-group date-group--dropoff" ng-class="{'has-error': errors.date}">
+            <div class="date-time-group date-time-group--dropoff">
                 <label class="input-label">{{translations.dropOffDateTime}}</label>
-                <div class="element-wrap input-wrap input-wrap--pikaday" ng-class="{'has-focus': pikaday.dropoff.focus}">
-                    <input type="text" readonly on-open="pikaday.focus = true" on-close="pikaday.focus = false" on-select="dateChanged('dropoff', date, pikaday)" pikaday="pikaday.dropoff">
-                    <span ng-click="pikaday.dropoff.show()" class="glyphicon glyphicon-calendar"></span>
+                <div class="form-group form-group--date" ng-class="{'has-error': errors.date}">
+                    <div class="element-wrap element-wrap--text element-wrap--pikaday" ng-class="{'has-focus': pikaday.dropoff.focus}">
+                        <input type="text" readonly on-open="pikaday.focus = true" on-close="pikaday.focus = false" on-select="dateChanged('dropoff', date, pikaday)" pikaday="pikaday.dropoff">
+                        <span ng-click="pikaday.dropoff.show()" class="glyphicon glyphicon-calendar"></span>
+                    </div>
                 </div>
-                <div class="time-group">
-                    <div class="element-wrap select-wrap select-wrap--hour" select-replace selected-hour="form.doHour" hours></div>
-                    <div class="element-wrap select-wrap select-wrap--minute" select-replace selected-minute="form.doMinute" minutes></div>
+                <div class="form-group form-group--time">
+                    <div class="element-wrap element-wrap--select element-wrap--hour" select-replace selected-hour="form.doHour" hours></div>
+                    <div class="element-wrap element-wrap--select element-wrap--minute" select-replace selected-minute="form.doMinute" minutes></div>
                 </div>
             </div>
-            <div class="form-group age-group" ng-class="{'has-error': errors.driversAge}">
+            <div class="form-group form-group--age" ng-class="{'has-error': errors.driversAge}">
                 <label class="input-label">{{translations.driverAge}}</label>
-                <div class="element-wrap input-wrap input-wrap--age" ng-class="{'has-focus': age.focus}">
+                <div class="element-wrap element-wrap--text element-wrap--age" ng-class="{'has-focus': age.focus}">
                     <input type="text" number ng-init="form.driversAge = 25" ng-focus="age.focus = true" ng-blur="age.focus = false" ng-model="form.driversAge">
                 </div>
             </div>
-            <div class="form-group button-group">
+            <div class="form-group form-group--button">
                 <button type="submit" href="#">{{translations.search}}</button>
             </div>
         </form>

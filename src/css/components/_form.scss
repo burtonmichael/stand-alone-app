@@ -1,3 +1,5 @@
+$element-font-size: 12px;
+
 .app {
     background: #f5d361;
     background: -moz-linear-gradient(top, #f5d361 0%, #e7bf3b 100%);
@@ -8,11 +10,7 @@
     background: linear-gradient(to bottom, #f5d361 0%, #e7bf3b 100%);
     border-radius: 8px;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
-    padding: 16px;
-}
-
-form {
-    position: relative
+    padding: 16px 16px 10px;
 }
 
 .app:after {
@@ -22,48 +20,24 @@ form {
     display: table;
 }
 
+form {
+    position: relative
+}
+
 h2 {
     margin-top: 0;
+    margin-bottom: 8px;
 }
 
 select {
+    background: none;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: inherit;
     opacity: 0;
     filter: alpha(opacity=0);
-}
-
-.form-group {
-    margin-bottom: 12px;
-}
-
-.form-group:after {
-    display: table;
-    content: '';
-    clear: both;
-    width: 100%;
-}
-
-.select-wrap, input[type="text"] {
-    display: block;
-    width: 100%;
-    height: 34px;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 2px 1px -1px rgba(0,0,0,.075);
-    box-shadow: inset 0 2px 1px -1px rgba(0,0,0,.075);
-    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 
 .select-wrap.has-focus, .input-wrap.has-focus input {
@@ -77,20 +51,39 @@ select {
 
 .element-wrap {
     position: relative;
-    float: left;
+    &.is-disabled {
+        background-color: #eee;
+    }
     &.has-focus {
         z-index: 2;
     }
-    .glyphicon  {
+    .glyphicon {
+        font-size: 0.8em;
+        cursor: pointer;
         position: absolute;
-        right: 10px;
-        top: 10px;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
     }
-}
-
-.select-wrap {
-    &.is-disabled {
-        background-color: #eee;
+    .element-value, input {
+        font-size: 12px;
+        line-height: 1.42857143;
+        color: #555;
+    }
+    &--select, input {
+        display: block;
+        width: 100%;
+        height: 30px;
+        padding: 4px 12px;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 2px 1px -1px rgba(0,0,0,.075);
+        box-shadow: inset 0 2px 1px -1px rgba(0,0,0,.075);
+        -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     }
     &--minute {
         border-top-left-radius: 0;
@@ -102,59 +95,48 @@ select {
         border-bottom-right-radius: 0;
         border-right: 0;
     }
-}
-
-.input-value {
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-}
-
-.form-group--horizontal {
-    .input-label {
-        float: left;
-        width: 25%;
-        line-height: 34px;
-        margin: 0;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-    .select-wrap {
-        float: left;
-        width: 75%;
+    &--age {
+        width: 4em
     }
 }
 
-.location-group {
-    float: left;
-    width: 100%;
-    margin-top: 12px;
-    &:first-child {
-        margin-top: 0;
+.form-group {
+    margin-bottom: 8px;
+    &:after {
+        display: table;
+        content: '';
+        clear: both;
+        width: 100%;
     }
-}
 
-.input-wrap {
-    .glyphicon {
-        cursor: pointer;
+    &--horizontal {
+        .input-label {
+            float: left;
+            width: 25%;
+            line-height: 30px;
+            margin: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .element-wrap {
+            float: left;
+            width: 75%;
+        }
     }
-    &--pikaday {
+    &--date {
         cursor: pointer;
         width: 48%;
         float: left;
     }
-    &--age {
-        width: 5em;
-    }
-}
-
-.time-group {
-    width: 47%;
-    float: left;
-    margin-left: 5%;
-    .select-wrap {
-        width: 50%;
+    &--time {
+        width: 47%;
+        float: left;
+        margin-left: 5%;
+        .element-wrap {
+            width: 50%;
+            float: left;
+        }
     }
 }
 
@@ -163,16 +145,24 @@ select {
     font-weight: bold;
     font-size: 10px;
     margin-bottom: 6px;
-    display: inline-block;
+    display: block;
 
     &.radio-label {
+        font-weight: normal;
+        position: relative;
+        display: inline-block;
+        padding-left: 20px;
+        margin-bottom: 0;
+        vertical-align: middle;
         cursor: pointer;
-        width: auto;
-        font-size: 12px;
+        font-size: 11px;
         &--dropoff {
             margin-left: 12px
         }
         input {
+            position: absolute;
+            margin: 0 0 0 -20px;
+            cursor: pointer;
             margin-right: 4px;
             vertical-align: middle;
         }
@@ -224,7 +214,7 @@ select {
 }
 
 .app {
-    .button-group {
+    .form-group--button {
         position: absolute;
         right: 0;
         bottom: 0;
