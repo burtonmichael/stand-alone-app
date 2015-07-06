@@ -100,6 +100,15 @@ select {
     }
 }
 
+form, .location-group, .date-time-group {
+    &:after {
+        display: table;
+        content: '';
+        clear: both;
+        width: 100%;
+    }
+}
+
 .form-group {
     margin-bottom: 8px;
     &:after {
@@ -218,7 +227,6 @@ select {
         position: absolute;
         right: 0;
         bottom: 0;
-        margin-bottom: 0
     }
     button {
         float: right;
