@@ -24,12 +24,12 @@
 </head>
 
 <body ng-controller="MainCtrl">
-    <div class="app">
-        <div class="loader" ng-show="loading.app">
-            <div class="loading loading--app">
-            </div>
+    <div class="loader" ng-show="loading.app">
+        <div class="loading loading--app">
         </div>
-        <form role="form" ng-show="!loading.app" ng-submit="submit()">
+    </div>
+    <div class="app" ng-show="!loading.app">
+        <form role="form" ng-submit="submit()">
             <h2>{{translations.title}}</h2>
             <div class="form-group form-group--radio">
                 <label class="input-label radio-label radio-label--pickup">

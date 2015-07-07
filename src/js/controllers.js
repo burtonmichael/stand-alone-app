@@ -15,6 +15,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
 })
 
 .controller('MainCtrl', function($scope, $http, $location, $window, $modal, TranslationsService) {
+    
     $scope.params = $location.search();
 
     $scope.form = {
@@ -29,32 +30,44 @@ angular.module('searchApp.controllers', ['ngRoute'])
     $scope.frame = "pickup";
 
     $scope.dateConfig = function(data) {
-        var config = {
-            format: data.format,
-            i18n: data.i18n
-        }
+
+        moment.defineLocale("preflang", data.moment)
+
+        moment.locale("preflang");
 
         var $pickup = $scope.pikaday.pickup;
         var $dropoff = $scope.pikaday.dropoff;
 
-        $pickup._o = angular.extend({}, $pickup._o, config);
-        $dropoff._o = angular.extend({}, $dropoff._o, config);
+        var i18n = {
+            previousMonth: data.previousMonth,
+            nextMonth: data.nextMonth,
+            months: data.moment.months,
+            monthsShort: data.moment.monthsShort,
+            weekdays: data.moment.weekdays,
+            weekdaysShort: data.moment.weekdaysShort
+        }
+
+        $pickup._o.i18n = i18n;
+        $dropoff._o.i18n = i18n;
+
+        $pickup._o.format = $scope.params.format ? $scope.params.format.split('+').join(' ') : 'L';
+        $dropoff._o.format = $scope.params.format ? $scope.params.format.split('+').join(' ') : 'L';
 
         var startDate = new Date();
         var endDate = new Date();
         endDate.setDate(startDate.getDate() + 3);
 
-        $pickup.setStartRange(startDate);
-        $pickup.setEndRange(endDate);
+        $pickup.setMoment(moment(startDate));
+        $dropoff.setMoment(moment(endDate));
 
         $pickup.setMinDate(startDate);
         $dropoff.setMinDate(startDate);
 
+        $pickup.setStartRange(startDate);
+        $pickup.setEndRange(endDate);
+
         $dropoff.setStartRange(startDate);
         $dropoff.setEndRange(endDate);
-
-        $pickup.setMoment(moment(startDate))
-        $dropoff.setMoment(moment(endDate))
     }
 
     $scope.dateChanged = function(origin, date, pikaday) {

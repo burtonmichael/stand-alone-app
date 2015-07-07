@@ -1,4 +1,10 @@
 @media screen and (max-width: 260px) {
+	h2 {
+		font-size: 1.2em;
+	}
+	.input-label {
+		font-size: 8px;
+	}
 	.date-time-group {
 		.form-group--date {
 			width: 52%;

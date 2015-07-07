@@ -71,16 +71,25 @@ select {
             color: #204D74;
         }
     }
+    .element-value {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        display: inline-block;
+    }
     .element-value, input {
         font-size: 12px;
-        line-height: 1.42857143;
+        line-height: 1;
+        vertical-align: middle;
         color: #555;
     }
     &--select, input {
         display: block;
         width: 100%;
         height: 30px;
-        padding: 4px 12px;
+        line-height: 27px;
+        padding: 0 12px;
         background-color: #fff;
         background-image: none;
         border: 1px solid #ccc;
