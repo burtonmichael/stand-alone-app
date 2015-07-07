@@ -40,7 +40,9 @@ select {
     filter: alpha(opacity=0);
 }
 
-.select-wrap.has-focus, .input-wrap.has-focus input {
+.element-wrap--select.has-focus,
+.element-wrap--text.has-focus input,
+.element-wrap--text input[type="text"]:focus {
     border-color: #ccc;
     border-color: rgba(82,168,236,.8);
     outline: 0;
@@ -64,6 +66,10 @@ select {
         right: 8px;
         top: 50%;
         transform: translateY(-50%);
+        &-calendar {
+            font-size: 1.1em;
+            color: #204D74;
+        }
     }
     .element-value, input {
         font-size: 12px;
@@ -84,6 +90,9 @@ select {
         -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
         -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
         transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    }
+    &--pikaday input {
+        cursor: pointer;
     }
     &--minute {
         border-top-left-radius: 0;
@@ -117,24 +126,7 @@ form, .location-group, .date-time-group {
         clear: both;
         width: 100%;
     }
-
-    &--horizontal {
-        .input-label {
-            float: left;
-            width: 25%;
-            line-height: 30px;
-            margin: 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .element-wrap {
-            float: left;
-            width: 75%;
-        }
-    }
     &--date {
-        cursor: pointer;
         width: 48%;
         float: left;
     }
@@ -153,7 +145,7 @@ form, .location-group, .date-time-group {
     text-transform: uppercase;
     font-weight: bold;
     font-size: 10px;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
     display: block;
 
     &.radio-label {

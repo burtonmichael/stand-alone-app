@@ -54,15 +54,15 @@
                 </div>
             </div>
             <div class="locations-group locations-group--dropoff" ng-show="frame === 'dropoff'">
-                <div class="form-group form-group--horizontal form-group--drop-country" ng-class="{'has-error': errors.dropCountry}">
+                <div class="form-group form-group--horizontal form-group--location" ng-class="{'has-error': errors.dropCountry}">
                     <label class="input-label">{{translations.country}}</label>
                     <div class="element-wrap element-wrap--select element-wrap--drop-country" select-replace="dropCountries" dropoff-country></div>
                 </div>
-                <div class="form-group form-group--horizontal form-group--drop-city" ng-class="{'has-error': errors.dropCity}">
+                <div class="form-group form-group--horizontal form-group--location" ng-class="{'has-error': errors.dropCity}">
                     <label class="input-label">{{translations.city}}</label>
                     <div class="element-wrap element-wrap--select element-wrap--drop-city" select-replace="dropCities" dropoff-city></div>
                 </div>
-                <div class="form-group form-group--horizontal form-group--drop-location" ng-class="{'has-error': errors.dropLocation}">
+                <div class="form-group form-group--horizontal form-group--location" ng-class="{'has-error': errors.dropLocation}">
                     <label class="input-label">{{translations.location}}</label>
                     <div class="element-wrap element-wrap--select element-wrap--drop-location" select-replace="dropLocations" dropoff-location></div>
                 </div>

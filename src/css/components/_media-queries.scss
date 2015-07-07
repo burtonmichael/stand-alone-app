@@ -1,0 +1,54 @@
+@media screen and (max-width: 260px) {
+	.date-time-group {
+		.form-group--date {
+			width: 52%;
+		}
+		.form-group--time {
+			width: 43%;
+			text-align: center;
+		}
+		.glyphicon {
+			display: none;
+		}
+	}
+}
+
+@media screen and (max-width: 479px) {
+	.form-group {
+	    &--horizontal {
+	        .input-label {
+	            float: left;
+	            width: 25%;
+	            line-height: 30px;
+	            margin: 0;
+	            overflow: hidden;
+	            text-overflow: ellipsis;
+	            white-space: nowrap;
+	        }
+	        .element-wrap {
+	            float: left;
+	            width: 75%;
+	        }
+	    }
+	}
+}
+
+@media screen and (min-width: 480px) {
+	.form-group {
+		&--location {
+			float: left;
+			width: 32%;
+			margin-left: 2%;
+			&:first-child {
+				margin-left: 0;
+			}
+		}
+	}
+	.date-time-group {
+		width: 48%;
+		float: left;
+		&--dropoff {
+			margin-left: 4%
+		}
+	}
+}
