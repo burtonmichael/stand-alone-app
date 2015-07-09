@@ -1,12 +1,10 @@
 angular.module('searchApp.controllers', ['ngRoute'])
 
-.controller('HeadCtrl', function($scope, $location) {
-    $scope.params = $location.search();
-
-    if ($scope.params.css) {
+.controller('HeadCtrl', function($scope, SessionService) {
+    if (SessionService.css) {
         var baseUrl = 'css/import/';
         var exports = [];
-        var stylesheets = $scope.params.css.split('+');
+        var stylesheets = SessionService.css.split('+');
         angular.forEach(stylesheets, function(stylesheet) {
             this.push(baseUrl + stylesheet + '.css')
         }, exports)
@@ -14,10 +12,8 @@ angular.module('searchApp.controllers', ['ngRoute'])
     }
 })
 
-.controller('MainCtrl', function($scope, $http, $location, $window, $modal, TranslationsService) {
+.controller('MainCtrl', function($scope, $window, $modal, SessionService, TranslationsService) {
     
-    $scope.params = $location.search();
-
     $scope.form = {
         emptySearchResults: true,
         fromLocChoose: true
@@ -28,7 +24,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
     };
 
     $scope.frame = "pickup";
-    
+
     TranslationsService.get()
         .then(function(data) {
             $scope.translations = data;
@@ -57,8 +53,8 @@ angular.module('searchApp.controllers', ['ngRoute'])
         $pickup._o.i18n = i18n;
         $dropoff._o.i18n = i18n;
 
-        $pickup._o.format = $scope.params.format ? $scope.params.format.split('+').join(' ') : 'L';
-        $dropoff._o.format = $scope.params.format ? $scope.params.format.split('+').join(' ') : 'L';
+        $pickup._o.format = SessionService.format ? SessionService.format.split('+').join(' ') : 'L';
+        $dropoff._o.format = SessionService.format ? SessionService.format.split('+').join(' ') : 'L';
 
         var startDate = new Date();
         var endDate = new Date();
@@ -271,12 +267,12 @@ angular.module('searchApp.controllers', ['ngRoute'])
     LocationService.getCountries().then(function(data) {
         $scope.countries = data;
 
-        if ($scope.params.country && ($filter('filter')($scope.countries, {
-                name: $scope.params.country
+        if (SessionService.country && ($filter('filter')($scope.countries, {
+                name: SessionService.country
             }, true).length > 0)) {
             $scope.form.country = {
-                id: $scope.params.country.split('+').join(' '),
-                name: $scope.params.country.split('+').join(' ')
+                id: SessionService.country.split('+').join(' '),
+                name: SessionService.country.split('+').join(' ')
             }
             LocationService.getAjax({
                     country: $scope.form.country.id
@@ -284,9 +280,9 @@ angular.module('searchApp.controllers', ['ngRoute'])
                 .then(function(data) {
                     $scope.cities = data;
                     var found = $filter('filter')($scope.cities, {
-                        name: $scope.params.city
+                        name: SessionService.city
                     }, true);
-                    if ($scope.params.city && found) {
+                    if (SessionService.city && found) {
                         $scope.form.city = found[0]
                         LocationService.getAjax({
                                 country: $scope.form.country.id,
@@ -295,9 +291,9 @@ angular.module('searchApp.controllers', ['ngRoute'])
                             .then(function(data) {
                                 $scope.locations = data;
                                 var found = $filter('filter')($scope.locations, {
-                                    name: $scope.params.location
+                                    name: SessionService.location
                                 }, true);
-                                if ($scope.params.location && found) {
+                                if (SessionService.location && found) {
                                     $scope.form.location = found[0];
                                     $scope.locationChanged();
                                 } else {
