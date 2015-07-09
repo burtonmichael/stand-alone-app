@@ -14,7 +14,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
     }
 })
 
-.controller('MainCtrl', function($scope, $http, $location, $timeout, $window, $modal, TranslationsService) {
+.controller('MainCtrl', function($scope, $http, $location, $window, $modal, TranslationsService) {
     
     $scope.params = $location.search();
 
@@ -28,6 +28,13 @@ angular.module('searchApp.controllers', ['ngRoute'])
     };
 
     $scope.frame = "pickup";
+    
+    TranslationsService.get()
+        .then(function(data) {
+            $scope.translations = data;
+            $scope.dateConfig(data);
+            $scope.loading.app = false;
+        });
 
     $scope.dateConfig = function(data) {
 
@@ -57,9 +64,6 @@ angular.module('searchApp.controllers', ['ngRoute'])
         var endDate = new Date();
         endDate.setDate(startDate.getDate() + 3);
 
-        $pickup.setMoment(moment(startDate));
-        $dropoff.setMoment(moment(endDate));
-
         $pickup.setMinDate(startDate);
         $dropoff.setMinDate(startDate);
 
@@ -68,6 +72,9 @@ angular.module('searchApp.controllers', ['ngRoute'])
 
         $dropoff.setStartRange(startDate);
         $dropoff.setEndRange(endDate);
+
+        $pickup.setMoment(moment(startDate));
+        $dropoff.setMoment(moment(endDate));
     }
 
     $scope.dateChanged = function(origin, date, pikaday) {
@@ -154,22 +161,6 @@ angular.module('searchApp.controllers', ['ngRoute'])
             $window.open('http://www.rentalcars.com/LoadingSearchResults.do?' + parameters)
         }
     }
-
-    TranslationsService.get()
-        .then(function(data) {
-            $scope.translations = data;
-            $scope.dateConfig(data);
-            $scope.loading.app = false;
-            console.log(data)
-        });
-
-        $timeout(function() {
-                TranslationsService.get()
-        .then(function(data) {
-            console.log(data)
-        });
-    }, 3000)
-
 })
 
 .controller('ModalCtrl', function ($scope, $modalInstance, messages) {

@@ -1,15 +1,8 @@
 $element-font-size: 12px;
 
 .app {
-    background: #f5d361;
-    background: -moz-linear-gradient(top, #f5d361 0%, #e7bf3b 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f5d361), color-stop(100%, #e7bf3b));
-    background: -webkit-linear-gradient(top, #f5d361 0%, #e7bf3b 100%);
-    background: -o-linear-gradient(top, #f5d361 0%, #e7bf3b 100%);
-    background: -ms-linear-gradient(top, #f5d361 0%, #e7bf3b 100%);
-    background: linear-gradient(to bottom, #f5d361 0%, #e7bf3b 100%);
-    border-radius: 8px;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+    background-color: #fff;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.15);
     padding: 16px 16px 10px;
 }
 
@@ -68,7 +61,7 @@ select {
         transform: translateY(-50%);
         &-calendar {
             font-size: 1.1em;
-            color: #204D74;
+            color: #ccc;
         }
     }
     .element-value {
@@ -76,29 +69,33 @@ select {
         overflow: hidden;
         text-overflow: ellipsis;
         width: 100%;
-        display: inline-block;
+        display: block;
+        color: #555;
     }
     .element-value, input {
-        font-size: 12px;
-        line-height: 1;
+        font-size: 14px;
+        line-height: 36px;
         vertical-align: middle;
         color: #555;
     }
     &--select, input {
         display: block;
         width: 100%;
-        height: 30px;
-        line-height: 27px;
+        height: 36px;
+        line-height: 35px;
         padding: 0 12px;
         background-color: #fff;
         background-image: none;
         border: 1px solid #ccc;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 2px 1px -1px rgba(0,0,0,.075);
-        box-shadow: inset 0 2px 1px -1px rgba(0,0,0,.075);
         -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
         -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
         transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    }
+    &--select {
+        box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    }
+    input {
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.15);
     }
     &--pikaday input {
         cursor: pointer;
@@ -151,7 +148,6 @@ form, .location-group, .date-time-group {
 }
 
 .input-label {
-    text-transform: uppercase;
     font-weight: bold;
     font-size: 10px;
     margin-bottom: 4px;
@@ -216,28 +212,26 @@ form, .location-group, .date-time-group {
 
 .loading--select {
     position: absolute;
-    right: 34px;
+    right: 28px;
     top: 50%;
     margin-top: -6px;
     width: 12px;
     height: 12px;
 }
 
-.app {
-    .form-group--button {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-    }
+.form-group--button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
     button {
         float: right;
         color: #fff;
         background-color: #337ab7;
         border-color: #2e6da4;
         display: inline-block;
-        padding: 6px 12px;
+        padding: 8px 16px;
         font-size: 14px;
-        font-weight: 400;
+        font-weight: 700;
         line-height: 1.42857143;
         text-align: center;
         white-space: nowrap;
@@ -250,25 +244,19 @@ form, .location-group, .date-time-group {
         -ms-user-select: none;
         user-select: none;
         background-image: none;
-        border: 1px solid transparent;
-        border-radius: 4px;
+        border-width: 0;
+        transition: background-color .3s;
     }
 
     button:hover {
-        color: #FFF;
         background-color: #286090;
-        border-color: #204D74;
     }
 
     button:hover {
-        color: #FFF;
         background-color: #286090;
-        border-color: #204D74;
     }
 
     button:active:hover {
-        color: #FFF;
         background-color: #204D74;
-        border-color: #122B40;
     }
 }

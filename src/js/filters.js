@@ -23,7 +23,6 @@ angular.module('searchApp.filters', [])
 				}
 			});
 		} else {
-			// Let the output be the input untouched
 			out = items;
 		}
 
