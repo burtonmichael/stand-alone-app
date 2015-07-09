@@ -14,7 +14,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
     }
 })
 
-.controller('MainCtrl', function($scope, $http, $location, $window, $modal, TranslationsService) {
+.controller('MainCtrl', function($scope, $http, $location, $timeout, $window, $modal, TranslationsService) {
     
     $scope.params = $location.search();
 
@@ -160,7 +160,16 @@ angular.module('searchApp.controllers', ['ngRoute'])
             $scope.translations = data;
             $scope.dateConfig(data);
             $scope.loading.app = false;
+            console.log(data)
         });
+
+        $timeout(function() {
+                TranslationsService.get()
+        .then(function(data) {
+            console.log(data)
+        });
+    }, 3000)
+
 })
 
 .controller('ModalCtrl', function ($scope, $modalInstance, messages) {
