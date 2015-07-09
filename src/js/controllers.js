@@ -155,21 +155,11 @@ angular.module('searchApp.controllers', ['ngRoute'])
         }
     }
 
-    TranslationsService.getDefault()
-        .then(function(defaultData) {
-            if ($scope.params.messages) {
-                TranslationsService.getCustom($scope.params.messages)
-                    .then(function(customData) {
-                        var customData = angular.extend({}, defaultData, customData);
-                        $scope.translations = customData
-                        $scope.dateConfig(customData);
-                        $scope.loading.app = false;
-                    });
-            } else {
-                $scope.translations = defaultData;
-                $scope.dateConfig(defaultData);
-                $scope.loading.app = false;
-            }
+    TranslationsService.get()
+        .then(function(data) {
+            $scope.translations = data;
+            $scope.dateConfig(data);
+            $scope.loading.app = false;
         });
 })
 

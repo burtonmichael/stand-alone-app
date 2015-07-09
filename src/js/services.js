@@ -78,27 +78,32 @@ angular.module('searchApp.services', ['ngCookies'])
 
 .factory('TranslationsService', function($q, $http, SessionService){
 	return {
-		getDefault: function() {
-			var deferred = $q.defer();
-			$http({
-				method: "GET",
-				url: "js/data/translations/" + SessionService.preflang + ".json"
-			})
-				.success(function(data) {
-					deferred.resolve(data);
+		get: function() {
+			var promise = null;
+			if (promise) {
+				return promise;
+			} else {
+				var deferred = $q.defer();
+				promise = $http({
+					method: "GET",
+					url: "js/data/translations/" + SessionService.preflang + ".json"
 				})
-			return deferred.promise;
-		},
-		getCustom: function(location) {
-			var deferred = $q.defer();
-			$http({
-				method: "GET",
-				url: "js/data/translations/custom/" + location + ".json"
-			})
-				.success(function(data) {
-					deferred.resolve(data);
-				})
-			return deferred.promise;
+					.success(function(data) {
+						if (SessionService.messages) {
+							$http({
+								method: "GET",
+								url: "js/data/translations/custom/" + SessionService.messages + ".json"
+							})
+								.success(function(custom) {
+									deferred.resolve(angular.extend({}, data, custom));
+								})
+						} else {
+							deferred.resolve(data);
+						}
+					})
+
+				return deferred.promise;
+			}
 		}
 	}
 })
