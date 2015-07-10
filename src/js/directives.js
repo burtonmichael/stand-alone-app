@@ -47,42 +47,36 @@ angular.module('searchApp.directives', [])
 
 .directive('pickupCountry', function(){
   return {
-    controller: 'LocaleCtrl',
     templateUrl: 'partials/locale/pickup-country.html'
   }
 })
 
 .directive('pickupCity', function(){
   return {
-    controller: 'LocaleCtrl',
     templateUrl: 'partials/locale/pickup-city.html'
   }
 })
 
 .directive('pickupLocation', function(){
   return {
-    controller: 'LocaleCtrl',
     templateUrl: 'partials/locale/pickup-location.html'
   }
 })
 
 .directive('dropoffCountry', function(){
   return {
-    controller: 'LocaleCtrl',
     templateUrl: 'partials/locale/dropoff-country.html'
   }
 })
 
 .directive('dropoffCity', function(){
   return {
-    controller: 'LocaleCtrl',
     templateUrl: 'partials/locale/dropoff-city.html'
   }
 })
 
 .directive('dropoffLocation', function(){
   return {
-    controller: 'LocaleCtrl',
     templateUrl: 'partials/locale/dropoff-location.html'
   }
 })

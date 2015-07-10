@@ -52,9 +52,11 @@ angular.module('searchApp.services', ['ngCookies'])
 		getAjax: function(params) {
 			var deferred = $q.defer();
 			var queryStr = '?'
-			var baseUrl = "http://www.rentalcars.com/InPathAjaxAction.do";
+			var base = SessionService.affUrl ? 'http://' + SessionService.affUrl : "http://www.rentalcars.com";
 
-			if (SessionService.jessionid) baseUrl += ";jsessionid=" + SessionService.jessionid;
+			var page = "/InPathAjaxAction.do";
+
+			if (SessionService.jessionid) page += ";jsessionid=" + SessionService.jessionid;
 
 			for(var prop in params) {
 				queryStr += prop + '=' + decodeURIComponent(params[prop]) + '&';
@@ -62,7 +64,7 @@ angular.module('searchApp.services', ['ngCookies'])
 			queryStr += 'wrapNonAirports=true&preflang=' + SessionService.preflang + SessionService.addAjaxReq;
 			$http({
 				method: "GET",
-				url: "http://www.rentalcars.com/InPathAjaxAction.do;jsessionid=" + SessionService.jsessionid + queryStr
+				url: base + page + queryStr
 			})
 				.success(function(data) {
 					SessionService.jsessionid = $cookies.get('JSESSIONID');

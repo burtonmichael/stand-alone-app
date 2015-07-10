@@ -6,3 +6,13 @@ var searchApp = angular.module('searchApp', ['ngRoute',
     'searchApp.filters',
     'searchApp.controllers'
 ])
+
+.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+	$routeProvider.
+	when('/', {
+		controller: 'MainCtrl',
+		templateUrl: 'partials/search-panel.html'
+	})
+
+	$locationProvider.html5Mode(true);
+}])

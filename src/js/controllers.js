@@ -12,8 +12,8 @@ angular.module('searchApp.controllers', ['ngRoute'])
     }
 })
 
-.controller('MainCtrl', function($scope, $window, $modal, SessionService, TranslationsService) {
-    
+.controller('MainCtrl', function($scope, $window, $modal, $filter, LocationService, SessionService, TranslationsService) {
+
     $scope.form = {
         emptySearchResults: true,
         fromLocChoose: true
@@ -150,30 +150,30 @@ angular.module('searchApp.controllers', ['ngRoute'])
                 }
             });
         } else {
-            parameters = Object.keys(form).map(function(k) {
-                if (typeof form[k] === 'object') {
-                    return encodeURIComponent(k) + '=' + encodeURIComponent(form[k].id)
-                } else {
-                    return encodeURIComponent(k) + '=' + encodeURIComponent(form[k])
-                }
-            }).join('&')
-            $window.open('http://www.rentalcars.com/LoadingSearchResults.do?' + parameters)
+            $scope.submitSuccess();
         }
     }
-})
 
-.controller('ModalCtrl', function ($scope, $modalInstance, translations, messages) {
+    $scope.submitSuccess = function() {
 
-  $scope.translations = translations;
+        var base = SessionService.affUrl ? 'http://' + SessionService.affUrl : "http://www.rentalcars.com";
 
-  $scope.messages = messages;
+        var page = "/LoadingSearchResults.do";
 
-  $scope.close = function () {
-    $modalInstance.close();
-  };
-})
+        if (SessionService.jessionid) page += ";jsessionid=" + SessionService.jessionid;
 
-.controller('LocaleCtrl', function($scope, $filter, LocationService, SessionService) {
+        var queryStr = '?'
+
+        parameters = Object.keys($scope.form).map(function(k) {
+            if (typeof $scope.form[k] === 'object') {
+                return encodeURIComponent(k) + '=' + encodeURIComponent($scope.form[k].id)
+            } else {
+                return encodeURIComponent(k) + '=' + encodeURIComponent($scope.form[k])
+            }
+        }).join('&');
+
+        $window.open(base + page + queryStr + parameters)
+    }
 
     $scope.localeChanged = function(level) {
         $scope.clearFields(level);
@@ -318,4 +318,15 @@ angular.module('searchApp.controllers', ['ngRoute'])
         }
     });
 
+})
+
+.controller('ModalCtrl', function ($scope, $modalInstance, translations, messages) {
+
+  $scope.translations = translations;
+
+  $scope.messages = messages;
+
+  $scope.close = function () {
+    $modalInstance.close();
+  };
 })
