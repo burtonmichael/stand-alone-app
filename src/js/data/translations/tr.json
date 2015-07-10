@@ -1,0 +1,83 @@
+{
+  "title": "Araç Kiralama",
+  "country": " Ülke",
+  "city": "Şehir",
+  "location": "Lokasyon",
+  "pickUp": "ALIŞ",
+  "dropOff": "İade Yeri",
+  "emptySelect": "Lütfen Seçiniz",
+  "pickUpDate": "Teslim alis tarihi",
+  "dropOffDate": " Teslim edis tarih",
+  "time": "Teslim alış saati",
+  "driverAge": "Sürücü",
+  "search": " ara",
+  "errorPickUp": "Alış Yeri belirlenmesi gerekiyor",
+  "errorDropOff": "İade Yeri belirlenmesi gerekiyor",
+  "errorDateDiff": "Alış ve iade arasında en az bir saat olması gerekir.",
+  "errorAge": "Sürücü belirlenmesi gerekiyor",
+  "moment": {
+    "months": [
+      "Ocak",
+      "Şubat",
+      "Mart",
+      "Nisan",
+      "Mayıs",
+      "Haziran",
+      "Temmuz",
+      "Ağustos",
+      "Eylül",
+      "Ekim",
+      "Kasım",
+      "Aralık"
+    ],
+    "monthsShort": [
+      "Oca",
+      "Şub",
+      "Mar",
+      "Nis",
+      "May",
+      "Haz",
+      "Tem",
+      "Ağu",
+      "Eyl",
+      "Eki",
+      "Kas",
+      "Ara"
+    ],
+    "weekdays": [
+      "Pazar",
+      "Pazartesi",
+      "Salı",
+      "Çarşamba",
+      "Perşembe",
+      "Cuma",
+      "Cumartesi"
+    ],
+    "weekdaysShort": [
+      "Paz",
+      "Pts",
+      "Sal",
+      "Çar",
+      "Per",
+      "Cum",
+      "Cts"
+    ],
+    "weekdaysMin": [
+      "Pz",
+      "Pt",
+      "Sa",
+      "Ça",
+      "Pe",
+      "Cu",
+      "Ct"
+    ],
+    "longDateFormat": {
+      "LT": "HH:mm",
+      "LTS": "LT:ss",
+      "L": "DD.MM.YYYY",
+      "LL": "D MMMM YYYY",
+      "LLL": "D MMMM YYYY LT",
+      "LLLL": "dddd, D MMMM YYYY LT"
+    }
+  }
+}

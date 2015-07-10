@@ -1,0 +1,83 @@
+{
+  "title": "Auto Noma",
+  "country": "Valsts",
+  "city": "Pilsēta",
+  "location": "Vieta",
+  "pickUp": "Saņemšana",
+  "dropOff": "Atgriešana",
+  "emptySelect": "Lūdzu izvēlēties",
+  "pickUpDate": "Saņemšanas datums",
+  "dropOffDate": "Nodošanas datums",
+  "time": "Laiks",
+  "driverAge": "Vadītāja vecums",
+  "search": "Meklēt",
+  "errorPickUp": "Saņemšanas Vieta jānorāda",
+  "errorDropOff": "Atgriešanas Vieta jānorāda",
+  "errorDateDiff": "Ir jābūt vismaz 1 stundas starpībai starp saņemšanu un atgriešanu",
+  "errorAge": "Vadītāja vecums jānorāda",
+  "moment": {
+    "months": [
+      "janvāris",
+      "februāris",
+      "marts",
+      "aprīlis",
+      "maijs",
+      "jūnijs",
+      "jūlijs",
+      "augusts",
+      "septembris",
+      "oktobris",
+      "novembris",
+      "decembris"
+    ],
+    "monthsShort": [
+      "jan",
+      "feb",
+      "mar",
+      "apr",
+      "mai",
+      "jūn",
+      "jūl",
+      "aug",
+      "sep",
+      "okt",
+      "nov",
+      "dec"
+    ],
+    "weekdays": [
+      "svētdiena",
+      "pirmdiena",
+      "otrdiena",
+      "trešdiena",
+      "ceturtdiena",
+      "piektdiena",
+      "sestdiena"
+    ],
+    "weekdaysShort": [
+      "Sv",
+      "P",
+      "O",
+      "T",
+      "C",
+      "Pk",
+      "S"
+    ],
+    "weekdaysMin": [
+      "Sv",
+      "P",
+      "O",
+      "T",
+      "C",
+      "Pk",
+      "S"
+    ],
+    "longDateFormat": {
+      "LT": "HH:mm",
+      "LTS": "LT:ss",
+      "L": "DD.MM.YYYY.",
+      "LL": "YYYY. [gada] D. MMMM",
+      "LLL": "YYYY. [gada] D. MMMM, LT",
+      "LLLL": "YYYY. [gada] D. MMMM, dddd, LT"
+    }
+  }
+}

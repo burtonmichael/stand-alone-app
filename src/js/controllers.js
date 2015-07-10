@@ -104,17 +104,17 @@ angular.module('searchApp.controllers', ['ngRoute'])
         if (!form.city) $scope.errors.city = pickupError = true;
         if (!form.location) $scope.errors.location = pickupError = true;
 
-        if (pickupError) $scope.messages.push('Pick up Location information is incomplete.')
+        if (pickupError) $scope.messages.push($scope.translations.errorPickUp)
 
         if (!form.dropCountry) $scope.errors.dropCountry = dropoffError = true;
         if (!form.dropCity) $scope.errors.dropCity = dropoffError = true;
         if (!form.dropLocation) $scope.errors.dropLocation = dropoffError = true;
 
-        if (dropoffError) $scope.messages.push('Drop off location information is incomplete.')
+        if (dropoffError) $scope.messages.push($scope.translations.errorDropOff)
 
         if (!form.driversAge) {
             $scope.errors.driversAge = true;
-            $scope.messages.push('Enter driver\'s age.')
+            $scope.messages.push($scope.translations.errorAge)
         }
 
         var pickupDateTime = $scope.pikaday.pickup.getMoment().hour(form.puHour).minute(form.puMinute);
@@ -123,7 +123,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
 
         if (dropoffDateTime.diff(pickupDateTime, 'minutes') < 60) {
             $scope.errors.date = true;
-            $scope.messages.push('There must be at least one hour between pick up and drop off.')
+            $scope.messages.push($scope.translations.errorDateDiff)
         } else {
             form.puDay = pickupDateTime.date();
             form.puMonth = pickupDateTime.month() + 1;
@@ -141,6 +141,9 @@ angular.module('searchApp.controllers', ['ngRoute'])
                 controller: 'ModalCtrl',
                 size: 'sm',
                 resolve: {
+                    translations: function() {
+                        return $scope.translations;
+                    },
                     messages: function() {
                         return $scope.messages;
                     }
@@ -159,7 +162,9 @@ angular.module('searchApp.controllers', ['ngRoute'])
     }
 })
 
-.controller('ModalCtrl', function ($scope, $modalInstance, messages) {
+.controller('ModalCtrl', function ($scope, $modalInstance, translations, messages) {
+
+  $scope.translations = translations;
 
   $scope.messages = messages;
 

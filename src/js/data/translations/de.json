@@ -1,0 +1,83 @@
+{
+  "title": "Mietwagen",
+  "country": "Land",
+  "city": "Stadt",
+  "location": "Standort",
+  "pickUp": "Abholung",
+  "dropOff": "Rückgabe",
+  "emptySelect": "Bitte Auswählen",
+  "pickUpDate": "Abholdatum",
+  "dropOffDate": "Rückgabedatum",
+  "time": "Zeit",
+  "driverAge": "Alter des Fahrers",
+  "search": "Suche",
+  "errorPickUp": "Anmietstation angegeben?",
+  "errorDropOff": "Rückgabestation angegeben?",
+  "errorDateDiff": "Es muss mindestens eine Stunde zwischen Abholung und Rückgabe liegen",
+  "errorAge": "Alter des Fahrers angegeben?",
+  "moment": {
+    "months": [
+      "Januar",
+      "Februar",
+      "März",
+      "April",
+      "Mai",
+      "Juni",
+      "Juli",
+      "August",
+      "September",
+      "Oktober",
+      "November",
+      "Dezember"
+    ],
+    "monthsShort": [
+      "Jan.",
+      "Febr.",
+      "Mrz.",
+      "Apr.",
+      "Mai",
+      "Jun.",
+      "Jul.",
+      "Aug.",
+      "Sept.",
+      "Okt.",
+      "Nov.",
+      "Dez."
+    ],
+    "weekdays": [
+      "Sonntag",
+      "Montag",
+      "Dienstag",
+      "Mittwoch",
+      "Donnerstag",
+      "Freitag",
+      "Samstag"
+    ],
+    "weekdaysShort": [
+      "So.",
+      "Mo.",
+      "Di.",
+      "Mi.",
+      "Do.",
+      "Fr.",
+      "Sa."
+    ],
+    "weekdaysMin": [
+      "So",
+      "Mo",
+      "Di",
+      "Mi",
+      "Do",
+      "Fr",
+      "Sa"
+    ],
+    "longDateFormat": {
+      "LT": "HH:mm",
+      "LTS": "HH:mm:ss",
+      "L": "DD.MM.YYYY",
+      "LL": "D. MMMM YYYY",
+      "LLL": "D. MMMM YYYY LT",
+      "LLLL": "dddd, D. MMMM YYYY LT"
+    }
+  }
+}

@@ -6,7 +6,7 @@
     <title>rentalcars.com</title>
     <base href="/stand-alone-select/src/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" ng-href="{{stylesheet}}" ng-if="stylesheets" ng-repeat="stylesheet in stylesheets">
     <script src="libs/angular/angular.js"></script>
@@ -67,28 +67,30 @@
                     <div class="element-wrap element-wrap--select element-wrap--drop-location" select-replace="dropLocations" dropoff-location></div>
                 </div>
             </div>
-            <div class="date-time-group date-time-group--pickup">
-                <label class="input-label">{{translations.pickUpDateTime}}</label>
-                <div class="form-group form-group--date" ng-class="{'has-error': errors.date}">
+            <div class="date-time-group date-time-group--pickup" ng-class="{'has-error': errors.date}">
+                <div class="form-group form-group--date">
+                    <label class="input-label">{{translations.pickUpDate}}</label>
                     <div class="element-wrap element-wrap--text element-wrap--pikaday" ng-class="{'has-focus': pikaday.pickup.focus}">
                         <input type="text" readonly on-open="pikaday.focus = true" on-close="pikaday.focus = false" on-select="dateChanged('pickup', date, pikaday)" pikaday="pikaday.pickup">
                         <span ng-click="pikaday.pickup.show()" class="glyphicon glyphicon-calendar"></span>
                     </div>
                 </div>
                 <div class="form-group form-group--time">
+                    <label class="input-label">{{translations.time}}</label>
                     <div class="element-wrap element-wrap--select element-wrap--hour" select-replace selected-hour="form.puHour" hours></div>
                     <div class="element-wrap element-wrap--select element-wrap--minute" select-replace selected-minute="form.puMinute" minutes></div>
                 </div>
             </div>
-            <div class="date-time-group date-time-group--dropoff">
-                <label class="input-label">{{translations.dropOffDateTime}}</label>
-                <div class="form-group form-group--date" ng-class="{'has-error': errors.date}">
+            <div class="date-time-group date-time-group--dropoff" ng-class="{'has-error': errors.date}">
+                <div class="form-group form-group--date">
+                    <label class="input-label">{{translations.dropOffDate}}</label>
                     <div class="element-wrap element-wrap--text element-wrap--pikaday" ng-class="{'has-focus': pikaday.dropoff.focus}">
                         <input type="text" readonly on-open="pikaday.focus = true" on-close="pikaday.focus = false" on-select="dateChanged('dropoff', date, pikaday)" pikaday="pikaday.dropoff">
                         <span ng-click="pikaday.dropoff.show()" class="glyphicon glyphicon-calendar"></span>
                     </div>
                 </div>
                 <div class="form-group form-group--time">
+                    <label class="input-label">{{translations.time}}</label>
                     <div class="element-wrap element-wrap--select element-wrap--hour" select-replace selected-hour="form.doHour" hours></div>
                     <div class="element-wrap element-wrap--select element-wrap--minute" select-replace selected-minute="form.doMinute" minutes></div>
                 </div>

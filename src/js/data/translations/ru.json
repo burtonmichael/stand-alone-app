@@ -1,0 +1,83 @@
+{
+  "title": "Искать автомобили напрокат",
+  "country": "Страна",
+  "city": "Город",
+  "location": "Место проката",
+  "pickUp": "Получение",
+  "dropOff": "Возврат",
+  "emptySelect": "Выберете пожалуйста",
+  "pickUpDate": "Дата получения",
+  "dropOffDate": "Дата сдачи",
+  "time": "Время",
+  "driverAge": "Возраст водителя",
+  "search": "Поиск",
+  "errorPickUp": "Место получения должен быть указан",
+  "errorDropOff": "Место возврата должен быть указан",
+  "errorDateDiff": "Должно быть не менее одного часа между получением и возвратом автомобиля",
+  "errorAge": "Возраст водителя должен быть указан",
+  "moment": {
+    "months": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "monthsShort": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
+    "weekdays": [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ],
+    "weekdaysShort": [
+      "вс",
+      "пн",
+      "вт",
+      "ср",
+      "чт",
+      "пт",
+      "сб"
+    ],
+    "weekdaysMin": [
+      "вс",
+      "пн",
+      "вт",
+      "ср",
+      "чт",
+      "пт",
+      "сб"
+    ],
+    "longDateFormat": {
+      "LT": "HH:mm",
+      "LTS": "LT:ss",
+      "L": "DD.MM.YYYY",
+      "LL": "D MMMM YYYY г.",
+      "LLL": "D MMMM YYYY г., LT",
+      "LLLL": "dddd, D MMMM YYYY г., LT"
+    }
+  }
+}

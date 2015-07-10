@@ -1,0 +1,83 @@
+{
+  "title": "Car Rentals",
+  "country": "Country",
+  "city": "City",
+  "location": "Location",
+  "pickUp": "Pick up",
+  "dropOff": "Drop off",
+  "emptySelect": "Please Select",
+  "pickUpDate": "Pick Up Date",
+  "dropOffDate": "Drop Off Date",
+  "time": "Time",
+  "driverAge": "Driver's age",
+  "search": "Search",
+  "errorPickUp": "Võtmiskoht on kohustuslik",
+  "errorDropOff": "Tagastuskoht on kohustuslik",
+  "errorDateDiff": "Võtmise ja tagastamise vahel peab olema vähemalt 1 tund",
+  "errorAge": "Driver's age on kohustuslik",
+  "moment": {
+    "months": [
+      "jaanuar",
+      "veebruar",
+      "märts",
+      "aprill",
+      "mai",
+      "juuni",
+      "juuli",
+      "august",
+      "september",
+      "oktoober",
+      "november",
+      "detsember"
+    ],
+    "monthsShort": [
+      "jaan",
+      "veebr",
+      "märts",
+      "apr",
+      "mai",
+      "juuni",
+      "juuli",
+      "aug",
+      "sept",
+      "okt",
+      "nov",
+      "dets"
+    ],
+    "weekdays": [
+      "pühapäev",
+      "esmaspäev",
+      "teisipäev",
+      "kolmapäev",
+      "neljapäev",
+      "reede",
+      "laupäev"
+    ],
+    "weekdaysShort": [
+      "P",
+      "E",
+      "T",
+      "K",
+      "N",
+      "R",
+      "L"
+    ],
+    "weekdaysMin": [
+      "P",
+      "E",
+      "T",
+      "K",
+      "N",
+      "R",
+      "L"
+    ],
+    "longDateFormat": {
+      "LT": "H:mm",
+      "LTS": "LT:ss",
+      "L": "DD.MM.YYYY",
+      "LL": "D. MMMM YYYY",
+      "LLL": "D. MMMM YYYY LT",
+      "LLLL": "dddd, D. MMMM YYYY LT"
+    }
+  }
+}

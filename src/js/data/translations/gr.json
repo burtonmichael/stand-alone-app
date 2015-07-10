@@ -1,0 +1,82 @@
+{
+  "title": "Eνοικίαση αυτοκινήτων",
+  "country": "Χώρα",
+  "city": "Πόλη",
+  "location": "Τοποθεσία",
+  "pickUp": "Παραλαβή",
+  "dropOff": "Επιστροφή",
+  "emptySelect": "Επιλογή",
+  "pickUpDate": "Ημερομηνία παραλαβής",
+  "dropOffDate": "Ημερομηνία επιστροφής",
+  "time": "Ώρα παραλαβής",
+  "driverAge": "Ηλικία οδηγού",
+  "search": "Αναζήτηση",
+  "errorPickUp": "undefined undefined",
+  "errorDropOff": "undefined undefined",
+  "errorAge": "Ηλικία οδηγού undefined",
+  "moment": {
+    "months": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "monthsShort": [
+      "Ιαν",
+      "Φεβ",
+      "Μαρ",
+      "Απρ",
+      "Μαϊ",
+      "Ιουν",
+      "Ιουλ",
+      "Αυγ",
+      "Σεπ",
+      "Οκτ",
+      "Νοε",
+      "Δεκ"
+    ],
+    "weekdays": [
+      "Κυριακή",
+      "Δευτέρα",
+      "Τρίτη",
+      "Τετάρτη",
+      "Πέμπτη",
+      "Παρασκευή",
+      "Σάββατο"
+    ],
+    "weekdaysShort": [
+      "Κυρ",
+      "Δευ",
+      "Τρι",
+      "Τετ",
+      "Πεμ",
+      "Παρ",
+      "Σαβ"
+    ],
+    "weekdaysMin": [
+      "Κυ",
+      "Δε",
+      "Τρ",
+      "Τε",
+      "Πε",
+      "Πα",
+      "Σα"
+    ],
+    "longDateFormat": {
+      "LT": "h:mm A",
+      "LTS": "h:mm:ss A",
+      "L": "DD/MM/YYYY",
+      "LL": "D MMMM YYYY",
+      "LLL": "D MMMM YYYY LT",
+      "LLLL": "dddd, D MMMM YYYY LT"
+    }
+  }
+}

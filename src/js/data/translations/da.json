@@ -1,0 +1,83 @@
+{
+  "title": "Billeje",
+  "country": "land",
+  "city": "By",
+  "location": "Sted",
+  "pickUp": "Afhentning",
+  "dropOff": "Aflevering",
+  "emptySelect": "Foretag valg",
+  "pickUpDate": "Afhentings dato",
+  "dropOffDate": "Afleverings dato",
+  "time": "Tid",
+  "driverAge": "Chaufførens alder",
+  "search": "Søg",
+  "errorPickUp": "Afhentnings Sted skal være angivet",
+  "errorDropOff": "Afleverings Sted skal være angivet",
+  "errorDateDiff": "Der skal være mindst en time imellem afhentning og aflevering",
+  "errorAge": "Chaufførens alder skal være angivet",
+  "moment": {
+    "months": [
+      "januar",
+      "februar",
+      "marts",
+      "april",
+      "maj",
+      "juni",
+      "juli",
+      "august",
+      "september",
+      "oktober",
+      "november",
+      "december"
+    ],
+    "monthsShort": [
+      "jan",
+      "feb",
+      "mar",
+      "apr",
+      "maj",
+      "jun",
+      "jul",
+      "aug",
+      "sep",
+      "okt",
+      "nov",
+      "dec"
+    ],
+    "weekdays": [
+      "søndag",
+      "mandag",
+      "tirsdag",
+      "onsdag",
+      "torsdag",
+      "fredag",
+      "lørdag"
+    ],
+    "weekdaysShort": [
+      "søn",
+      "man",
+      "tir",
+      "ons",
+      "tor",
+      "fre",
+      "lør"
+    ],
+    "weekdaysMin": [
+      "sø",
+      "ma",
+      "ti",
+      "on",
+      "to",
+      "fr",
+      "lø"
+    ],
+    "longDateFormat": {
+      "LT": "HH:mm",
+      "LTS": "LT:ss",
+      "L": "DD/MM/YYYY",
+      "LL": "D. MMMM YYYY",
+      "LLL": "D. MMMM YYYY LT",
+      "LLLL": "dddd [d.] D. MMMM YYYY LT"
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "title": "Pronájem Vozu",
+  "country": "Země",
+  "city": "Město",
+  "location": "Místo",
+  "pickUp": "Vyzvednutí",
+  "dropOff": "Navrácení",
+  "emptySelect": "Prosím vyberte",
+  "pickUpDate": "Datum vyzvednutí",
+  "dropOffDate": "Datum odevzdání",
+  "time": "Čas",
+  "driverAge": "Věk řidiče",
+  "search": "Hledej",
+  "errorPickUp": "místo vyzvednutí musí být specifikován",
+  "errorDropOff": "místo odevzdání musí být specifikován",
+  "errorDateDiff": "Mezi vyzvednutím a navrácením musí být alespoň 1 hodina rozdíl.",
+  "errorAge": "Věk řidiče musí být specifikován",
+  "moment": {
+    "months": [
+      "leden",
+      "únor",
+      "březen",
+      "duben",
+      "květen",
+      "červen",
+      "červenec",
+      "srpen",
+      "září",
+      "říjen",
+      "listopad",
+      "prosinec"
+    ],
+    "monthsShort": [
+      "led",
+      "úno",
+      "bře",
+      "dub",
+      "kvě",
+      "čvn",
+      "čvc",
+      "srp",
+      "zář",
+      "říj",
+      "lis",
+      "pro"
+    ],
+    "weekdays": [
+      "neděle",
+      "pondělí",
+      "úterý",
+      "středa",
+      "čtvrtek",
+      "pátek",
+      "sobota"
+    ],
+    "weekdaysShort": [
+      "ne",
+      "po",
+      "út",
+      "st",
+      "čt",
+      "pá",
+      "so"
+    ],
+    "weekdaysMin": [
+      "ne",
+      "po",
+      "út",
+      "st",
+      "čt",
+      "pá",
+      "so"
+    ],
+    "longDateFormat": {
+      "LT": "H:mm",
+      "LTS": "LT:ss",
+      "L": "DD.MM.YYYY",
+      "LL": "D. MMMM YYYY",
+      "LLL": "D. MMMM YYYY LT",
+      "LLLL": "dddd D. MMMM YYYY LT"
+    }
+  }
+}

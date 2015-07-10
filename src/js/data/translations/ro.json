@@ -1,0 +1,83 @@
+{
+  "title": "Inchiriere maşină",
+  "country": "Tara",
+  "city": "Oraş",
+  "location": "Locaţie",
+  "pickUp": "Preluare",
+  "dropOff": "Predare",
+  "emptySelect": "Selectati",
+  "pickUpDate": "Data de preluare",
+  "dropOffDate": "Data Predare",
+  "time": "Oră Preluare",
+  "driverAge": "Vârsta soferului",
+  "search": "Caută",
+  "errorPickUp": "Locaţie Preluare trebuie specificat",
+  "errorDropOff": "Locaţie Predare trebuie specificat",
+  "errorDateDiff": "Intre colectarea si predarea masinii, este nevoie de cel putin o ora",
+  "errorAge": "Vârsta soferului trebuie specificat",
+  "moment": {
+    "months": [
+      "ianuarie",
+      "februarie",
+      "martie",
+      "aprilie",
+      "mai",
+      "iunie",
+      "iulie",
+      "august",
+      "septembrie",
+      "octombrie",
+      "noiembrie",
+      "decembrie"
+    ],
+    "monthsShort": [
+      "ian.",
+      "febr.",
+      "mart.",
+      "apr.",
+      "mai",
+      "iun.",
+      "iul.",
+      "aug.",
+      "sept.",
+      "oct.",
+      "nov.",
+      "dec."
+    ],
+    "weekdays": [
+      "duminică",
+      "luni",
+      "marți",
+      "miercuri",
+      "joi",
+      "vineri",
+      "sâmbătă"
+    ],
+    "weekdaysShort": [
+      "Dum",
+      "Lun",
+      "Mar",
+      "Mie",
+      "Joi",
+      "Vin",
+      "Sâm"
+    ],
+    "weekdaysMin": [
+      "Du",
+      "Lu",
+      "Ma",
+      "Mi",
+      "Jo",
+      "Vi",
+      "Sâ"
+    ],
+    "longDateFormat": {
+      "LT": "H:mm",
+      "LTS": "LT:ss",
+      "L": "DD.MM.YYYY",
+      "LL": "D MMMM YYYY",
+      "LLL": "D MMMM YYYY H:mm",
+      "LLLL": "dddd, D MMMM YYYY H:mm"
+    }
+  }
+}

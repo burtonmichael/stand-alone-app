@@ -1,0 +1,83 @@
+{
+  "title": "Najam auta",
+  "country": "Država",
+  "city": "Grad",
+  "location": "Lokacija",
+  "pickUp": "Preuzimanje",
+  "dropOff": "Povratak",
+  "emptySelect": "Molimo odaberite",
+  "pickUpDate": "Datum preuzimanja",
+  "dropOffDate": "Datum povratka",
+  "time": "Vrijeme",
+  "driverAge": "Starosna dob vozača",
+  "search": "Traži",
+  "errorPickUp": "Lokacija preuzimanja automobila mora biti specificirano",
+  "errorDropOff": "Lokacija povratka automobila mora biti specificirano",
+  "errorDateDiff": "Dozvolite najmanje jedan sat između preuyimanja i povratka automobila.a biti bare",
+  "errorAge": "Starosna dob vozača mora biti specificirano",
+  "moment": {
+    "months": [
+      "siječanj",
+      "veljača",
+      "ožujak",
+      "travanj",
+      "svibanj",
+      "lipanj",
+      "srpanj",
+      "kolovoz",
+      "rujan",
+      "listopad",
+      "studeni",
+      "prosinac"
+    ],
+    "monthsShort": [
+      "sij.",
+      "velj.",
+      "ožu.",
+      "tra.",
+      "svi.",
+      "lip.",
+      "srp.",
+      "kol.",
+      "ruj.",
+      "lis.",
+      "stu.",
+      "pro."
+    ],
+    "weekdays": [
+      "nedjelja",
+      "ponedjeljak",
+      "utorak",
+      "srijeda",
+      "četvrtak",
+      "petak",
+      "subota"
+    ],
+    "weekdaysShort": [
+      "ned.",
+      "pon.",
+      "uto.",
+      "sri.",
+      "čet.",
+      "pet.",
+      "sub."
+    ],
+    "weekdaysMin": [
+      "ne",
+      "po",
+      "ut",
+      "sr",
+      "če",
+      "pe",
+      "su"
+    ],
+    "longDateFormat": {
+      "LT": "H:mm",
+      "LTS": "LT:ss",
+      "L": "DD. MM. YYYY",
+      "LL": "D. MMMM YYYY",
+      "LLL": "D. MMMM YYYY LT",
+      "LLLL": "dddd, D. MMMM YYYY LT"
+    }
+  }
+}

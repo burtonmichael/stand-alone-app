@@ -1,0 +1,87 @@
+{
+  "title": "车辆租赁",
+  "country": "国家",
+  "city": "城市",
+  "location": "地点",
+  "pickUp": "取车",
+  "dropOff": "还车",
+  "emptySelect": "请选择",
+  "pickUpDate": "取车日期",
+  "dropOffDate": "还车日期",
+  "time": "取车时间",
+  "driverAge": "驾驶人年龄",
+  "search": "搜索",
+  "errorPickUp": "取车地点 请填写",
+  "errorDropOff": "还车地点 请填写",
+  "errorDateDiff": "取车和还车之间必须至少有1小时的时间差。",
+  "errorAge": "驾驶人年龄 请填写",
+  "moment": {
+    "months": [
+      "一月",
+      "二月",
+      "三月",
+      "四月",
+      "五月",
+      "六月",
+      "七月",
+      "八月",
+      "九月",
+      "十月",
+      "十一月",
+      "十二月"
+    ],
+    "monthsShort": [
+      "1月",
+      "2月",
+      "3月",
+      "4月",
+      "5月",
+      "6月",
+      "7月",
+      "8月",
+      "9月",
+      "10月",
+      "11月",
+      "12月"
+    ],
+    "weekdays": [
+      "星期日",
+      "星期一",
+      "星期二",
+      "星期三",
+      "星期四",
+      "星期五",
+      "星期六"
+    ],
+    "weekdaysShort": [
+      "週日",
+      "週一",
+      "週二",
+      "週三",
+      "週四",
+      "週五",
+      "週六"
+    ],
+    "weekdaysMin": [
+      "日",
+      "一",
+      "二",
+      "三",
+      "四",
+      "五",
+      "六"
+    ],
+    "longDateFormat": {
+      "LT": "Ah點mm分",
+      "LTS": "Ah點m分s秒",
+      "L": "YYYY年MMMD日",
+      "LL": "YYYY年MMMD日",
+      "LLL": "YYYY年MMMD日LT",
+      "LLLL": "YYYY年MMMD日ddddLT",
+      "l": "YYYY年MMMD日",
+      "ll": "YYYY年MMMD日",
+      "lll": "YYYY年MMMD日LT",
+      "llll": "YYYY年MMMD日ddddLT"
+    }
+  }
+}

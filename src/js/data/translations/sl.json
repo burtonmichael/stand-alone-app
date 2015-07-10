@@ -1,0 +1,83 @@
+{
+  "title": "Car Rentals",
+  "country": "Country",
+  "city": "City",
+  "location": "Location",
+  "pickUp": "Pick up",
+  "dropOff": "Drop off",
+  "emptySelect": "Please Select",
+  "pickUpDate": "Pick Up Date",
+  "dropOffDate": "Drop Off Date",
+  "time": "Time",
+  "driverAge": "Driver's age",
+  "search": "Search",
+  "errorPickUp": "Lokacija prevzema mora biti izrecno navedeno",
+  "errorDropOff": "Lokacija vrnitve mora biti izrecno navedeno",
+  "errorDateDiff": "Med prevzemom in vrnitvijo mora miniti vsaj ena uro",
+  "errorAge": "Driver's age mora biti izrecno navedeno",
+  "moment": {
+    "months": [
+      "januar",
+      "februar",
+      "marec",
+      "april",
+      "maj",
+      "junij",
+      "julij",
+      "avgust",
+      "september",
+      "oktober",
+      "november",
+      "december"
+    ],
+    "monthsShort": [
+      "jan.",
+      "feb.",
+      "mar.",
+      "apr.",
+      "maj.",
+      "jun.",
+      "jul.",
+      "avg.",
+      "sep.",
+      "okt.",
+      "nov.",
+      "dec."
+    ],
+    "weekdays": [
+      "nedelja",
+      "ponedeljek",
+      "torek",
+      "sreda",
+      "četrtek",
+      "petek",
+      "sobota"
+    ],
+    "weekdaysShort": [
+      "ned.",
+      "pon.",
+      "tor.",
+      "sre.",
+      "čet.",
+      "pet.",
+      "sob."
+    ],
+    "weekdaysMin": [
+      "ne",
+      "po",
+      "to",
+      "sr",
+      "če",
+      "pe",
+      "so"
+    ],
+    "longDateFormat": {
+      "LT": "H:mm",
+      "LTS": "LT:ss",
+      "L": "DD. MM. YYYY",
+      "LL": "D. MMMM YYYY",
+      "LLL": "D. MMMM YYYY LT",
+      "LLLL": "dddd, D. MMMM YYYY LT"
+    }
+  }
+}

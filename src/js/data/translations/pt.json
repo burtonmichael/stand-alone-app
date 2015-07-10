@@ -1,0 +1,83 @@
+{
+  "title": "Aluguer de carro",
+  "country": "País",
+  "city": "Cidade",
+  "location": "Local",
+  "pickUp": "Levant.",
+  "dropOff": "Devolução",
+  "emptySelect": "Por favor selecione",
+  "pickUpDate": "Data de Levantamento",
+  "dropOffDate": "Data de Devolução",
+  "time": "Tempo",
+  "driverAge": "Idade do Condutor",
+  "search": "Pesquise",
+  "errorPickUp": "Estação de levantamento deve ser especificado",
+  "errorDropOff": "Estação de devolução deve ser especificado",
+  "errorDateDiff": "Deve haver pelo menos uma hora entre o levantamento e devolução",
+  "errorAge": "Idade do Condutor deve ser especificado",
+  "moment": {
+    "months": [
+      "Janeiro",
+      "Fevereiro",
+      "Março",
+      "Abril",
+      "Maio",
+      "Junho",
+      "Julho",
+      "Agosto",
+      "Setembro",
+      "Outubro",
+      "Novembro",
+      "Dezembro"
+    ],
+    "monthsShort": [
+      "Jan",
+      "Fev",
+      "Mar",
+      "Abr",
+      "Mai",
+      "Jun",
+      "Jul",
+      "Ago",
+      "Set",
+      "Out",
+      "Nov",
+      "Dez"
+    ],
+    "weekdays": [
+      "Domingo",
+      "Segunda-Feira",
+      "Terça-Feira",
+      "Quarta-Feira",
+      "Quinta-Feira",
+      "Sexta-Feira",
+      "Sábado"
+    ],
+    "weekdaysShort": [
+      "Dom",
+      "Seg",
+      "Ter",
+      "Qua",
+      "Qui",
+      "Sex",
+      "Sáb"
+    ],
+    "weekdaysMin": [
+      "Dom",
+      "2ª",
+      "3ª",
+      "4ª",
+      "5ª",
+      "6ª",
+      "Sáb"
+    ],
+    "longDateFormat": {
+      "LT": "HH:mm",
+      "LTS": "LT:ss",
+      "L": "DD/MM/YYYY",
+      "LL": "D [de] MMMM [de] YYYY",
+      "LLL": "D [de] MMMM [de] YYYY LT",
+      "LLLL": "dddd, D [de] MMMM [de] YYYY LT"
+    }
+  }
+}

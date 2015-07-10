@@ -25,9 +25,11 @@ h2 {
 select {
     background: none;
     position: absolute;
-    top: 0;
+    top: -2px;
     left: 0;
+    margin-left: -1px;
     width: 100%;
+    width: calc(100% + 2px);
     height: inherit;
     opacity: 0;
     filter: alpha(opacity=0);
@@ -148,7 +150,7 @@ form, .location-group, .date-time-group {
 }
 
 .input-label {
-    font-weight: bold;
+    font-weight: 600;
     font-size: 10px;
     margin-bottom: 4px;
     display: block;
@@ -179,7 +181,7 @@ form, .location-group, .date-time-group {
     label {
         color: #A94442;
     }
-    .select-wrap, .input-wrap input {
+    .element-wrap, .element-wrap input {
         border-color: #A94442;
     }
 }

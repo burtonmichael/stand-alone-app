@@ -1,0 +1,83 @@
+{
+  "title": "прокат автомобілів",
+  "country": "Країна",
+  "city": "Місто",
+  "location": "Місце",
+  "pickUp": "Забрати автомобіль",
+  "dropOff": "Повернення",
+  "emptySelect": "Будь ласка, виберіть",
+  "pickUpDate": "Дата отримання",
+  "dropOffDate": "Дата повернення",
+  "time": "Час",
+  "driverAge": "Вік водія",
+  "search": "Пошук",
+  "errorPickUp": "Місце, де забираєте повинен бути зазначений",
+  "errorDropOff": "Місце повернення повинен бути зазначений",
+  "errorDateDiff": "Завжди дайте собі хоча б одну годину перед тим як забирати автомобіль і 1 годину до моменту повернення",
+  "errorAge": "Вік водія повинен бути зазначений",
+  "moment": {
+    "months": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "monthsShort": [
+      "січ",
+      "лют",
+      "бер",
+      "квіт",
+      "трав",
+      "черв",
+      "лип",
+      "серп",
+      "вер",
+      "жовт",
+      "лист",
+      "груд"
+    ],
+    "weekdays": [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ],
+    "weekdaysShort": [
+      "нд",
+      "пн",
+      "вт",
+      "ср",
+      "чт",
+      "пт",
+      "сб"
+    ],
+    "weekdaysMin": [
+      "нд",
+      "пн",
+      "вт",
+      "ср",
+      "чт",
+      "пт",
+      "сб"
+    ],
+    "longDateFormat": {
+      "LT": "HH:mm",
+      "LTS": "LT:ss",
+      "L": "DD.MM.YYYY",
+      "LL": "D MMMM YYYY р.",
+      "LLL": "D MMMM YYYY р., LT",
+      "LLLL": "dddd, D MMMM YYYY р., LT"
+    }
+  }
+}

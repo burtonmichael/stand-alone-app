@@ -1,0 +1,83 @@
+{
+  "title": "Noleggio Auto",
+  "country": "Paese",
+  "city": "Cittá",
+  "location": "Localitá",
+  "pickUp": "Ritiro",
+  "dropOff": "Riconsegna",
+  "emptySelect": "Si prega di selezionare",
+  "pickUpDate": "Data Ritiro",
+  "dropOffDate": "Data Riconsegna",
+  "time": "Orario",
+  "driverAge": "Etá del conducente",
+  "search": "Cerca",
+  "errorPickUp": "Località del ritiro deve essere specificata",
+  "errorDropOff": "Località di arrivo deve essere specificata",
+  "errorDateDiff": "Ci deve essere almeno un’ora di differenza tra il ritiro e la riconsegna",
+  "errorAge": "Etá del conducente deve essere specificata",
+  "moment": {
+    "months": [
+      "gennaio",
+      "febbraio",
+      "marzo",
+      "aprile",
+      "maggio",
+      "giugno",
+      "luglio",
+      "agosto",
+      "settembre",
+      "ottobre",
+      "novembre",
+      "dicembre"
+    ],
+    "monthsShort": [
+      "gen",
+      "feb",
+      "mar",
+      "apr",
+      "mag",
+      "giu",
+      "lug",
+      "ago",
+      "set",
+      "ott",
+      "nov",
+      "dic"
+    ],
+    "weekdays": [
+      "Domenica",
+      "Lunedì",
+      "Martedì",
+      "Mercoledì",
+      "Giovedì",
+      "Venerdì",
+      "Sabato"
+    ],
+    "weekdaysShort": [
+      "Dom",
+      "Lun",
+      "Mar",
+      "Mer",
+      "Gio",
+      "Ven",
+      "Sab"
+    ],
+    "weekdaysMin": [
+      "D",
+      "L",
+      "Ma",
+      "Me",
+      "G",
+      "V",
+      "S"
+    ],
+    "longDateFormat": {
+      "LT": "HH:mm",
+      "LTS": "LT:ss",
+      "L": "DD/MM/YYYY",
+      "LL": "D MMMM YYYY",
+      "LLL": "D MMMM YYYY LT",
+      "LLLL": "dddd, D MMMM YYYY LT"
+    }
+  }
+}

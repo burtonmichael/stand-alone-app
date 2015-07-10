@@ -1,0 +1,83 @@
+{
+  "title": "Location de voiture",
+  "country": "Pays",
+  "city": "Ville",
+  "location": "Lieu",
+  "pickUp": "Prise en charge",
+  "dropOff": "Restitution",
+  "emptySelect": "Veuillez sélectionner",
+  "pickUpDate": "Date de prise en charge",
+  "dropOffDate": "Date de restitution",
+  "time": "Heure",
+  "driverAge": "Age du conducteur",
+  "search": "Rechercher",
+  "errorPickUp": "Le lieu de prise en charge doit être précisé",
+  "errorDropOff": "Le lieu de restitution doit être précisé",
+  "errorDateDiff": "Il doit y avoir au moins une heure entre la prise en charge et la restitution",
+  "errorAge": "Age du conducteur doit être précisé",
+  "moment": {
+    "months": [
+      "janvier",
+      "février",
+      "mars",
+      "avril",
+      "mai",
+      "juin",
+      "juillet",
+      "août",
+      "septembre",
+      "octobre",
+      "novembre",
+      "décembre"
+    ],
+    "monthsShort": [
+      "janv.",
+      "févr.",
+      "mars",
+      "avr.",
+      "mai",
+      "juin",
+      "juil.",
+      "août",
+      "sept.",
+      "oct.",
+      "nov.",
+      "déc."
+    ],
+    "weekdays": [
+      "dimanche",
+      "lundi",
+      "mardi",
+      "mercredi",
+      "jeudi",
+      "vendredi",
+      "samedi"
+    ],
+    "weekdaysShort": [
+      "dim.",
+      "lun.",
+      "mar.",
+      "mer.",
+      "jeu.",
+      "ven.",
+      "sam."
+    ],
+    "weekdaysMin": [
+      "Di",
+      "Lu",
+      "Ma",
+      "Me",
+      "Je",
+      "Ve",
+      "Sa"
+    ],
+    "longDateFormat": {
+      "LT": "HH:mm",
+      "LTS": "LT:ss",
+      "L": "DD/MM/YYYY",
+      "LL": "D MMMM YYYY",
+      "LLL": "D MMMM YYYY LT",
+      "LLLL": "dddd D MMMM YYYY LT"
+    }
+  }
+}

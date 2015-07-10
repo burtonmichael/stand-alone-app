@@ -1,0 +1,82 @@
+{
+  "title": "Cari penyewaan mobil",
+  "country": "Negara",
+  "city": "Kota",
+  "location": "Lokasi",
+  "pickUp": "Pengambilan",
+  "dropOff": "Pengembalian",
+  "emptySelect": "Silahkan Pilih",
+  "pickUpDate": "Tanggal pengambilan",
+  "dropOffDate": "Waktu",
+  "time": "Tanggal Pengembalian",
+  "driverAge": "Sopir usia ?",
+  "search": "Cari",
+  "errorPickUp": "undefined undefined",
+  "errorDropOff": "undefined undefined",
+  "errorAge": "Sopir usia ? undefined",
+  "moment": {
+    "months": [
+      "Januari",
+      "Februari",
+      "Maret",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Agustus",
+      "September",
+      "Oktober",
+      "November",
+      "Desember"
+    ],
+    "monthsShort": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "Mei",
+      "Jun",
+      "Jul",
+      "Ags",
+      "Sep",
+      "Okt",
+      "Nov",
+      "Des"
+    ],
+    "weekdays": [
+      "Minggu",
+      "Senin",
+      "Selasa",
+      "Rabu",
+      "Kamis",
+      "Jumat",
+      "Sabtu"
+    ],
+    "weekdaysShort": [
+      "Min",
+      "Sen",
+      "Sel",
+      "Rab",
+      "Kam",
+      "Jum",
+      "Sab"
+    ],
+    "weekdaysMin": [
+      "Mg",
+      "Sn",
+      "Sl",
+      "Rb",
+      "Km",
+      "Jm",
+      "Sb"
+    ],
+    "longDateFormat": {
+      "LT": "HH.mm",
+      "LTS": "LT.ss",
+      "L": "DD/MM/YYYY",
+      "LL": "D MMMM YYYY",
+      "LLL": "D MMMM YYYY [pukul] LT",
+      "LLLL": "dddd, D MMMM YYYY [pukul] LT"
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "title": "차량 대여",
+  "country": "국가",
+  "city": "도시",
+  "location": "지역",
+  "pickUp": "대여정보",
+  "dropOff": "반납하기",
+  "emptySelect": "선택하세요",
+  "pickUpDate": "대여날짜",
+  "dropOffDate": "반납날짜",
+  "time": "대여시간",
+  "driverAge": "운전자 연령",
+  "search": "검색",
+  "errorPickUp": "대여지역 반드시 기재해야 합니다",
+  "errorDropOff": "반납지역 반드시 기재해야 합니다",
+  "errorDateDiff": "대여시간과 반납시간을 최소 1시간 이상으로 지정하셔야 합니다",
+  "errorAge": "운전자 연령 반드시 기재해야 합니다",
+  "moment": {
+    "months": [
+      "1월",
+      "2월",
+      "3월",
+      "4월",
+      "5월",
+      "6월",
+      "7월",
+      "8월",
+      "9월",
+      "10월",
+      "11월",
+      "12월"
+    ],
+    "monthsShort": [
+      "1월",
+      "2월",
+      "3월",
+      "4월",
+      "5월",
+      "6월",
+      "7월",
+      "8월",
+      "9월",
+      "10월",
+      "11월",
+      "12월"
+    ],
+    "weekdays": [
+      "일요일",
+      "월요일",
+      "화요일",
+      "수요일",
+      "목요일",
+      "금요일",
+      "토요일"
+    ],
+    "weekdaysShort": [
+      "일",
+      "월",
+      "화",
+      "수",
+      "목",
+      "금",
+      "토"
+    ],
+    "weekdaysMin": [
+      "일",
+      "월",
+      "화",
+      "수",
+      "목",
+      "금",
+      "토"
+    ],
+    "longDateFormat": {
+      "LT": "A h시 m분",
+      "LTS": "A h시 m분 s초",
+      "L": "YYYY.MM.DD",
+      "LL": "YYYY년 MMMM D일",
+      "LLL": "YYYY년 MMMM D일 LT",
+      "LLLL": "YYYY년 MMMM D일 dddd LT"
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "title": "Automobilių Nuoma",
+  "country": "Šalis",
+  "city": "Miestas",
+  "location": "Vieta",
+  "pickUp": "Paėmimas",
+  "dropOff": "Grąžinimas",
+  "emptySelect": "Prašome pasirinkti",
+  "pickUpDate": "Paėmimo data",
+  "dropOffDate": "Grąžinimo data",
+  "time": "Laikas",
+  "driverAge": "Vairuotojo amžius",
+  "search": "Ieškoti",
+  "errorPickUp": "Automobilio paėmimo vieta turi būti nurodyta",
+  "errorDropOff": "Automobilio grąžinimo vieta turi būti nurodyta",
+  "errorDateDiff": "Privalo būti bent viena valanda skirtumas tarp automobilio paėmimo ir grąžinimo",
+  "errorAge": "Vairuotojo amžius turi būti nurodyta",
+  "moment": {
+    "months": [
+      "sausio",
+      "vasario",
+      "kovo",
+      "balandžio",
+      "gegužės",
+      "birželio",
+      "liepos",
+      "rugpjūčio",
+      "rugsėjo",
+      "spalio",
+      "lapkričio",
+      "gruodžio"
+    ],
+    "monthsShort": [
+      "sau",
+      "vas",
+      "kov",
+      "bal",
+      "geg",
+      "bir",
+      "lie",
+      "rgp",
+      "rgs",
+      "spa",
+      "lap",
+      "grd"
+    ],
+    "weekdays": [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ],
+    "weekdaysShort": [
+      "Sek",
+      "Pir",
+      "Ant",
+      "Tre",
+      "Ket",
+      "Pen",
+      "Šeš"
+    ],
+    "weekdaysMin": [
+      "S",
+      "P",
+      "A",
+      "T",
+      "K",
+      "Pn",
+      "Š"
+    ],
+    "longDateFormat": {
+      "LT": "HH:mm",
+      "LTS": "LT:ss",
+      "L": "YYYY-MM-DD",
+      "LL": "YYYY [m.] MMMM D [d.]",
+      "LLL": "YYYY [m.] MMMM D [d.], LT [val.]",
+      "LLLL": "YYYY [m.] MMMM D [d.], dddd, LT [val.]",
+      "l": "YYYY-MM-DD",
+      "ll": "YYYY [m.] MMMM D [d.]",
+      "lll": "YYYY [m.] MMMM D [d.], LT [val.]",
+      "llll": "YYYY [m.] MMMM D [d.], ddd, LT [val.]"
+    }
+  }
+}

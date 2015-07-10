@@ -1,0 +1,83 @@
+{
+  "title": "Car Rentals",
+  "country": "Country",
+  "city": "City",
+  "location": "Location",
+  "pickUp": "Pick up",
+  "dropOff": "Drop off",
+  "emptySelect": "Please Select",
+  "pickUpDate": "Pick Up Date",
+  "dropOffDate": "Drop Off Date",
+  "time": "Time",
+  "driverAge": "Driver's age",
+  "search": "Search",
+  "errorPickUp": "Lokasyon ng pagsusunduan ito ay kailangang isulat",
+  "errorDropOff": "Lokasyon ng paghahatiran ito ay kailangang isulat",
+  "errorDateDiff": "Dapat ay may isang oras na pagitan mula sa pagsunddo at pag hatid",
+  "errorAge": "Driver's age ito ay kailangang isulat",
+  "moment": {
+    "months": [
+      "Enero",
+      "Pebrero",
+      "Marso",
+      "Abril",
+      "Mayo",
+      "Hunyo",
+      "Hulyo",
+      "Agosto",
+      "Setyembre",
+      "Oktubre",
+      "Nobyembre",
+      "Disyembre"
+    ],
+    "monthsShort": [
+      "Ene",
+      "Peb",
+      "Mar",
+      "Abr",
+      "May",
+      "Hun",
+      "Hul",
+      "Ago",
+      "Set",
+      "Okt",
+      "Nob",
+      "Dis"
+    ],
+    "weekdays": [
+      "Linggo",
+      "Lunes",
+      "Martes",
+      "Miyerkules",
+      "Huwebes",
+      "Biyernes",
+      "Sabado"
+    ],
+    "weekdaysShort": [
+      "Lin",
+      "Lun",
+      "Mar",
+      "Miy",
+      "Huw",
+      "Biy",
+      "Sab"
+    ],
+    "weekdaysMin": [
+      "Li",
+      "Lu",
+      "Ma",
+      "Mi",
+      "Hu",
+      "Bi",
+      "Sab"
+    ],
+    "longDateFormat": {
+      "LT": "HH:mm",
+      "LTS": "LT:ss",
+      "L": "MM/D/YYYY",
+      "LL": "MMMM D, YYYY",
+      "LLL": "MMMM D, YYYY LT",
+      "LLLL": "dddd, MMMM DD, YYYY LT"
+    }
+  }
+}

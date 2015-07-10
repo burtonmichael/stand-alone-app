@@ -1,0 +1,83 @@
+{
+  "title": "Wyszukaj samochód na wynajem",
+  "country": "Kraj",
+  "city": "Miasto",
+  "location": "Lokalizacja",
+  "pickUp": "Odbiór",
+  "dropOff": "Zwrot",
+  "emptySelect": "Proszę wybierz",
+  "pickUpDate": "Data Odbioru",
+  "dropOffDate": "Data zwrotu",
+  "time": "Czas",
+  "driverAge": "Wiek kierowcy",
+  "search": "Szukaj",
+  "errorPickUp": "Lokalizacja Wypożyczenia musi być podane",
+  "errorDropOff": "Lokalizacja Zwrotu musi być podane",
+  "errorDateDiff": "Pomiędzy odbiorem a zwrotem auta musi być przynajmniej godzina różnicy",
+  "errorAge": "Wiek kierowcy musi być podane",
+  "moment": {
+    "months": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "monthsShort": [
+      "sty",
+      "lut",
+      "mar",
+      "kwi",
+      "maj",
+      "cze",
+      "lip",
+      "sie",
+      "wrz",
+      "paź",
+      "lis",
+      "gru"
+    ],
+    "weekdays": [
+      "niedziela",
+      "poniedziałek",
+      "wtorek",
+      "środa",
+      "czwartek",
+      "piątek",
+      "sobota"
+    ],
+    "weekdaysShort": [
+      "nie",
+      "pon",
+      "wt",
+      "śr",
+      "czw",
+      "pt",
+      "sb"
+    ],
+    "weekdaysMin": [
+      "N",
+      "Pn",
+      "Wt",
+      "Śr",
+      "Cz",
+      "Pt",
+      "So"
+    ],
+    "longDateFormat": {
+      "LT": "HH:mm",
+      "LTS": "LT:ss",
+      "L": "DD.MM.YYYY",
+      "LL": "D MMMM YYYY",
+      "LLL": "D MMMM YYYY LT",
+      "LLLL": "dddd, D MMMM YYYY LT"
+    }
+  }
+}
