@@ -141,14 +141,14 @@ select {
         cursor: pointer;
     }
     &--minute {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        border-left: 0;
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+        border-left-width: 0 !important;
     }
     &--hour {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-        border-right: 0;
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+        border-right-width: 0 !important;
     }
     &--age {
         width: 4em
