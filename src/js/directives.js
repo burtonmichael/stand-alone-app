@@ -5,7 +5,7 @@ angular.module('searchApp.directives', [])
      require: 'ngModel',
      link: function(scope, element, attrs, modelCtrl) {
        modelCtrl.$parsers.push(function (inputValue) {
-           if (inputValue == undefined) return '';
+           if (inputValue === undefined) return '';
            var transformedInput = inputValue.replace(/[^0-9]/g, ''); 
            if (transformedInput != inputValue) {
               modelCtrl.$setViewValue(transformedInput);
@@ -27,58 +27,58 @@ angular.module('searchApp.directives', [])
         scope.$watch(attrs.selectReplace, function(newVal, oldVal){
           if (newVal) {
             sel.removeAttr('disabled');
-            elem.removeClass('is-disabled')
+            elem.removeClass('is-disabled');
           } else {
             sel.attr('disabled', 'disabled');
-            elem.addClass('is-disabled')
+            elem.addClass('is-disabled');
           }
-        })
+        });
       }
 
       sel.bind('focus', function(){
-          elem.addClass('has-focus')
-      })
+          elem.addClass('has-focus');
+      });
       sel.bind('blur', function(){
-          elem.removeClass('has-focus')
-      })
+          elem.removeClass('has-focus');
+      });
     }
-  }
+  };
 })
 
 .directive('pickupCountry', function(){
   return {
     templateUrl: 'partials/locale/pickup-country.html'
-  }
+  };
 })
 
 .directive('pickupCity', function(){
   return {
     templateUrl: 'partials/locale/pickup-city.html'
-  }
+  };
 })
 
 .directive('pickupLocation', function(){
   return {
     templateUrl: 'partials/locale/pickup-location.html'
-  }
+  };
 })
 
 .directive('dropoffCountry', function(){
   return {
     templateUrl: 'partials/locale/dropoff-country.html'
-  }
+  };
 })
 
 .directive('dropoffCity', function(){
   return {
     templateUrl: 'partials/locale/dropoff-city.html'
-  }
+  };
 })
 
 .directive('dropoffLocation', function(){
   return {
     templateUrl: 'partials/locale/dropoff-location.html'
-  }
+  };
 })
 
 .directive('hours', function(){
@@ -86,11 +86,11 @@ angular.module('searchApp.directives', [])
     scope: {
       selectedHour: "="
     },
-    controller: function($scope, TimeService) {
+    controller: ['$scope', 'TimeService', function($scope, TimeService) {
       $scope.hours = TimeService.getHours();
-    },
+    }],
     templateUrl: 'partials/hours.html'
-  }
+  };
 })
 
 .directive('minutes', function(){
@@ -98,9 +98,9 @@ angular.module('searchApp.directives', [])
     scope: {
       selectedMinute: "="
     },
-    controller: function($scope, TimeService) {
+    controller: ['$scope', 'TimeService', function($scope, TimeService) {
       $scope.minutes = TimeService.getMinutes();
-    },
+    }],
     templateUrl: 'partials/minutes.html'
-  }
-})
+  };
+});

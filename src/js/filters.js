@@ -28,4 +28,4 @@ angular.module('searchApp.filters', [])
 
 		return out;
 	};
-})
+});

@@ -7,12 +7,24 @@ var searchApp = angular.module('searchApp', ['ngRoute',
     'searchApp.controllers'
 ])
 
-.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-	$routeProvider.
-	when('/', {
-		controller: 'MainCtrl',
-		templateUrl: 'partials/search-panel.html'
-	})
+.config(['$routeProvider', '$locationProvider', '$provide', function($routeProvider, $locationProvider, $provide) {
+    $routeProvider.
+    when('/', {
+        controller: 'MainCtrl',
+        templateUrl: 'partials/search-panel.html'
+    });
 
-	$locationProvider.html5Mode(true);
-}])
+    $locationProvider.html5Mode(true);
+
+    $provide.decorator("$browser", ["$delegate", function($delegate) {
+            var superUrl;
+            superUrl = $delegate.url;
+            $delegate.url = function(url, replace) {
+                if (url !== 'undefined') {
+                    return superUrl().replace(/\+/g, "%2B");
+                }
+            };
+            return $delegate;
+        }
+    ]);
+}]);

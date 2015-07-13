@@ -12,8 +12,8 @@ angular.module('searchApp.services', ['ngCookies'])
 	    		hours.push({
 	    			name: label,
 	    			value: i
-	    		})
-	    	};
+	    		});
+	    	}
 
 	    	return hours;
 		},
@@ -28,15 +28,15 @@ angular.module('searchApp.services', ['ngCookies'])
 	    		minutes.push({
 	    			name: label,
 	    			value: j
-	    		})
-	    	};
+	    		});
+	    	}
 
 	    	return minutes;
 		}
 	};
 })
 
-.factory('LocationService', function($q, $http, $cookies, SessionService){
+.factory('LocationService', ['$q', '$http', '$cookies', 'SessionService', function($q, $http, $cookies, SessionService){
 	return {
 		getCountries: function() {
 			var deferred = $q.defer();
@@ -46,25 +46,25 @@ angular.module('searchApp.services', ['ngCookies'])
 			})
 				.success(function(data) {
 					deferred.resolve(data);
-				})
+				});
 			return deferred.promise;
 		},
 		getAjax: function(params) {
 			var deferred = $q.defer();
-			var queryStr = '?'
+			var queryStr = '?';
 			var base = SessionService.affUrl ? 'http://' + SessionService.affUrl : "http://www.rentalcars.com";
 
 			var page = "/InPathAjaxAction.do";
 
-			if (SessionService.jessionid) page += ";jsessionid=" + SessionService.jessionid;
+			if (SessionService.jsessionid !== undefined) page += ";jsessionid=" + SessionService.jessionid;
 
 			for(var prop in params) {
 				queryStr += prop + '=' + decodeURIComponent(params[prop]) + '&';
 			}
-			queryStr += 'wrapNonAirports=true&preflang=' + SessionService.preflang + SessionService.addAjaxReq;
+
 			$http({
 				method: "GET",
-				url: base + page + queryStr
+				url: base + page + queryStr + SessionService.addAjaxReq
 			})
 				.success(function(data) {
 					SessionService.jsessionid = $cookies.get('JSESSIONID');
@@ -72,13 +72,13 @@ angular.module('searchApp.services', ['ngCookies'])
 				})
 				.error(function(data) {
 					deferred.resolve(false);
-				})
+				});
 			return deferred.promise;
 		}
-	}
-})
+	};
+}])
 
-.factory('TranslationsService', function($q, $http, SessionService){
+.factory('TranslationsService', ['$q', '$http', 'SessionService', function($q, $http, SessionService){
 	var promise = null;
 	return {
 		get: function() {
@@ -92,29 +92,27 @@ angular.module('searchApp.services', ['ngCookies'])
 					])
 						.then(function(data){
 							return angular.extend({}, data[0].data, data[1].data);
-						})
+						});
 				} else {
 					promise = $http.get("js/data/translations/" + SessionService.preflang + ".json")
 						.then(function(resp) {
 							return resp.data;
-						})
+						});
 				}
 				return promise;
 			}
 		}
-	}
-})
+	};
+}])
 
-.factory('SessionService', function($window, $cookies){
+.factory('SessionService', ['$window', '$cookies' ,function($window, $cookies){
 
 	var factory = {
 		preflang: "en",
 		addAjaxReq: ""
-	}
+	};
 
-	var tj_conf = $cookies.get('tj_conf');
-
-	var tj_conf = tj_conf ? tj_conf.slice(1, -1).split('|') : [];
+	var tj_conf = $cookies.get('tj_conf') ? $cookies.get('tj_conf').slice(1, -1).split('|') : [];
 
 	for (var i = tj_conf.length - 1; i >= 0; i--) {
 		var item = tj_conf[i].split(':');
@@ -132,7 +130,7 @@ angular.module('searchApp.services', ['ngCookies'])
 				factory[item[0]] = item[1];
 				break;
 		}
-	};
+	}
 
 	var queryString = '';
 
@@ -144,9 +142,11 @@ angular.module('searchApp.services', ['ngCookies'])
 
 	var pairs = queryString.split('&');
 
-	for (var i = 0; i < pairs.length; i++) {
-		var pairVals = pairs[i].split('=');
+	for (var j = 0; j < pairs.length; j++) {
+		var pairVals = pairs[j].split('=');
 		factory[pairVals[0]] = pairVals[1];
+		if (pairVals[0] === 'preflang') factory.addAjaxReq += '&preflang=' + pairVals[1];
+		if (pairVals[0] === 'affiliateCode') factory.addAjaxReq += '&affiliateCode=' + pairVals[1];
 		if (pairVals[0] === 'prefcurrency') factory.addAjaxReq += '&prefcurrency=' + pairVals[1];
 		if (pairVals[0] === 'cor') factory.addAjaxReq += '&cor=' + pairVals[1];
 	}
@@ -155,4 +155,4 @@ angular.module('searchApp.services', ['ngCookies'])
 
 	return factory;
 
-})
+}]);

@@ -11,7 +11,10 @@
 		}
 		.form-group--time {
 			width: 43%;
-			text-align: center;
+			.element-wrap {
+				text-align: center;
+				padding: 0;
+			}
 		}
 		.glyphicon {
 			display: none;

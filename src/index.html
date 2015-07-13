@@ -4,23 +4,30 @@
 <head ng-controller="HeadCtrl">
     <meta charset="UTF-8">
     <title>rentalcars.com</title>
-    <base href="/stand-alone-select/src/">
+    <!-- build:template
+        <base href="/stand-alone-select/dist/">
+    /build -->
+    <!-- build:remove -->
+        <base href="/stand-alone-select/src/">
+    <!-- /build -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" ng-href="{{stylesheet}}" ng-if="stylesheets" ng-repeat="stylesheet in stylesheets">
+    <!-- build:js js/app.min.js -->
     <script src="libs/angular/angular.js"></script>
-    <script src="libs/angular-route/angular-route.min.js"></script>
-    <script src="libs/angular-cookies/angular-cookies.min.js"></script>
-    <script src="libs/moment/min/moment.min.js"></script>
+    <script src="libs/angular-route/angular-route.js"></script>
+    <script src="libs/angular-cookies/angular-cookies.js"></script>
+    <script src="libs/moment/moment.js"></script>
     <script src="libs/pikaday/pikaday.js"></script>
     <script src="libs/pikaday-angular/pikaday-angular.js"></script>
-    <script src="js/ui-bootstrap/ui-bootstrap-custom-tpls-0.13.0.min.js"></script>
+    <script src="js/ui-bootstrap/ui-bootstrap-custom-tpls-0.13.0.js"></script>
     <script src="js/app.js"></script>
     <script src="js/services.js"></script>
     <script src="js/directives.js"></script>
     <script src="js/filters.js"></script>
     <script src="js/controllers.js"></script>
+    <!-- /build -->
 </head>
 
 <body>

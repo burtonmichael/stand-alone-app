@@ -1,9 +1,9 @@
 <span class="element-value element-value--select">{{form.location.name || translations.emptySelect}}</span>
-<span class="glyphicon glyphicon-chevron-down"></span>
+<span class="glyphicon glyphicon-chevron-down" ng-show="!loading.locations"></span>
+<span class="glyphicon glyphicon-refresh" ng-show="loading.locations"></span>
 <select
 ng-model="form.location"
 ng-options="location as location.name for location in locations track by location.id"
 ng-change="localeChanged('location')">
     <option disabled value="">{{translations.emptySelect}}</option>
 </select>
-<div class="loading loading--select" ng-show="loading.locations"></div>

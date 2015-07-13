@@ -1,8 +1,8 @@
 <span class="element-value element-value--select">{{form.dropLocation.name || translations.emptySelect}}</span>
-<span class="glyphicon glyphicon-chevron-down"></span>
+<span class="glyphicon glyphicon-chevron-down" ng-show="!loading.dropLocations"></span>
+<span class="glyphicon glyphicon-refresh" ng-show="loading.dropLocations"></span>
 <select
 ng-model="form.dropLocation"
 ng-options="location as location.name for location in dropLocations track by location.id">
     <option disabled value="">{{translations.emptySelect}}</option>
 </select>
-<div class="loading loading--select" ng-show="loading.dropLocations"></div>

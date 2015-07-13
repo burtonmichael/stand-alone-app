@@ -93,6 +93,7 @@ select {
         transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     }
     &--select {
+        padding-right: 24px;
         box-shadow: 0 1px 1px rgba(0,0,0,0.15);
     }
     input {
@@ -153,7 +154,9 @@ form, .location-group, .date-time-group {
     font-size: 10px;
     margin-bottom: 4px;
     display: block;
-
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     &.radio-label {
         font-weight: normal;
         position: relative;
@@ -185,39 +188,14 @@ form, .location-group, .date-time-group {
     }
 }
 
-.loading {
-    background: url(../img/loading.png) center center no-repeat;
-    -webkit-background-size: contain;
-    background-size: contain;
+.element-wrap .glyphicon-refresh {
     -webkit-animation: rotating 2s linear infinite;
     -moz-animation: rotating 2s linear infinite;
     -ms-animation: rotating 2s linear infinite;
     -o-animation: rotating 2s linear infinite;
     animation: rotating 2s linear infinite;
-}
-
-.loader {
-    padding: 24px;
-    text-align: center;
-}
-
-.loading--app {
-    width: 72px;
-    height: 72px;
-    box-shadow: 0 0 3px;
-    border-radius: 100px;
-    background-color: #fff;
-    border: 12px solid #fff;
-    display: inline-block;
-}
-
-.loading--select {
-    position: absolute;
-    right: 28px;
-    top: 50%;
-    margin-top: -6px;
-    width: 12px;
-    height: 12px;
+    -webkit-transform-origin: 50% 0;
+    transform-origin: 50% 0;
 }
 
 .form-group--button {
@@ -225,6 +203,7 @@ form, .location-group, .date-time-group {
     right: 0;
     bottom: 0;
     button {
+        outline: 0;
         float: right;
         color: #fff;
         background-color: #337ab7;
@@ -249,11 +228,7 @@ form, .location-group, .date-time-group {
         transition: background-color .3s;
     }
 
-    button:hover {
-        background-color: #286090;
-    }
-
-    button:hover {
+    button:hover, button:focus {
         background-color: #286090;
     }
 

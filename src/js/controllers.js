@@ -1,23 +1,23 @@
 angular.module('searchApp.controllers', ['ngRoute'])
 
-.controller('HeadCtrl', function($scope, SessionService) {
+.controller('HeadCtrl', ['$scope', 'SessionService', function($scope, SessionService) {
     if (SessionService.css) {
         var baseUrl = 'css/import/';
         var exports = [];
         var stylesheets = SessionService.css.split('+');
         angular.forEach(stylesheets, function(stylesheet) {
-            this.push(baseUrl + stylesheet + '.css')
-        }, exports)
+            this.push(baseUrl + stylesheet + '.css');
+        }, exports);
         $scope.stylesheets = exports;
     }
-})
+}])
 
-.controller('MainCtrl', function($scope, $window, $modal, $filter, LocationService, SessionService, TranslationsService) {
+.controller('MainCtrl', ['$scope', '$window', '$modal', '$filter', 'LocationService', 'SessionService', 'TranslationsService', function($scope, $window, $modal, $filter, LocationService, SessionService, TranslationsService) {
 
     $scope.form = {
         emptySearchResults: true,
         fromLocChoose: true
-    }
+    };
 
     $scope.loading = {
         app: true
@@ -34,7 +34,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
 
     $scope.dateConfig = function(data) {
 
-        moment.defineLocale("preflang", data.moment)
+        moment.defineLocale("preflang", data.moment);
 
         moment.locale("preflang");
 
@@ -48,7 +48,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
             monthsShort: data.moment.monthsShort,
             weekdays: data.moment.weekdays,
             weekdaysShort: data.moment.weekdaysShort
-        }
+        };
 
         $pickup._o.i18n = i18n;
         $dropoff._o.i18n = i18n;
@@ -71,7 +71,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
 
         $pickup.setMoment(moment(startDate));
         $dropoff.setMoment(moment(endDate));
-    }
+    };
 
     $scope.dateChanged = function(origin, date, pikaday) {
         if (origin === 'pickup') {
@@ -89,7 +89,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
             $scope.pikaday.pickup.setEndRange(date);
             $scope.pikaday.dropoff.setEndRange(date);
         }
-    }
+    };
 
     $scope.submit = function() {
         $scope.errors = {};
@@ -104,17 +104,17 @@ angular.module('searchApp.controllers', ['ngRoute'])
         if (!form.city) $scope.errors.city = pickupError = true;
         if (!form.location) $scope.errors.location = pickupError = true;
 
-        if (pickupError) $scope.messages.push($scope.translations.errorPickUp)
+        if (pickupError) $scope.messages.push($scope.translations.errorPickUp);
 
         if (!form.dropCountry) $scope.errors.dropCountry = dropoffError = true;
         if (!form.dropCity) $scope.errors.dropCity = dropoffError = true;
         if (!form.dropLocation) $scope.errors.dropLocation = dropoffError = true;
 
-        if (dropoffError) $scope.messages.push($scope.translations.errorDropOff)
+        if (dropoffError) $scope.messages.push($scope.translations.errorDropOff);
 
         if (!form.driversAge) {
             $scope.errors.driversAge = true;
-            $scope.messages.push($scope.translations.errorAge)
+            $scope.messages.push($scope.translations.errorAge);
         }
 
         var pickupDateTime = $scope.pikaday.pickup.getMoment().hour(form.puHour).minute(form.puMinute);
@@ -123,7 +123,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
 
         if (dropoffDateTime.diff(pickupDateTime, 'minutes') < 60) {
             $scope.errors.date = true;
-            $scope.messages.push($scope.translations.errorDateDiff)
+            $scope.messages.push($scope.translations.errorDateDiff);
         } else {
             form.puDay = pickupDateTime.date();
             form.puMonth = pickupDateTime.month() + 1;
@@ -138,7 +138,9 @@ angular.module('searchApp.controllers', ['ngRoute'])
             var modal = $modal.open({
                 animation: false,
                 templateUrl: 'partials/modal.html',
+                windowTemplateUrl: 'partials/modal-window.html',
                 controller: 'ModalCtrl',
+                backdrop: false,
                 size: 'sm',
                 resolve: {
                     translations: function() {
@@ -152,7 +154,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
         } else {
             $scope.submitSuccess();
         }
-    }
+    };
 
     $scope.submitSuccess = function() {
 
@@ -160,20 +162,18 @@ angular.module('searchApp.controllers', ['ngRoute'])
 
         var page = "/LoadingSearchResults.do";
 
-        if (SessionService.jessionid) page += ";jsessionid=" + SessionService.jessionid;
+        if (SessionService.jsessionid !== undefined) page += ";jsessionid=" + SessionService.jessionid;
 
-        var queryStr = '?'
-
-        parameters = Object.keys($scope.form).map(function(k) {
+        formData = Object.keys($scope.form).map(function(k) {
             if (typeof $scope.form[k] === 'object') {
-                return encodeURIComponent(k) + '=' + encodeURIComponent($scope.form[k].id)
+                return encodeURIComponent(k) + '=' + encodeURIComponent($scope.form[k].id);
             } else {
-                return encodeURIComponent(k) + '=' + encodeURIComponent($scope.form[k])
+                return encodeURIComponent(k) + '=' + encodeURIComponent($scope.form[k]);
             }
         }).join('&');
 
-        $window.open(base + page + queryStr + parameters)
-    }
+        $window.open(base + page + '?' + formData + SessionService.addAjaxReq);
+    };
 
     $scope.localeChanged = function(level) {
         $scope.clearFields(level);
@@ -191,10 +191,27 @@ angular.module('searchApp.controllers', ['ngRoute'])
                 $scope.dropCityChanged();
                 break;
         }
+    };
 
-    }
+    $scope.clearFields = function(field) {
+        switch (field) {
+            case "country":
+                $scope.cities = null;
+                /* falls through */
+            case "city":
+                $scope.locations = null;
+                /* falls through */
+            case "location":
+                $scope.dropCountries = null;
+                $scope.dropCities = null;
+                /* falls through */
+            case "dropCity":
+                $scope.dropLocations = null;
+                break;
+        }
+    };
 
-    $scope.countryChanged = function(preselect) {
+    $scope.countryChanged = function() {
         $scope.loading.cities = true;
         LocationService.getAjax({
                 country: $scope.form.country.id
@@ -209,7 +226,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
             });
     };
 
-    $scope.cityChanged = function(preselect) {
+    $scope.cityChanged = function() {
         if ($scope.cities) {
             $scope.loading.locations = true;
             LocationService.getAjax({
@@ -255,20 +272,6 @@ angular.module('searchApp.controllers', ['ngRoute'])
         }
     };
 
-    $scope.clearFields = function(field) {
-        switch (field) {
-            case "country":
-                $scope.cities = null;
-            case "city":
-                $scope.locations = null;
-            case "location":
-                $scope.dropCountries = null;
-                $scope.dropCities = null;
-            case "dropCity":
-                $scope.dropLocations = null;
-        }
-    }
-
     LocationService.getCountries().then(function(data) {
         $scope.countries = data;
 
@@ -278,7 +281,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
             $scope.form.country = {
                 id: SessionService.country.split('+').join(' '),
                 name: SessionService.country.split('+').join(' ')
-            }
+            };
             LocationService.getAjax({
                     country: $scope.form.country.id
                 })
@@ -288,7 +291,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
                         name: SessionService.city
                     }, true);
                     if (SessionService.city && found) {
-                        $scope.form.city = found[0]
+                        $scope.form.city = found[0];
                         LocationService.getAjax({
                                 country: $scope.form.country.id,
                                 city: $scope.form.city.id
@@ -318,9 +321,9 @@ angular.module('searchApp.controllers', ['ngRoute'])
         }
     });
 
-})
+}])
 
-.controller('ModalCtrl', function ($scope, $modalInstance, translations, messages) {
+.controller('ModalCtrl', ['$scope', '$modalInstance', 'translations', 'messages', function($scope, $modalInstance, translations, messages) {
 
   $scope.translations = translations;
 
@@ -329,4 +332,4 @@ angular.module('searchApp.controllers', ['ngRoute'])
   $scope.close = function () {
     $modalInstance.close();
   };
-})
+}]);
