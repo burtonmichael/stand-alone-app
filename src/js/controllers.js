@@ -2,9 +2,11 @@ angular.module('searchApp.controllers', ['ngRoute'])
 
 .controller('HeadCtrl', ['$scope', 'SessionService', function($scope, SessionService) {
     if (SessionService.css) {
-        var baseUrl = 'css/import/';
+        var baseUrl = 'import/css/';
         var exports = [];
-        var stylesheets = SessionService.css.split('+');
+
+        var stylesheets = SessionService.css.replace('_', '/').split(',');
+
         angular.forEach(stylesheets, function(stylesheet) {
             this.push(baseUrl + stylesheet + '.css');
         }, exports);
@@ -22,6 +24,8 @@ angular.module('searchApp.controllers', ['ngRoute'])
     $scope.loading = {
         app: true
     };
+
+    $scope.isRTL = SessionService.isRTL;
 
     $scope.frame = "pickup";
 
@@ -50,11 +54,14 @@ angular.module('searchApp.controllers', ['ngRoute'])
             weekdaysShort: data.moment.weekdaysShort
         };
 
-        $pickup._o.i18n = i18n;
-        $dropoff._o.i18n = i18n;
+        $pickup._o.i18n = $dropoff._o.i18n = i18n;
 
-        $pickup._o.format = SessionService.format ? SessionService.format.split('+').join(' ') : 'L';
-        $dropoff._o.format = SessionService.format ? SessionService.format.split('+').join(' ') : 'L';
+        $pickup._o.format = $dropoff._o.format = SessionService.format ? SessionService.format.split('+').join(' ') : 'L';
+
+        if ($scope.isRTL) {
+            $pickup._o.isRTL = $dropoff._o.isRTL = $scope.isRTL;
+            $pickup._o.theme = $dropoff._o.theme = "is-rtl";
+        }
 
         var startDate = new Date();
         var endDate = new Date();
@@ -148,10 +155,10 @@ angular.module('searchApp.controllers', ['ngRoute'])
         if ($scope.messages.length > 0) {
             var modal = $modal.open({
                 animation: false,
-                templateUrl: 'partials/modal.html',
-                windowTemplateUrl: 'partials/modal-window.html',
+                templateUrl: 'partials/modal/modal.html',
+                windowTemplateUrl: 'partials/modal/modal-window.html',
                 controller: 'ModalCtrl',
-                backdrop: false,
+                backdrop: true,
                 size: 'sm',
                 resolve: {
                     translations: function() {
@@ -207,16 +214,21 @@ angular.module('searchApp.controllers', ['ngRoute'])
     $scope.clearFields = function(field) {
         switch (field) {
             case "country":
+                $scope.form.city = null;
                 $scope.cities = null;
                 /* falls through */
             case "city":
+                $scope.form.location = null;
                 $scope.locations = null;
                 /* falls through */
             case "location":
+                $scope.form.dropCountry = null;
+                $scope.form.dropLocation = null;
                 $scope.dropCountries = null;
                 $scope.dropCities = null;
                 /* falls through */
             case "dropCity":
+                $scope.form.dropLocation = null;
                 $scope.dropLocations = null;
                 break;
         }
@@ -336,11 +348,11 @@ angular.module('searchApp.controllers', ['ngRoute'])
 
 .controller('ModalCtrl', ['$scope', '$modalInstance', 'translations', 'messages', function($scope, $modalInstance, translations, messages) {
 
-  $scope.translations = translations;
+    $scope.translations = translations;
 
-  $scope.messages = messages;
+    $scope.messages = messages;
 
-  $scope.close = function () {
-    $modalInstance.close();
-  };
+    $scope.close = function() {
+        $modalInstance.close();
+    };
 }]);

@@ -67,7 +67,7 @@ angular.module('searchApp.services', ['ngCookies'])
 				url: base + page + queryStr + SessionService.addAjaxReq
 			})
 				.success(function(data) {
-					SessionService.jsessionid = $cookies.get('JSESSIONID');
+					SessionService.jsessionid = $cookies.JSESSIONID;
 					deferred.resolve(data.cityList || data.locationList);
 				})
 				.error(function(data) {
@@ -88,7 +88,7 @@ angular.module('searchApp.services', ['ngCookies'])
 				if (SessionService.messages) {
 					promise = $q.all([
 						$http.get("js/data/translations/" + SessionService.preflang + ".json"),
-						$http.get("js/data/translations/custom/" + SessionService.messages + ".json")
+						$http.get("import/messages/" + SessionService.messages + ".json")
 					])
 						.then(function(data){
 							return angular.extend({}, data[0].data, data[1].data);
@@ -105,53 +105,23 @@ angular.module('searchApp.services', ['ngCookies'])
 	};
 }])
 
-.factory('SessionService', ['$window', '$cookies' ,function($window, $cookies){
+.factory('SessionService', ['$location', '$cookies' ,function($location, $cookies){
 
 	var factory = {
 		preflang: "en",
 		addAjaxReq: ""
 	};
 
-	var tj_conf = $cookies.get('tj_conf') ? $cookies.get('tj_conf').slice(1, -1).split('|') : [];
+	factory = angular.extend({}, factory, $location.search());
 
-	for (var i = tj_conf.length - 1; i >= 0; i--) {
-		var item = tj_conf[i].split(':');
-		switch(item[0]) {
-			case 'tj_pref_currency':
-				factory.prefcurrency = item[1];
-				break;
-			case 'tj_pref_lang':
-				factory.preflang = item[1];
-				break;
-			case 'tj_pref_currency':
-				factory.cor = item[1];
-				break;
-			default:
-				factory[item[0]] = item[1];
-				break;
-		}
-	}
+	factory.isRTL = (factory.preflang == 'he' || factory.preflang == 'ar') ? true : false;
 
-	var queryString = '';
+	if (factory.hasOwnProperty('preflang')) factory.addAjaxReq += '&preflang=' + factory.preflang;
+	if (factory.hasOwnProperty('affiliateCode')) factory.addAjaxReq += '&affiliateCode=' + factory.affiliateCode;
+	if (factory.hasOwnProperty('prefcurrency')) factory.addAjaxReq += '&prefcurrency=' + factory.prefcurrency;
+	if (factory.hasOwnProperty('cor')) factory.addAjaxReq += '&cor=' + factory.cor;
 
-	if ($window.location.search) {
-		queryString = $window.location.search.substring(1);
-	} else if ($window.location.hash) {
-		queryString = $window.location.hash.substring($window.location.hash.indexOf('?') + 1);
-	}
-
-	var pairs = queryString.split('&');
-
-	for (var j = 0; j < pairs.length; j++) {
-		var pairVals = pairs[j].split('=');
-		factory[pairVals[0]] = pairVals[1];
-		if (pairVals[0] === 'preflang') factory.addAjaxReq += '&preflang=' + pairVals[1];
-		if (pairVals[0] === 'affiliateCode') factory.addAjaxReq += '&affiliateCode=' + pairVals[1];
-		if (pairVals[0] === 'prefcurrency') factory.addAjaxReq += '&prefcurrency=' + pairVals[1];
-		if (pairVals[0] === 'cor') factory.addAjaxReq += '&cor=' + pairVals[1];
-	}
-
-	factory.jsessionid = $cookies.get('JSESSIONID');
+	factory.jsessionid = $cookies.JSESSIONID;
 
 	return factory;
 

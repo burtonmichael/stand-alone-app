@@ -1,4 +1,4 @@
-<div class="search-panel" ng-show="!loading.app">
+<div ng-class="{'is-rtl': isRTL}" class="search-panel" ng-show="!loading.app">
     <form role="form" ng-submit="submit()">
         <h2>{{translations.title}}</h2>
         <div class="form-group form-group--radio">
@@ -41,7 +41,7 @@
             <div class="form-group form-group--date">
                 <label class="input-label">{{translations.pickUpDate}}</label>
                 <div class="element-wrap element-wrap--text element-wrap--pikaday" ng-class="{'has-focus': pikaday.pickup.focus}">
-                    <input type="text" readonly on-open="dateOpened(pikaday)" on-close="dateClosed(pikaday)" on-select="dateChanged('pickup', date, pikaday)" pikaday="pikaday.pickup">
+                    <input type="text" readonly theme="{{isRTL ? 'is-rtl' : ''}}" on-open="dateOpened(pikaday)" on-close="dateClosed(pikaday)" on-select="dateChanged('pickup', date, pikaday)" pikaday="pikaday.pickup">
                     <span ng-click="pikaday.pickup.show()" class="glyphicon glyphicon-calendar"></span>
                 </div>
             </div>
@@ -55,7 +55,7 @@
             <div class="form-group form-group--date">
                 <label class="input-label">{{translations.dropOffDate}}</label>
                 <div class="element-wrap element-wrap--text element-wrap--pikaday" ng-class="{'has-focus': pikaday.dropoff.focus}">
-                    <input type="text" readonly on-open="dateOpened(pikaday)" on-close="dateClosed(pikaday)" on-select="dateChanged('dropoff', date, pikaday)" pikaday="pikaday.dropoff">
+                    <input type="text" readonly theme="{{isRTL ? 'is-rtl' : ''}}" on-open="dateOpened(pikaday)" on-close="dateClosed(pikaday)" on-select="dateChanged('dropoff', date, pikaday)" pikaday="pikaday.dropoff">
                     <span ng-click="pikaday.dropoff.show()" class="glyphicon glyphicon-calendar"></span>
                 </div>
             </div>

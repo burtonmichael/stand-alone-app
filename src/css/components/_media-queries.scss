@@ -23,6 +23,20 @@
 }
 
 @media screen and (max-width: 479px) {
+	.search-panel {
+	    &.is-rtl {
+			.form-group {
+			    &--horizontal {
+			        .input-label {
+			            float: right;
+			        }
+			        .element-wrap {
+			            float: right;
+			        }
+			    }
+			}
+	    }
+	}
 	.form-group {
 	    &--horizontal {
 	        .input-label {
@@ -43,6 +57,27 @@
 }
 
 @media screen and (min-width: 480px) {
+	.search-panel {
+	    &.is-rtl {
+	    	.date-time-group {
+	    		float: right;
+	    		&--dropoff {
+					margin-left: 0;
+					margin-right: 4%;
+				}
+			}
+			.form-group {
+				&--location {
+					float: right;
+					margin-left: 0;
+					margin-right: 2%;
+					&:first-child {
+						margin-right: 0;
+					}
+				}
+			}
+	    }
+	}
 	.form-group {
 		&--location {
 			float: left;

@@ -64,7 +64,7 @@ module.exports = function(grunt) {
                     '<%= bower_concat.all.dest %>',
                     'src/js/*.js',
                     '<%= ngtemplates.app.dest %>',
-                    'src/js/ui-bootstrap/ui-bootstrap-custom-0.13.0.min.js'
+                    'src/js/ui-bootstrap/*.js'
                 ],
                 // the location of the resulting JS file
                 dest: 'temp/app.js'
@@ -84,7 +84,7 @@ module.exports = function(grunt) {
                         collapseBooleanAttributes: true,
                         collapseWhitespace: true,
                         removeAttributeQuotes: true,
-                        removeComments: true, // Only if you don't use comment directives! 
+                        removeComments: true,
                         removeEmptyAttributes: true,
                         removeRedundantAttributes: true,
                         removeScriptTypeAttributes: true,
@@ -120,7 +120,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-copy');
 
-    grunt.registerTask('default', ['clean:dist', 'jshint', 'ngtemplates', 'bower_concat', 'concat', 'uglify', 'processhtml', 'copy', 'clean:temp']);
+    grunt.registerTask('default', ['clean:dist', 'sass', 'jshint', 'ngtemplates', 'bower_concat', 'concat', 'uglify', 'processhtml', 'copy', 'clean:temp']);
 
     grunt.registerTask('sass-watch', ['sass', 'watch']);
 };
