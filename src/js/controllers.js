@@ -91,6 +91,17 @@ angular.module('searchApp.controllers', ['ngRoute'])
         }
     };
 
+    $scope.dateOpened = function(pikaday) {
+        pikaday.focus = true;
+        if (pikaday.el.offsetTop < 0) {
+            pikaday.el.style.top = 0;
+        }
+    };
+
+    $scope.dateClosed = function(pikaday) {
+        pikaday.focus = false;
+    };
+
     $scope.submit = function() {
         $scope.errors = {};
         $scope.messages = [];
