@@ -9,7 +9,7 @@
   "pickUpDate": "Pick Up Date",
   "dropOffDate": "Drop Off Date",
   "time": "Time",
-  "driverAge": "Driver's age",
+  "driversAge": "Driver's age",
   "search": "Search",
   "errorPickUp": "Pick up location must be specified",
   "errorDropOff": "Drop off location must be specified",

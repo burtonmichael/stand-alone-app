@@ -9,7 +9,7 @@
   "pickUpDate": "Ημερομηνία παραλαβής",
   "dropOffDate": "Ημερομηνία επιστροφής",
   "time": "Ώρα παραλαβής",
-  "driverAge": "Ηλικία οδηγού",
+  "driversAge": "Ηλικία οδηγού",
   "search": "Αναζήτηση",
   "errorPickUp": "undefined undefined",
   "errorDropOff": "undefined undefined",

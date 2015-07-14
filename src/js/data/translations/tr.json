@@ -9,7 +9,7 @@
   "pickUpDate": "Teslim alis tarihi",
   "dropOffDate": " Teslim edis tarih",
   "time": "Teslim alış saati",
-  "driverAge": "Sürücü",
+  "driversAge": "Sürücü",
   "search": " ara",
   "errorPickUp": "Alış Yeri belirlenmesi gerekiyor",
   "errorDropOff": "İade Yeri belirlenmesi gerekiyor",

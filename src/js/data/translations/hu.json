@@ -9,7 +9,7 @@
   "pickUpDate": "Felvétel dátuma",
   "dropOffDate": "Leadás dátuma",
   "time": "Időpont",
-  "driverAge": "Vezető kora",
+  "driversAge": "Vezető kora",
   "search": "Keresés",
   "errorPickUp": "Autófelvétel helye kötelezően kitöltendő",
   "errorDropOff": "Autóleadás helye kötelezően kitöltendő",

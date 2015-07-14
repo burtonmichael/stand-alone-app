@@ -9,7 +9,7 @@
   "pickUpDate": "Hentedato",
   "dropOffDate": "Avleveringsdato:",
   "time": "Tid",
-  "driverAge": "Sjåførens alder",
+  "driversAge": "Sjåførens alder",
   "search": "Sök",
   "errorPickUp": "Avhentings sted må spesifiseres",
   "errorDropOff": "Returnerings sted må spesifiseres",

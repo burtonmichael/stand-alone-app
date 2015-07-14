@@ -9,7 +9,7 @@
   "pickUpDate": "Data Ritiro",
   "dropOffDate": "Data Riconsegna",
   "time": "Orario",
-  "driverAge": "Etá del conducente",
+  "driversAge": "Etá del conducente",
   "search": "Cerca",
   "errorPickUp": "Località del ritiro deve essere specificata",
   "errorDropOff": "Località di arrivo deve essere specificata",

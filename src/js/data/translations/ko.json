@@ -9,7 +9,7 @@
   "pickUpDate": "대여날짜",
   "dropOffDate": "반납날짜",
   "time": "대여시간",
-  "driverAge": "운전자 연령",
+  "driversAge": "운전자 연령",
   "search": "검색",
   "errorPickUp": "대여지역 반드시 기재해야 합니다",
   "errorDropOff": "반납지역 반드시 기재해야 합니다",

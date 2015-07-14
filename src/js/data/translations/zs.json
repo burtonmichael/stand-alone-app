@@ -9,7 +9,7 @@
   "pickUpDate": "取车日期",
   "dropOffDate": "还车日期",
   "time": "取车时间",
-  "driverAge": "驾驶人年龄",
+  "driversAge": "驾驶人年龄",
   "search": "搜索",
   "errorPickUp": "取车地点 请填写",
   "errorDropOff": "还车地点 请填写",

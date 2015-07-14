@@ -9,7 +9,7 @@
   "pickUpDate": "取車日期",
   "dropOffDate": "還車日期",
   "time": "取車時間",
-  "driverAge": "駕駛人年齡",
+  "driversAge": "駕駛人年齡",
   "search": "搜尋",
   "errorPickUp": "取車地點 請填寫",
   "errorDropOff": "還車地點 請填寫",

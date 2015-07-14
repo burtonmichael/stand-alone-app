@@ -9,7 +9,7 @@
   "pickUpDate": "貸出日",
   "dropOffDate": "返却日",
   "time": "返却日",
-  "driverAge": "ドライバーの年齢",
+  "driversAge": "ドライバーの年齢",
   "search": "検索",
   "errorPickUp": "貸出する場所 をご入力ください。",
   "errorDropOff": "返却する場所 をご入力ください。",

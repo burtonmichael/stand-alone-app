@@ -9,7 +9,7 @@
   "pickUpDate": "Noutoajankohta",
   "dropOffDate": "Palautusajankohta",
   "time": "Aika",
-  "driverAge": "Kuljettajan ikä",
+  "driversAge": "Kuljettajan ikä",
   "search": "Valitse",
   "errorPickUp": "Noutokohde on mainittava",
   "errorDropOff": "Palautussijainti on mainittava",

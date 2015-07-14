@@ -9,7 +9,7 @@
   "pickUpDate": "Ophaaldatum",
   "dropOffDate": "Aflever datum",
   "time": "Tijd",
-  "driverAge": "Leeftijd Bestuurde",
+  "driversAge": "Leeftijd Bestuurde",
   "search": "Zoeken",
   "errorPickUp": "In welke plaats wilt u de auto ophalen?",
   "errorDropOff": "Locatie van afleveren wilt u de auto ophalen?",

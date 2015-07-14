@@ -9,7 +9,7 @@
   "pickUpDate": "Paėmimo data",
   "dropOffDate": "Grąžinimo data",
   "time": "Laikas",
-  "driverAge": "Vairuotojo amžius",
+  "driversAge": "Vairuotojo amžius",
   "search": "Ieškoti",
   "errorPickUp": "Automobilio paėmimo vieta turi būti nurodyta",
   "errorDropOff": "Automobilio grąžinimo vieta turi būti nurodyta",

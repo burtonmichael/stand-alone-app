@@ -9,7 +9,7 @@
   "pickUpDate": "Upphämtningsdatum",
   "dropOffDate": "Avlämningsdatum",
   "time": "Tid",
-  "driverAge": "Förarens ålder",
+  "driversAge": "Förarens ålder",
   "search": "Sök",
   "errorPickUp": "Upphämtningsplats måste specificeras",
   "errorDropOff": "Returplats måste specificeras",

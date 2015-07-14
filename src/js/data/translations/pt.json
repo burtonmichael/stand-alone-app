@@ -9,7 +9,7 @@
   "pickUpDate": "Data de Levantamento",
   "dropOffDate": "Data de Devolução",
   "time": "Tempo",
-  "driverAge": "Idade do Condutor",
+  "driversAge": "Idade do Condutor",
   "search": "Pesquise",
   "errorPickUp": "Estação de levantamento deve ser especificado",
   "errorDropOff": "Estação de devolução deve ser especificado",

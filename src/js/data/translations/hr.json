@@ -9,7 +9,7 @@
   "pickUpDate": "Datum preuzimanja",
   "dropOffDate": "Datum povratka",
   "time": "Vrijeme",
-  "driverAge": "Starosna dob vozača",
+  "driversAge": "Starosna dob vozača",
   "search": "Traži",
   "errorPickUp": "Lokacija preuzimanja automobila mora biti specificirano",
   "errorDropOff": "Lokacija povratka automobila mora biti specificirano",

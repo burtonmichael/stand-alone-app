@@ -9,7 +9,7 @@
   "pickUpDate": "Día de Recogida",
   "dropOffDate": "Día de devolución",
   "time": "Hora",
-  "driverAge": "Edad del Conductor",
+  "driversAge": "Edad del Conductor",
   "search": "Buscar",
   "errorPickUp": "Lugar de recogida debe ser especificado",
   "errorDropOff": "Lugar de devolución debe ser especificado",

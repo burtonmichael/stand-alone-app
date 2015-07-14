@@ -9,7 +9,7 @@
   "pickUpDate": "Data de preluare",
   "dropOffDate": "Data Predare",
   "time": "Oră Preluare",
-  "driverAge": "Vârsta soferului",
+  "driversAge": "Vârsta soferului",
   "search": "Caută",
   "errorPickUp": "Locaţie Preluare trebuie specificat",
   "errorDropOff": "Locaţie Predare trebuie specificat",

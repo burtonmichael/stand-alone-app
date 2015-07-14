@@ -9,7 +9,7 @@
   "pickUpDate": "วันที่รับรถ",
   "dropOffDate": "วันที่ส่งรถ",
   "time": "เวลารับรถ",
-  "driverAge": "อายุผู้ขับ",
+  "driversAge": "อายุผู้ขับ",
   "search": "ค้นหา",
   "errorPickUp": "สถานที่รับรถ ต้องระบุ",
   "errorDropOff": "สถานที่คืนรถ ต้องระบุ",

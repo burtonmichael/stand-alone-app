@@ -182,15 +182,19 @@ angular.module('searchApp.controllers', ['ngRoute'])
 
         if (SessionService.jsessionid !== undefined) page += ";jsessionid=" + SessionService.jessionid;
 
+        var locationNames = '';
+
         formData = Object.keys($scope.form).map(function(k) {
             if (typeof $scope.form[k] === 'object') {
+                if (k === 'location') locationNames +=  '&locationName=' + encodeURIComponent($scope.form[k].name);
+                if (k === 'dropLocation') locationNames +=  '&dropLocationName=' + encodeURIComponent($scope.form[k].name);
                 return encodeURIComponent(k) + '=' + encodeURIComponent($scope.form[k].id);
             } else {
                 return encodeURIComponent(k) + '=' + encodeURIComponent($scope.form[k]);
             }
         }).join('&');
 
-        $window.open(base + page + '?' + formData + SessionService.addAjaxReq);
+        $window.open(base + page + '?' + formData + locationNames + SessionService.addAjaxReq);
     };
 
     $scope.localeChanged = function(level) {

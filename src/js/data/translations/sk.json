@@ -9,7 +9,7 @@
   "pickUpDate": "Dátum vyzdvihnutie",
   "dropOffDate": "Dátum odovzdania",
   "time": "Čas",
-  "driverAge": "Vek vodiča",
+  "driversAge": "Vek vodiča",
   "search": "Hľadaj",
   "errorPickUp": "Oblasť vyzdvihnutia musí byť upresnené",
   "errorDropOff": "Oblasť vrátenia musí byť upresnené",

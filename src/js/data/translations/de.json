@@ -9,7 +9,7 @@
   "pickUpDate": "Abholdatum",
   "dropOffDate": "Rückgabedatum",
   "time": "Zeit",
-  "driverAge": "Alter des Fahrers",
+  "driversAge": "Alter des Fahrers",
   "search": "Suche",
   "errorPickUp": "Anmietstation angegeben?",
   "errorDropOff": "Rückgabestation angegeben?",

@@ -9,7 +9,7 @@
   "pickUpDate": "Pick Up Date",
   "dropOffDate": "Drop Off Date",
   "time": "Time",
-  "driverAge": "Driver's age",
+  "driversAge": "Driver's age",
   "search": "Search",
   "errorPickUp": "Vị Trí Lấy Xe phải được chỉ rõ",
   "errorDropOff": "Vị Trí Trả Xe phải được chỉ rõ",

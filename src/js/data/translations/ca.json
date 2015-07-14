@@ -9,7 +9,7 @@
   "pickUpDate": "Data de Recollida",
   "dropOffDate": "Data de Devolució",
   "time": "Hora",
-  "driverAge": "Edat del conductor",
+  "driversAge": "Edat del conductor",
   "search": "Cerca",
   "errorPickUp": "undefined undefined",
   "errorDropOff": "undefined undefined",

@@ -9,7 +9,7 @@
   "pickUpDate": "Date de prise en charge",
   "dropOffDate": "Date de restitution",
   "time": "Heure",
-  "driverAge": "Age du conducteur",
+  "driversAge": "Age du conducteur",
   "search": "Rechercher",
   "errorPickUp": "Le lieu de prise en charge doit être précisé",
   "errorDropOff": "Le lieu de restitution doit être précisé",

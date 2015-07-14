@@ -9,7 +9,7 @@
   "pickUpDate": "Datum vyzvednutí",
   "dropOffDate": "Datum odevzdání",
   "time": "Čas",
-  "driverAge": "Věk řidiče",
+  "driversAge": "Věk řidiče",
   "search": "Hledej",
   "errorPickUp": "místo vyzvednutí musí být specifikován",
   "errorDropOff": "místo odevzdání musí být specifikován",

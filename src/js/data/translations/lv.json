@@ -9,7 +9,7 @@
   "pickUpDate": "Saņemšanas datums",
   "dropOffDate": "Nodošanas datums",
   "time": "Laiks",
-  "driverAge": "Vadītāja vecums",
+  "driversAge": "Vadītāja vecums",
   "search": "Meklēt",
   "errorPickUp": "Saņemšanas Vieta jānorāda",
   "errorDropOff": "Atgriešanas Vieta jānorāda",

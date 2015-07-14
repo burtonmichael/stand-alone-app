@@ -9,7 +9,7 @@
   "pickUpDate": "Tanggal pengambilan",
   "dropOffDate": "Waktu",
   "time": "Tanggal Pengembalian",
-  "driverAge": "Sopir usia ?",
+  "driversAge": "Sopir usia ?",
   "search": "Cari",
   "errorPickUp": "undefined undefined",
   "errorDropOff": "undefined undefined",

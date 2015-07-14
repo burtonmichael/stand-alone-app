@@ -9,7 +9,7 @@
   "pickUpDate": "Data Odbioru",
   "dropOffDate": "Data zwrotu",
   "time": "Czas",
-  "driverAge": "Wiek kierowcy",
+  "driversAge": "Wiek kierowcy",
   "search": "Szukaj",
   "errorPickUp": "Lokalizacja Wypożyczenia musi być podane",
   "errorDropOff": "Lokalizacja Zwrotu musi być podane",

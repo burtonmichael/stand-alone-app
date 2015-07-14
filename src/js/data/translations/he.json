@@ -9,7 +9,7 @@
   "pickUpDate": "תאריך איסוף",
   "dropOffDate": "שעת איסוף",
   "time": "שעת איסוף",
-  "driverAge": "גיל הנהג",
+  "driversAge": "גיל הנהג",
   "search": "חפש",
   "errorPickUp": "תחנת איסוף שדה זה הינו חובה",
   "errorDropOff": "תחנת החזרה שדה זה הינו חובה",
