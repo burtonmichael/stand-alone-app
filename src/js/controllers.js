@@ -147,9 +147,9 @@ angular.module('searchApp.controllers', ['ngRoute'])
             form.puMonth = pickupDateTime.month() + 1;
             form.puYear = pickupDateTime.year();
 
-            form.puDay = dropoffDateTime.date();
-            form.puMonth = dropoffDateTime.month() + 1;
-            form.puYear = dropoffDateTime.year();
+            form.doDay = dropoffDateTime.date();
+            form.doMonth = dropoffDateTime.month() + 1;
+            form.doYear = dropoffDateTime.year();
         }
 
         if ($scope.messages.length > 0) {
@@ -209,6 +209,9 @@ angular.module('searchApp.controllers', ['ngRoute'])
             case "location":
                 $scope.locationChanged();
                 break;
+            case "dropCountry":
+                $scope.dropCountryChanged();
+                break;
             case "dropCity":
                 $scope.dropCityChanged();
                 break;
@@ -226,14 +229,16 @@ angular.module('searchApp.controllers', ['ngRoute'])
                 $scope.locations = null;
                 /* falls through */
             case "location":
-                $scope.form.dropCountry = null;
-                $scope.form.dropLocation = null;
-                $scope.dropCountries = null;
+                /* falls through */
+            case "dropCountry":
+                $scope.form.dropCity = null;
                 $scope.dropCities = null;
                 /* falls through */
             case "dropCity":
                 $scope.form.dropLocation = null;
                 $scope.dropLocations = null;
+                /* falls through */
+            default:
                 break;
         }
     };
@@ -273,7 +278,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
 
     $scope.locationChanged = function() {
         if ($scope.locations) {
-            $scope.dropCountries = [$scope.form.country];
+            $scope.dropCountries = angular.copy($scope.countries);
             $scope.form.dropCountry = $scope.form.country;
             $scope.dropCities = angular.copy($scope.cities);
             $scope.form.dropCity = angular.copy($scope.form.city);
@@ -282,11 +287,28 @@ angular.module('searchApp.controllers', ['ngRoute'])
         }
     };
 
+    $scope.dropCountryChanged = function() {
+        if ($scope.dropCountries) {
+            $scope.loading.dropCities = true;
+            LocationService.getAjax({
+                    country: $scope.form.dropCountry.id
+                })
+                .then(function(data) {
+                    $scope.loading.dropCities = null;
+                    $scope.dropCities = data;
+                    if (data.length == 1) {
+                        $scope.form.dropCity = data[0];
+                        $scope.dropCityChanged();
+                    }
+                });
+        }
+    };
+
     $scope.dropCityChanged = function() {
         if ($scope.dropCities) {
             $scope.loading.dropLocations = true;
             LocationService.getAjax({
-                    country: $scope.form.country.id,
+                    country: $scope.form.dropCountry.id,
                     city: $scope.form.dropCity.id
                 })
                 .then(function(data) {
