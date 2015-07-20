@@ -7,15 +7,13 @@ var searchApp = angular.module('searchApp', ['ngRoute',
     'searchApp.controllers'
 ])
 
-.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+.config(['$routeProvider', function($routeProvider) {
     $routeProvider
         .when('/', {
             controller: 'MainCtrl',
-            templateUrl: 'partials/search-panel.html'
+            templateUrl: 'partials/layout/core.html'
         })
         .otherwise({
             redirectTo: '/'
         });
-
-    $locationProvider.html5Mode(true);
 }]);
