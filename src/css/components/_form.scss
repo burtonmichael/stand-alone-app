@@ -1,46 +1,6 @@
 .search-panel {
     background-color: #fff;
     padding: 16px 16px 4px;
-    &.is-rtl {
-        direction: rtl;
-        .element-wrap {
-            .glyphicon {
-                right: auto;
-                left: 12px;
-            }
-            &--select {
-                padding-right: 12px;
-                padding-left: 24px;
-            }
-        }
-        .input-label {
-            &.radio-label {
-                padding-left: 0;
-                padding-right: 20px;
-                &--dropoff {
-                    margin-left: 0;
-                    margin-right: 12px;
-                }
-                input {
-                    margin: 0 -20px 0 4px;
-                }
-            }
-        }
-        .form-group {
-            &--date {
-                float: right;
-            }
-            &--time {
-                float: right;
-                margin-left: 0;
-                margin-right: 5%;
-            }
-            &--button {
-                left: 0;
-                right: auto;
-            }
-        }
-    }
 }
 
 .search-panel:after {
