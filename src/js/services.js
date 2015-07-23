@@ -38,17 +38,6 @@ angular.module('searchApp.services', ['ngCookies'])
 
 .factory('LocationService', ['$q', '$http', '$cookies', 'SessionService', function($q, $http, $cookies, SessionService){
 	return {
-		getCountries: function() {
-			var deferred = $q.defer();
-			$http({
-				method: "GET",
-				url: "js/data/locations/" + SessionService.preflang + ".json"
-			})
-				.success(function(data) {
-					deferred.resolve(data);
-				});
-			return deferred.promise;
-		},
 		getAjax: function(params) {
 			var deferred = $q.defer();
 			var queryStr = '?';
@@ -87,14 +76,14 @@ angular.module('searchApp.services', ['ngCookies'])
 			} else {
 				if (SessionService.messages) {
 					promise = $q.all([
-						$http.get("js/data/translations/" + SessionService.preflang + ".json"),
+						$http.get("/stand-alone-locale/translations/" + SessionService.preflang + ".json"),
 						$http.get("import/messages/" + SessionService.messages + ".json")
 					])
 						.then(function(data){
 							return angular.extend({}, data[0].data, data[1].data);
 						});
 				} else {
-					promise = $http.get("js/data/translations/" + SessionService.preflang + ".json")
+					promise = $http.get("/stand-alone-locale/translations/" + SessionService.preflang + ".json")
 						.then(function(resp) {
 							return resp.data;
 						});

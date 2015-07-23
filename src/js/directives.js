@@ -22,6 +22,7 @@ angular.module('searchApp.directives', [])
     return {
         scope: {
             translations: '=',
+            countries: '=',
             loading: '='
         },
         controller: 'SearchPanelCtrl',

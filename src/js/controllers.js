@@ -326,54 +326,50 @@ angular.module('searchApp.controllers', ['ngRoute'])
         }
     };
 
-    LocationService.getCountries().then(function(data) {
-        $scope.countries = data;
-
-        if (SessionService.country && ($filter('filter')($scope.countries, {
-                name: SessionService.country
-            }, true).length > 0)) {
-            $scope.form.country = {
-                id: SessionService.country.split('+').join(' '),
-                name: SessionService.country.split('+').join(' ')
-            };
-            LocationService.getAjax({
-                    country: $scope.form.country.id
-                })
-                .then(function(data) {
-                    $scope.cities = data;
-                    var found = $filter('filter')($scope.cities, {
-                        name: SessionService.city
-                    }, true);
-                    if (SessionService.city && found) {
-                        $scope.form.city = found[0];
-                        LocationService.getAjax({
-                                country: $scope.form.country.id,
-                                city: $scope.form.city.id
-                            })
-                            .then(function(data) {
-                                $scope.locations = data;
-                                var found = $filter('filter')($scope.locations, {
-                                    name: SessionService.location
-                                }, true);
-                                if (SessionService.location && found) {
-                                    $scope.form.location = found[0];
+    if (SessionService.country && ($filter('filter')($scope.countries, {
+            name: SessionService.country
+        }, true).length > 0)) {
+        $scope.form.country = {
+            id: SessionService.country.split('+').join(' '),
+            name: SessionService.country.split('+').join(' ')
+        };
+        LocationService.getAjax({
+                country: $scope.form.country.id
+            })
+            .then(function(data) {
+                $scope.cities = data;
+                var found = $filter('filter')($scope.cities, {
+                    name: SessionService.city
+                }, true);
+                if (SessionService.city && found) {
+                    $scope.form.city = found[0];
+                    LocationService.getAjax({
+                            country: $scope.form.country.id,
+                            city: $scope.form.city.id
+                        })
+                        .then(function(data) {
+                            $scope.locations = data;
+                            var found = $filter('filter')($scope.locations, {
+                                name: SessionService.location
+                            }, true);
+                            if (SessionService.location && found) {
+                                $scope.form.location = found[0];
+                                $scope.locationChanged();
+                            } else {
+                                if (data.length == 1) {
+                                    $scope.form.location = data[0];
                                     $scope.locationChanged();
-                                } else {
-                                    if (data.length == 1) {
-                                        $scope.form.location = data[0];
-                                        $scope.locationChanged();
-                                    }
                                 }
-                            });
-                    } else {
-                        if (data.length == 1) {
-                            $scope.form.city = data[0];
-                            $scope.cityChanged();
-                        }
+                            }
+                        });
+                } else {
+                    if (data.length == 1) {
+                        $scope.form.city = data[0];
+                        $scope.cityChanged();
                     }
-                });
-        }
-    });
+                }
+            });
+    }
 
 }])
 
