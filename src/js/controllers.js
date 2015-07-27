@@ -14,22 +14,12 @@ angular.module('searchApp.controllers', ['ngRoute'])
     }
 }])
 
-.controller('MainCtrl', ['$scope', 'SessionService', 'TranslationsService', function($scope, SessionService, TranslationsService){
+.controller('MainCtrl', ['$scope', '$window', '$modal', '$filter', 'LocationService', 'SessionService', 'translations', function($scope, $window, $modal, $filter, LocationService, SessionService, translations) {
 
-    $scope.isRTL = SessionService.isRTL;
+    $scope.translations = translations;
+    $scope.countries = translations.countries;
 
-    $scope.loading = {
-        app: true
-    };
-
-    TranslationsService.get()
-        .then(function(data) {
-            $scope.translations = data;
-            $scope.loading.app = false;
-        });
-}])
-
-.controller('SearchPanelCtrl', ['$scope', '$window', '$modal', '$filter', 'LocationService', 'SessionService', function($scope, $window, $modal, $filter, LocationService, SessionService) {
+    $scope.loading = {};
 
     $scope.form = {
         emptySearchResults: true,
@@ -40,50 +30,27 @@ angular.module('searchApp.controllers', ['ngRoute'])
 
     $scope.frame = "pickup";
 
-    $scope.$watch('loading.app', function(newVal, oldVal){
-        if (newVal === false) {
-            moment.defineLocale("preflang", $scope.translations.moment);
+    $scope.i18n = {
+        previousMonth: translations.previousMonth,
+        nextMonth: translations.nextMonth,
+        months: translations.moment.months,
+        monthsShort: translations.moment.monthsShort,
+        weekdays: translations.moment.weekdays,
+        weekdaysShort: translations.moment.weekdaysShort
+    };
 
-            moment.locale("preflang");
+    $scope.startDate = new Date();
+    $scope.endDate = new Date();
+    $scope.endDate.setDate($scope.startDate.getDate() + 3);
 
-            var $pickup = $scope.pikaday.pickup;
-            var $dropoff = $scope.pikaday.dropoff;
+    // $scope.pikaday.pickup.setStartRange(startDate);
+    // $scope.pikaday.pickup.setEndRange(endDate);
 
-            var i18n = {
-                previousMonth: $scope.translations.previousMonth,
-                nextMonth: $scope.translations.nextMonth,
-                months: $scope.translations.moment.months,
-                monthsShort: $scope.translations.moment.monthsShort,
-                weekdays: $scope.translations.moment.weekdays,
-                weekdaysShort: $scope.translations.moment.weekdaysShort
-            };
+    // $scope.pikaday.dropoff.setStartRange(startDate);
+    // $scope.pikaday.dropoff.setEndRange(endDate);
 
-            $pickup._o.i18n = $dropoff._o.i18n = i18n;
-
-            $pickup._o.format = $dropoff._o.format = SessionService.format ? SessionService.format.split('+').join(' ') : 'L';
-
-            if ($scope.isRTL) {
-                $pickup._o.isRTL = $dropoff._o.isRTL = $scope.isRTL;
-                $pickup._o.theme = $dropoff._o.theme = "is-rtl";
-            }
-
-            var startDate = new Date();
-            var endDate = new Date();
-            endDate.setDate(startDate.getDate() + 3);
-
-            $pickup.setMinDate(startDate);
-            $dropoff.setMinDate(startDate);
-
-            $pickup.setStartRange(startDate);
-            $pickup.setEndRange(endDate);
-
-            $dropoff.setStartRange(startDate);
-            $dropoff.setEndRange(endDate);
-
-            $pickup.setMoment(moment(startDate));
-            $dropoff.setMoment(moment(endDate));
-        }
-    });
+    // $pickup.setMoment(moment(startDate));
+    // $scope.pikaday.dropoff.setMoment(moment(endDate));
 
     $scope.dateChanged = function(origin, date, pikaday) {
         if (origin === 'pickup') {

@@ -80,11 +80,15 @@ angular.module('searchApp.services', ['ngCookies'])
 						$http.get("import/messages/" + SessionService.messages + ".json")
 					])
 						.then(function(data){
+							moment.defineLocale("preflang", resp.data.moment);
+							moment.locale("preflang");
 							return angular.extend({}, data[0].data, data[1].data);
 						});
 				} else {
 					promise = $http.get("/stand-alone-locale/translations/" + SessionService.preflang + ".json")
 						.then(function(resp) {
+							moment.defineLocale("preflang", resp.data.moment);
+							moment.locale("preflang");
 							return resp.data;
 						});
 				}

@@ -1,6 +1,5 @@
 var searchApp = angular.module('searchApp', ['ngRoute',
     'ui.bootstrap',
-    'pikaday',
     'searchApp.services',
     'searchApp.directives',
     'searchApp.filters',
@@ -11,7 +10,12 @@ var searchApp = angular.module('searchApp', ['ngRoute',
     $routeProvider
         .when('/', {
             controller: 'MainCtrl',
-            templateUrl: 'partials/layout/core.html'
+            templateUrl: 'partials/layout/core.html',
+            resolve: {
+                translations: function(TranslationsService) {
+                    return TranslationsService.get();
+                }
+            }
         })
         .otherwise({
             redirectTo: '/'
