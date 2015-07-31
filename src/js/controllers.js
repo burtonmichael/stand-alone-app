@@ -1,6 +1,6 @@
 angular.module('searchApp.controllers', ['ngRoute'])
 
-.controller('HeadCtrl', ['$scope', 'SessionService', function($scope, SessionService) {
+.controller('HeadCtrl', ['$scope', 'SessionService', 'StyleService', function($scope, SessionService, StyleService) {
     if (SessionService.css) {
         var baseUrl = 'import/css/';
         var exports = [];
@@ -11,6 +11,9 @@ angular.module('searchApp.controllers', ['ngRoute'])
             this.push(baseUrl + stylesheet + '.css');
         }, exports);
         $scope.stylesheets = exports;
+    }
+    if (SessionService.buttonColor) {
+        StyleService.setColor(SessionService.buttonColor, SessionService.buttonText)
     }
 }])
 
@@ -25,6 +28,8 @@ angular.module('searchApp.controllers', ['ngRoute'])
         emptySearchResults: true,
         fromLocChoose: true
     };
+
+    $scope.pikaday = {}
 
     $scope.isRTL = SessionService.isRTL;
 
@@ -42,15 +47,6 @@ angular.module('searchApp.controllers', ['ngRoute'])
     $scope.startDate = new Date();
     $scope.endDate = new Date();
     $scope.endDate.setDate($scope.startDate.getDate() + 3);
-
-    // $scope.pikaday.pickup.setStartRange(startDate);
-    // $scope.pikaday.pickup.setEndRange(endDate);
-
-    // $scope.pikaday.dropoff.setStartRange(startDate);
-    // $scope.pikaday.dropoff.setEndRange(endDate);
-
-    // $pickup.setMoment(moment(startDate));
-    // $scope.pikaday.dropoff.setMoment(moment(endDate));
 
     $scope.dateChanged = function(origin, date, pikaday) {
         if (origin === 'pickup') {

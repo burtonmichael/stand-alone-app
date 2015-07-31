@@ -111,17 +111,15 @@ angular.module('searchApp.directives', [])
         scope: {
             pikaday: '=',
             onSelect: '&',
-            onOpen: '&',
-            onClose: '&',
-            onDraw: '&',
-            disableDayFn: '&'
+            onClose: '&'
         },
         link: function(scope, elem, attrs) {
 
-            // Init config Object
-
             var config = {
                 field: elem[0],
+                setDefaultDate: true,
+                format: 'L',
+                position: 'top left',
                 onSelect: function() {
                     setTimeout(function() {
                         scope.$apply();
@@ -129,42 +127,19 @@ angular.module('searchApp.directives', [])
                 }
             };
 
-            // Decorate/Overide config with inline attributes
-
             angular.forEach(attrs.$attr, function(dashAttr) {
-                var attr = attrs.$normalize(dashAttr); // normalize = ToCamelCase()
+                var attr = attrs.$normalize(dashAttr);
                 applyConfig(attr, attrs[attr]);
             });
 
             function applyConfig(attr, value) {
                 switch (attr) {
-
-                    // Booleans, Integers & Arrays
-
-                    case "setDefaultDate":
-                    case "bound":
-                    case "reposition":
-                    case "disableWeekends":
-                    case "showWeekNumber":
                     case "isRTL":
-                    case "showMonthAfterYear":
-                    case "firstDay":
-                    case "yearRange":
-                    case "numberOfMonths":
-                    case "mainCalendar":
                     case "i18n":
-
                         config[attr] = scope.$eval(value);
                         break;
-
-                        // Functions
-
                     case "onSelect":
-                    case "onOpen":
                     case "onClose":
-                    case "onDraw":
-                    case "disableDayFn":
-
                         config[attr] = function(date) {
                             setTimeout(function() {
                                 scope.$apply();
@@ -175,39 +150,22 @@ angular.module('searchApp.directives', [])
                             });
                         };
                         break;
-
-                        // Strings
-
-                    case "format":
-                    case "position":
-                    case "theme":
-                    case "yearSuffix":
-
-                        config[attr] = value;
-                        break;
-
-                        // Dates
-
-                    case "minDate":
-                    case "maxDate":
                     case "defaultDate":
-
+                    case "minDate":
                         config[attr] = new Date(scope.$eval(value));
                         break;
-
-                        // Elements
-
-                    case "trigger":
-                    case "container":
-
-                        config[attr] = document.getElementById(value);
+                    case "startRange":
+                    case "endRange":
+                        var date = new Date(scope.$eval(value));
+                        config[attr] = new Date(date.getFullYear(), date.getMonth(), date.getDate());
                         break;
-
                 }
             }
 
-            // instantiate pikaday with config, bind to scope, add destroy event callback
             var picker = new Pikaday(config);
+            picker.setDate(config.defaultDate, true);
+            picker.setStartRange(config.startRange);
+            picker.setEndRange(config.endRange);
             scope.pikaday = picker;
             scope.$on('$destroy', function() {
                 picker.destroy();

@@ -1,5 +1,4 @@
 .search-panel {
-    background-color: #fff;
     padding: 16px 16px 4px;
     @include clearfix;
 }
@@ -221,7 +220,7 @@ select {
         background-color: #286090;
     }
 
-    button:active:hover {
+    button:active {
         background-color: #204D74;
     }
 }
@@ -237,6 +236,8 @@ select {
 
 .locations-group {
     width: 100%;
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
     -webkit-transition: -webkit-transform .3s, opacity .3s;
     transition: transform .3s, opacity .3s;
     -webkit-transform-style: preserve-3d;

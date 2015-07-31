@@ -1,5 +1,109 @@
 angular.module('searchApp.services', ['ngCookies'])
 
+.factory('StyleService', function() {
+
+	var shadeColor = function(color, percent) {
+
+	    var color = color.substring(1);
+
+	    if (color.length === 3) {
+	        var split = color.split("");
+	        color = split[0] + split[0] + split[1] + split[1] + split[2] + split[2];
+	    }
+
+	    var R = parseInt(color.substring(0, 2), 16);
+	    var G = parseInt(color.substring(2, 4), 16);
+	    var B = parseInt(color.substring(4, 6), 16);
+
+	    R = parseInt(R * (100 + percent) / 100);
+	    G = parseInt(G * (100 + percent) / 100);
+	    B = parseInt(B * (100 + percent) / 100);
+
+	    R = (R < 255) ? R : 255;
+	    G = (G < 255) ? G : 255;
+	    B = (B < 255) ? B : 255;
+
+	    var RR = ((R.toString(16).length == 1) ? "0" + R.toString(16) : R.toString(16));
+	    var GG = ((G.toString(16).length == 1) ? "0" + G.toString(16) : G.toString(16));
+	    var BB = ((B.toString(16).length == 1) ? "0" + B.toString(16) : B.toString(16));
+
+	    return "#" + RR + GG + BB;
+	}
+
+	var contrastColor = function(color) {
+
+	    var color = color.substring(1);
+
+	    if (color.length === 3) {
+	        var split = color.split("");
+	        color = split[0] + split[0] + split[1] + split[1] + split[2] + split[2];
+	    }
+
+	    var R = parseInt(color.substring(0, 2), 16);
+	    var G = parseInt(color.substring(2, 4), 16);
+	    var B = parseInt(color.substring(4, 6), 16);
+
+	    var contrast = ((R * 299) + (G * 587) + (B * 114)) / 1000;
+	    return (contrast >= 200) ? '#212121' : '#FFF';
+	}
+
+	var addRule = function(elem, styles) {
+	    var rule = elem + " {"
+
+	    angular.forEach(styles, function(style) {
+	        rule += style[0] + ":" + style[1] + ";"
+	    })
+	    rule += "}"
+
+	    return rule
+	}
+
+	return {
+		setColor: function(main, text) {
+
+		    var main = "#" + main;
+		    var text = text ? "#" + text : contrastColor(main);
+
+		    var styles = "";
+
+		    styles += addRule('.form-group--button button, \
+		        .ui-datepicker-prev:after, \
+		        .ui-datepicker-next:after, \
+		        .ui-datepicker .ui-state-default.ui-state-hover, \
+		        .ui-datepicker .ui-state-default.ui-state-active, \
+		        .ui-datepicker .ui-datepicker-header, \
+		        .ui-datepicker-prev:after, .ui-datepicker-next:after', [
+		        ["color", text],
+		    ])
+
+		    styles += addRule('.form-group--button button, \
+		        .ui-datepicker .ui-datepicker-header, \
+		        .ui-datepicker .ui-state-default.ui-state-active, \
+		        .ui-datepicker .ui-datepicker-prev, \
+		        .ui-datepicker .ui-datepicker-next', [
+		        ["background", main]
+		    ])
+
+		    styles += addRule('.form-group--button button:hover, .form-group--button button:focus, \
+		        .ui-datepicker .ui-state-default.ui-state-hover, \
+		        .ui-datepicker .ui-datepicker-prev-hover, \
+		        .ui-datepicker .ui-datepicker-next-hover', [
+		        ["background", shadeColor(main, 10)]
+		    ])
+
+		    styles += addRule('.form-group--button button:active', [
+		        ["background", shadeColor(main, -6)]
+		    ])
+
+		    var style = document.createElement('style')
+
+	    	style.innerHTML = styles;
+
+		    document.head.appendChild(style);
+		}
+	}
+})
+
 .factory('TimeService', function(){
 	return {
 		getHours: function() {
@@ -105,7 +209,16 @@ angular.module('searchApp.services', ['ngCookies'])
 		addAjaxReq: ""
 	};
 
-	factory = angular.extend({}, factory, $location.search());
+	var camelCase = function(parameter) {
+	    return parameter.replace(/^([A-Z])|[\s-_](\w)/g, function(match, p1, p2, offset) {
+	        if (p2) return p2.toUpperCase();
+	        return p1.toLowerCase();
+	    });
+	};
+
+	for(var parameter in $location.search()) {
+		factory[camelCase(parameter)] = decodeURIComponent($location.search()[parameter]);
+	}
 
 	factory.isRTL = (factory.preflang == 'he' || factory.preflang == 'ar') ? true : false;
 
