@@ -4,7 +4,7 @@ angular.module('searchApp.services', ['ngCookies'])
 
 	var shadeColor = function(color, percent) {
 
-	    var color = color.substring(1);
+	    color = color.substring(1);
 
 	    if (color.length === 3) {
 	        var split = color.split("");
@@ -28,11 +28,11 @@ angular.module('searchApp.services', ['ngCookies'])
 	    var BB = ((B.toString(16).length == 1) ? "0" + B.toString(16) : B.toString(16));
 
 	    return "#" + RR + GG + BB;
-	}
+	};
 
 	var contrastColor = function(color) {
 
-	    var color = color.substring(1);
+	    color = color.substring(1);
 
 	    if (color.length === 3) {
 	        var split = color.split("");
@@ -45,63 +45,80 @@ angular.module('searchApp.services', ['ngCookies'])
 
 	    var contrast = ((R * 299) + (G * 587) + (B * 114)) / 1000;
 	    return (contrast >= 200) ? '#212121' : '#FFF';
-	}
+	};
 
 	var addRule = function(elem, styles) {
-	    var rule = elem + " {"
+	    var rule = elem + " {";
 
 	    angular.forEach(styles, function(style) {
-	        rule += style[0] + ":" + style[1] + ";"
-	    })
-	    rule += "}"
+	        rule += style[0] + ":" + style[1] + ";";
+	    });
+	    rule += "}";
 
-	    return rule
-	}
+	    return rule;
+	};
 
 	return {
-		setColor: function(main, text) {
+		setColor: function(styles) {
 
-		    var main = "#" + main;
-		    var text = text ? "#" + text : contrastColor(main);
+			for(var style in styles) {
+				switch (style) {
+					case 'radius':
+					case 'buttonRadius':
+						break;
+					default:
+						styles[style] = '#' + styles[style];
+						break;
+				}
+			}
 
-		    var styles = "";
+		    var output = "";
 
-		    styles += addRule('.form-group--button button, \
-		        .ui-datepicker-prev:after, \
-		        .ui-datepicker-next:after, \
-		        .ui-datepicker .ui-state-default.ui-state-hover, \
-		        .ui-datepicker .ui-state-default.ui-state-active, \
-		        .ui-datepicker .ui-datepicker-header, \
-		        .ui-datepicker-prev:after, .ui-datepicker-next:after', [
-		        ["color", text],
-		    ])
+		    if (styles.body) {
+			    output += addRule('body', [
+			        ["color", styles.body],
+			    ]);
+		    }
 
-		    styles += addRule('.form-group--button button, \
-		        .ui-datepicker .ui-datepicker-header, \
-		        .ui-datepicker .ui-state-default.ui-state-active, \
-		        .ui-datepicker .ui-datepicker-prev, \
-		        .ui-datepicker .ui-datepicker-next', [
-		        ["background", main]
-		    ])
+		    if (styles.radius) {
+			    output += addRule('.element-wrap--select, .element-wrap input', [
+			        ["border-radius", styles.radius],
+			    ]);
+		    }
 
-		    styles += addRule('.form-group--button button:hover, .form-group--button button:focus, \
-		        .ui-datepicker .ui-state-default.ui-state-hover, \
-		        .ui-datepicker .ui-datepicker-prev-hover, \
-		        .ui-datepicker .ui-datepicker-next-hover', [
-		        ["background", shadeColor(main, 10)]
-		    ])
+		    if (styles.buttonRadius) {
+			    output += addRule('.form-group--button button', [
+			        ["border-radius", styles.buttonRadius],
+			    ]);
+		    }
 
-		    styles += addRule('.form-group--button button:active', [
-		        ["background", shadeColor(main, -6)]
-		    ])
+		    if (styles.text) {
+			    output += addRule('.form-group--button button', [
+			        ["color", styles.text],
+			    ]);
+			}
 
-		    var style = document.createElement('style')
+			if (styles.buttonBg) {
+			    output += addRule('.form-group--button button', [
+			        ["background", styles.buttonBg]
+			    ]);
 
-	    	style.innerHTML = styles;
+			    output += addRule('.form-group--button button:hover, .form-group--button button:focus', [
+			        ["background", shadeColor(styles.buttonBg, 10)]
+			    ]);
 
-		    document.head.appendChild(style);
+			    output += addRule('.form-group--button button:active', [
+			        ["background", shadeColor(styles.buttonBg, -6)]
+			    ]);
+			}
+
+		    var sheet = document.createElement('style');
+
+	    	sheet.innerHTML = output;
+
+		    document.head.appendChild(sheet);
 		}
-	}
+	};
 })
 
 .factory('TimeService', function(){
@@ -142,7 +159,7 @@ angular.module('searchApp.services', ['ngCookies'])
 
 .factory('LocationService', ['$q', '$http', '$cookies', 'SessionService', function($q, $http, $cookies, SessionService){
 	return {
-		getAjax: function(params) {
+		getAjax: function(parameters) {
 			var deferred = $q.defer();
 			var queryStr = '?';
 			var base = SessionService.affUrl ? 'http://' + SessionService.affUrl : "http://www.rentalcars.com";
@@ -151,9 +168,9 @@ angular.module('searchApp.services', ['ngCookies'])
 
 			if (SessionService.jsessionid !== undefined) page += ";jsessionid=" + SessionService.jessionid;
 
-			for(var prop in params) {
-				queryStr += prop + '=' + decodeURIComponent(params[prop]) + '&';
-			}
+			queryStr += Object.keys(parameters).map(function(parameter) {
+                return encodeURIComponent(parameter) + '=' + encodeURIComponent(parameters[parameter]);
+	        }).join('&');
 
 			$http({
 				method: "GET",
@@ -206,7 +223,8 @@ angular.module('searchApp.services', ['ngCookies'])
 
 	var factory = {
 		preflang: "en",
-		addAjaxReq: ""
+		addAjaxReq: "",
+		styles: {}
 	};
 
 	var camelCase = function(parameter) {
@@ -217,7 +235,11 @@ angular.module('searchApp.services', ['ngCookies'])
 	};
 
 	for(var parameter in $location.search()) {
-		factory[camelCase(parameter)] = decodeURIComponent($location.search()[parameter]);
+		if (parameter.indexOf('style-') === 0) {
+			factory.styles[camelCase(parameter.substring(6))] = decodeURIComponent($location.search()[parameter]);
+		} else {
+			factory[camelCase(parameter)] = decodeURIComponent($location.search()[parameter]);
+		}
 	}
 
 	factory.isRTL = (factory.preflang == 'he' || factory.preflang == 'ar') ? true : false;

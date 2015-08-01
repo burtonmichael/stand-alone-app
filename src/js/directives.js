@@ -124,6 +124,9 @@ angular.module('searchApp.directives', [])
                     setTimeout(function() {
                         scope.$apply();
                     });
+                },
+                onDraw: function() {
+                    if (parseInt(picker.el.style.top) < 0) picker.el.style.top = '0px';
                 }
             };
 

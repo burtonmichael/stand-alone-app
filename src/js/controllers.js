@@ -10,11 +10,11 @@ angular.module('searchApp.controllers', ['ngRoute'])
         angular.forEach(stylesheets, function(stylesheet) {
             this.push(baseUrl + stylesheet + '.css');
         }, exports);
+
         $scope.stylesheets = exports;
     }
-    if (SessionService.buttonColor) {
-        StyleService.setColor(SessionService.buttonColor, SessionService.buttonText)
-    }
+
+    StyleService.setColor(SessionService.styles);
 }])
 
 .controller('MainCtrl', ['$scope', '$window', '$modal', '$filter', 'LocationService', 'SessionService', 'translations', function($scope, $window, $modal, $filter, LocationService, SessionService, translations) {
@@ -28,8 +28,6 @@ angular.module('searchApp.controllers', ['ngRoute'])
         emptySearchResults: true,
         fromLocChoose: true
     };
-
-    $scope.pikaday = {}
 
     $scope.isRTL = SessionService.isRTL;
 
@@ -90,18 +88,13 @@ angular.module('searchApp.controllers', ['ngRoute'])
         if (!form.city) $scope.errors.city = pickupError = true;
         if (!form.location) $scope.errors.location = pickupError = true;
 
-        if (pickupError) $scope.messages.push($scope.translations.errorPickUp);
+        if (pickupError) $scope.messages.push($scope.translations.errorLocation + $scope.translations.errorManditory);
 
         if (!form.dropCountry) $scope.errors.dropCountry = dropoffError = true;
         if (!form.dropCity) $scope.errors.dropCity = dropoffError = true;
         if (!form.dropLocation) $scope.errors.dropLocation = dropoffError = true;
 
-        if (dropoffError) $scope.messages.push($scope.translations.errorDropOff);
-
-        if (!form.driversAge) {
-            $scope.errors.driversAge = true;
-            $scope.messages.push($scope.translations.errorAge);
-        }
+        if (dropoffError) $scope.messages.push($scope.translations.errorDropLocation + $scope.translations.errorManditory);
 
         var pickupDateTime = $scope.pikaday.pickup.getMoment().hour(form.puHour).minute(form.puMinute);
 
@@ -109,7 +102,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
 
         if (dropoffDateTime.diff(pickupDateTime, 'minutes') < 60) {
             $scope.errors.date = true;
-            $scope.messages.push($scope.translations.errorDateDiff);
+            $scope.messages.push($scope.translations.errorDateLength);
         } else {
             form.puDay = pickupDateTime.date();
             form.puMonth = pickupDateTime.month() + 1;
@@ -118,6 +111,11 @@ angular.module('searchApp.controllers', ['ngRoute'])
             form.doDay = dropoffDateTime.date();
             form.doMonth = dropoffDateTime.month() + 1;
             form.doYear = dropoffDateTime.year();
+        }
+
+        if (!form.driversAge) {
+            $scope.errors.driversAge = true;
+            $scope.messages.push($scope.translations.errorDriversAge + $scope.translations.errorManditory);
         }
 
         if ($scope.messages.length > 0) {
