@@ -137,7 +137,9 @@ angular.module('searchApp.directives', [])
 
             function applyConfig(attr, value) {
                 switch (attr) {
-                    case "isRTL":
+                    case "isRtl":
+                        config.isRTL = scope.$eval(value);
+                        break;
                     case "i18n":
                         config[attr] = scope.$eval(value);
                         break;

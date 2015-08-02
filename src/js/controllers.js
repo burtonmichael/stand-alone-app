@@ -88,13 +88,13 @@ angular.module('searchApp.controllers', ['ngRoute'])
         if (!form.city) $scope.errors.city = pickupError = true;
         if (!form.location) $scope.errors.location = pickupError = true;
 
-        if (pickupError) $scope.messages.push($scope.translations.errorLocation + $scope.translations.errorManditory);
+        if (pickupError) $scope.messages.push($scope.translations.errorLocation + ' ' + $scope.translations.errorManditory);
 
         if (!form.dropCountry) $scope.errors.dropCountry = dropoffError = true;
         if (!form.dropCity) $scope.errors.dropCity = dropoffError = true;
         if (!form.dropLocation) $scope.errors.dropLocation = dropoffError = true;
 
-        if (dropoffError) $scope.messages.push($scope.translations.errorDropLocation + $scope.translations.errorManditory);
+        if (dropoffError) $scope.messages.push($scope.translations.errorDropLocation + ' ' + $scope.translations.errorManditory);
 
         var pickupDateTime = $scope.pikaday.pickup.getMoment().hour(form.puHour).minute(form.puMinute);
 
@@ -115,7 +115,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
 
         if (!form.driversAge) {
             $scope.errors.driversAge = true;
-            $scope.messages.push($scope.translations.errorDriversAge + $scope.translations.errorManditory);
+            $scope.messages.push($scope.translations.errorDriversAge + ' ' + $scope.translations.errorManditory);
         }
 
         if ($scope.messages.length > 0) {
@@ -127,6 +127,9 @@ angular.module('searchApp.controllers', ['ngRoute'])
                 backdrop: true,
                 size: 'sm',
                 resolve: {
+                    isRTL: function() {
+                        return $scope.isRTL;
+                    },
                     translations: function() {
                         return $scope.translations;
                     },
@@ -334,8 +337,10 @@ angular.module('searchApp.controllers', ['ngRoute'])
 
 }])
 
-.controller('ModalCtrl', ['$scope', '$modalInstance', 'translations', 'messages', function($scope, $modalInstance, translations, messages) {
+.controller('ModalCtrl', ['$scope', '$modalInstance', 'isRTL', 'translations', 'messages', function($scope, $modalInstance, isRTL, translations, messages) {
 
+    $scope.isRTL = isRTL;
+    
     $scope.translations = translations;
 
     $scope.messages = messages;
