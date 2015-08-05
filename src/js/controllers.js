@@ -1,23 +1,22 @@
 angular.module('searchApp.controllers', ['ngRoute'])
 
-.controller('HeadCtrl', ['$scope', 'SessionService', 'StyleService', function($scope, SessionService, StyleService) {
+.controller('HeadCtrl', ["$scope", "SessionService", "StyleService", function($scope, SessionService, StyleService) {
     if (SessionService.css) {
-        var baseUrl = 'import/css/';
         var exports = [];
 
         var stylesheets = SessionService.css.replace('_', '/').split(',');
 
         angular.forEach(stylesheets, function(stylesheet) {
-            this.push(baseUrl + stylesheet + '.css');
+            this.push("import/" + stylesheet + '.css');
         }, exports);
 
         $scope.stylesheets = exports;
     }
 
-    StyleService.setColor(SessionService.styles);
+    StyleService.setColor(SessionService);
 }])
 
-.controller('MainCtrl', ['$scope', '$window', '$modal', '$filter', 'LocationService', 'SessionService', 'translations', function($scope, $window, $modal, $filter, LocationService, SessionService, translations) {
+.controller('MainCtrl', ["$scope", "$window", "$modal", "$filter", "LocationService", "SessionService", "translations", function($scope, $window, $modal, $filter, LocationService, SessionService, translations) {
 
     $scope.translations = translations;
     $scope.countries = translations.countries;
@@ -130,11 +129,11 @@ angular.module('searchApp.controllers', ['ngRoute'])
                     isRTL: function() {
                         return $scope.isRTL;
                     },
-                    translations: function() {
-                        return $scope.translations;
-                    },
-                    messages: function() {
-                        return $scope.messages;
+                    errors: function() {
+                        return {
+                            sorry: $scope.translations.sorry,
+                            messages: $scope.messages
+                        };
                     }
                 }
             });
@@ -337,13 +336,11 @@ angular.module('searchApp.controllers', ['ngRoute'])
 
 }])
 
-.controller('ModalCtrl', ['$scope', '$modalInstance', 'isRTL', 'translations', 'messages', function($scope, $modalInstance, isRTL, translations, messages) {
+.controller('ModalCtrl', ["$scope", "$modalInstance", "isRTL", "errors", function($scope, $modalInstance, isRTL, errors) {
 
     $scope.isRTL = isRTL;
-    
-    $scope.translations = translations;
 
-    $scope.messages = messages;
+    $scope.errors = errors;
 
     $scope.close = function() {
         $modalInstance.close();

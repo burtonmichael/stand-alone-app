@@ -115,16 +115,27 @@ angular.module('searchApp.directives', [])
         },
         link: function(scope, elem, attrs) {
 
+            var startDate = new Date();
+            startDate.setDate(startDate.getDate() + 3);
+            var endDate = new Date();
+            endDate.setDate(startDate.getDate() + 3);
+
+            var startRange = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+            var endRange = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+
             var config = {
                 field: elem[0],
                 setDefaultDate: true,
                 format: 'L',
                 position: 'top left',
+                startRange: startRange,
+                endRange: endRange,
                 onSelect: function() {
                     setTimeout(function() {
                         scope.$apply();
                     });
                 },
+                minDate: new Date(),
                 onDraw: function() {
                     if (parseInt(picker.el.style.top) < 0) picker.el.style.top = '0px';
                 }
@@ -136,7 +147,14 @@ angular.module('searchApp.directives', [])
             });
 
             function applyConfig(attr, value) {
+
                 switch (attr) {
+                    case "isBegin":
+                        config.defaultDate = startDate;
+                        break;
+                    case "isEnd":
+                        config.defaultDate = endDate;
+                        break;
                     case "isRtl":
                         config.isRTL = scope.$eval(value);
                         break;
@@ -156,7 +174,6 @@ angular.module('searchApp.directives', [])
                         };
                         break;
                     case "defaultDate":
-                    case "minDate":
                         config[attr] = new Date(scope.$eval(value));
                         break;
                     case "startRange":

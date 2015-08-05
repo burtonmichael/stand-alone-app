@@ -59,26 +59,25 @@ angular.module('searchApp.services', ['ngCookies'])
 	};
 
 	return {
-		setColor: function(styles) {
+		setColor: function(obj) {
 
-			for(var style in styles) {
-				switch (style) {
+			var styles = {};
+
+			for (var prop in obj) {
+				switch (prop) {
 					case 'radius':
 					case 'buttonRadius':
+                        styles[prop] = obj[prop] + 'px';
 						break;
-					default:
-						styles[style] = '#' + styles[style];
+					case 'primary':
+					case 'primaryText':
+					case 'text':
+						styles[prop] = '#' + obj[prop];
 						break;
 				}
 			}
 
 		    var output = "";
-
-		    if (styles.body) {
-			    output += addRule('body', [
-			        ["color", styles.body],
-			    ]);
-		    }
 
 		    if (styles.radius) {
 			    output += addRule('.element-wrap--select, .element-wrap input', [
@@ -93,30 +92,49 @@ angular.module('searchApp.services', ['ngCookies'])
 		    }
 
 		    if (styles.text) {
-			    output += addRule('.form-group--button button', [
+			    output += addRule('body', [
 			        ["color", styles.text],
 			    ]);
 			}
 
-			if (styles.buttonBg) {
-			    output += addRule('.form-group--button button', [
-			        ["background", styles.buttonBg]
+		    if (styles.primaryText) {
+			    output += addRule('.form-group--button button, .is-startrange .pika-button, .is-endrange .pika-button, .pika-button:hover, .is-inrange .pika-button, .is-inrange .pika-button:hover', [
+			        ["color", styles.primaryText],
+			    ]);
+			}
+
+			if (styles.primary) {
+			    output += addRule('.form-group--button button, .is-startrange .pika-button, .is-endrange .pika-button', [
+			        ["background", styles.primary]
 			    ]);
 
-			    output += addRule('.form-group--button button:hover, .form-group--button button:focus', [
-			        ["background", shadeColor(styles.buttonBg, 10)]
+			    output += addRule('.form-group--button button:hover, .form-group--button button:focus, .pika-button:hover, .is-inrange .pika-button:hover', [
+			        ["background", shadeColor(styles.primary, 10)]
+			    ]);
+
+			    output += addRule('.is-inrange .pika-button', [
+			        ["background", shadeColor(styles.primary, 24)]
 			    ]);
 
 			    output += addRule('.form-group--button button:active', [
-			        ["background", shadeColor(styles.buttonBg, -6)]
+			        ["background", shadeColor(styles.primary, -6)]
+			    ]);
+
+			    output += addRule('.element-wrap .glyphicon-calendar', [
+			        ["color", styles.primary]
 			    ]);
 			}
 
 		    var sheet = document.createElement('style');
 
-	    	sheet.innerHTML = output;
-
-		    document.head.appendChild(sheet);
+	    	if (!document.addEventListener) {
+		    	document.getElementsByTagName('head')[0].appendChild(sheet);
+		    	sheet.setAttribute('type', 'text/css');
+		    	sheet.textContent = output;
+	    	} else {
+	    		sheet.innerHTML = output;
+		    	document.head.appendChild(sheet);
+	    	}
 		}
 	};
 })
@@ -197,8 +215,8 @@ angular.module('searchApp.services', ['ngCookies'])
 			} else {
 				if (SessionService.messages) {
 					promise = $q.all([
-						$http.get("/stand-alone-locale/translations/" + SessionService.preflang + ".json"),
-						$http.get("import/messages/" + SessionService.messages + ".json")
+						$http.get("../stand-alone-data/default/" + SessionService.preflang + ".json"),
+						$http.get("../stand-alone-data/" + SessionService.messages + ".json")
 					])
 						.then(function(data){
 							moment.defineLocale("preflang", resp.data.moment);
@@ -206,7 +224,7 @@ angular.module('searchApp.services', ['ngCookies'])
 							return angular.extend({}, data[0].data, data[1].data);
 						});
 				} else {
-					promise = $http.get("/stand-alone-locale/translations/" + SessionService.preflang + ".json")
+					promise = $http.get("../stand-alone-data/default/" + SessionService.preflang + ".json")
 						.then(function(resp) {
 							moment.defineLocale("preflang", resp.data.moment);
 							moment.locale("preflang");
@@ -235,19 +253,18 @@ angular.module('searchApp.services', ['ngCookies'])
 	};
 
 	for(var parameter in $location.search()) {
-		if (parameter.indexOf('style-') === 0) {
-			factory.styles[camelCase(parameter.substring(6))] = decodeURIComponent($location.search()[parameter]);
-		} else {
-			factory[camelCase(parameter)] = decodeURIComponent($location.search()[parameter]);
-		}
+		factory[camelCase(parameter)] = decodeURIComponent($location.search()[parameter]);
 	}
 
 	factory.isRTL = (factory.preflang == 'he' || factory.preflang == 'ar') ? true : false;
 
-	if (factory.hasOwnProperty('preflang')) factory.addAjaxReq += '&preflang=' + factory.preflang;
-	if (factory.hasOwnProperty('affiliateCode')) factory.addAjaxReq += '&affiliateCode=' + factory.affiliateCode;
-	if (factory.hasOwnProperty('prefcurrency')) factory.addAjaxReq += '&prefcurrency=' + factory.prefcurrency;
-	if (factory.hasOwnProperty('cor')) factory.addAjaxReq += '&cor=' + factory.cor;
+	if (factory.preflang) factory.addAjaxReq += '&preflang=' + factory.preflang;
+	if (factory.affiliateCode) factory.addAjaxReq += '&affiliateCode=' + factory.affiliateCode;
+	if (factory.prefcurrency) factory.addAjaxReq += '&prefcurrency=' + factory.prefcurrency;
+	if (factory.cor) factory.addAjaxReq += '&cor=' + factory.cor;
+	if (factory.adplat) factory.addAjaxReq += '&adplat=' + factory.adplat;
+	if (factory.adcamp) factory.addAjaxReq += '&adcamp=' + factory.adcamp;
+	if (factory.enabler) factory.addAjaxReq += '&enabler=' + factory.enabler;
 
 	factory.jsessionid = $cookies.JSESSIONID;
 

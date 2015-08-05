@@ -6,18 +6,20 @@ var searchApp = angular.module('searchApp', ['ngRoute',
     'searchApp.controllers'
 ])
 
-.config(['$routeProvider', function($routeProvider) {
+.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider
         .when('/', {
             controller: 'MainCtrl',
             templateUrl: 'partials/layout/core.html',
             resolve: {
-                translations: function(TranslationsService) {
+                translations: ["TranslationsService", function(TranslationsService) {
                     return TranslationsService.get();
-                }
+                }]
             }
         })
         .otherwise({
             redirectTo: '/'
         });
+
+    if (window.history && window.history.pushState) $locationProvider.html5Mode(true);
 }]);

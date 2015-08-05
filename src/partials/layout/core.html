@@ -9,8 +9,8 @@
                 <input ng-model="frame" type="radio" name="radio" value="dropoff">{{translations.dropOff}}
             </label>
         </div>
-        <div class="locations-group-wrap" ng-class="'locations-group-wrap--' + frame">
-            <div class="locations-group locations-group--pickup">
+        <div class="locations-group-wrap">
+            <div class="locations-group locations-group--pickup" ng-class="{'locations-group--active': frame === 'pickup'}">
                 <div class="form-group form-group--horizontal form-group--location" ng-class="{'has-error': errors.country}">
                     <label class="input-label">{{translations.country}}</label>
                     <div class="element-wrap element-wrap--select element-wrap--country" select-replace="countries" pickup-country></div>
@@ -24,7 +24,7 @@
                     <div class="element-wrap element-wrap--select element-wrap--location" select-replace="locations" pickup-location></div>
                 </div>
             </div>
-            <div class="locations-group locations-group--dropoff">
+            <div class="locations-group locations-group--dropoff" ng-class="{'locations-group--active': frame === 'dropoff'}">
                 <div class="form-group form-group--horizontal form-group--location" ng-class="{'has-error': errors.dropCountry}">
                     <label class="input-label">{{translations.country}}</label>
                     <div class="element-wrap element-wrap--select element-wrap--drop-country" select-replace="dropCountries" dropoff-country></div>
@@ -43,7 +43,7 @@
             <div class="form-group form-group--date">
                 <label class="input-label">{{translations.pickUpDate}}</label>
                 <div class="element-wrap element-wrap--text element-wrap--pikaday" ng-class="{'has-focus': pikaday.pickup.focus}">
-                    <input type="text" readonly on-open="dateOpened(pikaday)" min-date="{{startDate}}" is-rtl="{{isRTL}}" start-range="{{startDate}}" end-range="{{endDate}}" default-date="{{startDate}}" i18n="{{i18n}}" on-close="dateClosed(pikaday)" on-select="dateChanged('pickup', date, pikaday)" pikaday="pikaday.pickup">
+                    <input type="text" readonly on-open="dateOpened(pikaday)" is-rtl="{{isRTL}}" is-begin="true" i18n="{{i18n}}" on-close="dateClosed(pikaday)" on-select="dateChanged('pickup', date, pikaday)" pikaday="pikaday.pickup">
                     <span ng-click="pikaday.pickup.show()" class="glyphicon glyphicon-calendar"></span>
                 </div>
             </div>
@@ -57,7 +57,7 @@
             <div class="form-group form-group--date">
                 <label class="input-label">{{translations.dropOffDate}}</label>
                 <div class="element-wrap element-wrap--text element-wrap--pikaday" ng-class="{'has-focus': pikaday.dropoff.focus}">
-                    <input type="text" readonly on-open="dateOpened(pikaday)" min-date="{{startDate}}" is-rtl="{{isRTL}}" start-range="{{startDate}}" end-range="{{endDate}}" default-date="{{endDate}}" i18n="{{i18n}}" on-close="dateClosed(pikaday)" on-select="dateChanged('dropoff', date, pikaday)" pikaday="pikaday.dropoff">
+                    <input type="text" readonly on-open="dateOpened(pikaday)" is-rtl="{{isRTL}}" is-end="true" i18n="{{i18n}}" on-close="dateClosed(pikaday)" on-select="dateChanged('dropoff', date, pikaday)" pikaday="pikaday.dropoff">
                     <span ng-click="pikaday.dropoff.show()" class="glyphicon glyphicon-calendar"></span>
                 </div>
             </div>

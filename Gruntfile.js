@@ -62,7 +62,7 @@ module.exports = function(grunt) {
                 // the files to concatenate
                 src: [
                     '<%= bower_concat.all.dest %>',
-                    'src/js/*.js',
+                    'src/js/**/*.js',
                     '<%= ngtemplates.app.dest %>',
                     'src/js/ui-bootstrap/*.js'
                 ],
