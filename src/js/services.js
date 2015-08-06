@@ -1,6 +1,6 @@
 angular.module('searchApp.services', ['ngCookies'])
 
-.factory('StyleService', function() {
+.factory('StyleService', ['SessionService', function(SessionService) {
 
 	var shadeColor = function(color, percent) {
 
@@ -59,20 +59,20 @@ angular.module('searchApp.services', ['ngCookies'])
 	};
 
 	return {
-		setColor: function(obj) {
+		setStyles: function() {
 
 			var styles = {};
 
-			for (var prop in obj) {
+			for (var prop in SessionService) {
 				switch (prop) {
 					case 'radius':
 					case 'buttonRadius':
-                        styles[prop] = obj[prop] + 'px';
+                        styles[prop] = SessionService[prop] + 'px';
 						break;
 					case 'primary':
 					case 'primaryText':
 					case 'text':
-						styles[prop] = '#' + obj[prop];
+						styles[prop] = '#' + SessionService[prop];
 						break;
 				}
 			}
@@ -120,24 +120,25 @@ angular.module('searchApp.services', ['ngCookies'])
 			        ["background", shadeColor(styles.primary, -6)]
 			    ]);
 
-			    output += addRule('.element-wrap .glyphicon-calendar', [
+			    output += addRule('.element-wrap .icon-calendar', [
 			        ["color", styles.primary]
 			    ]);
 			}
 
 		    var sheet = document.createElement('style');
+		    var base = document.getElementById('css--base');
 
 	    	if (!document.addEventListener) {
-		    	document.getElementsByTagName('head')[0].appendChild(sheet);
+		    	base.parentNode.insertBefore(sheet, base.nextSibling);
 		    	sheet.setAttribute('type', 'text/css');
 		    	sheet.textContent = output;
 	    	} else {
 	    		sheet.innerHTML = output;
-		    	document.head.appendChild(sheet);
+		    	base.parentNode.insertBefore(sheet, base.nextSibling);
 	    	}
 		}
 	};
-})
+}])
 
 .factory('TimeService', function(){
 	return {
@@ -184,7 +185,7 @@ angular.module('searchApp.services', ['ngCookies'])
 
 			var page = "/InPathAjaxAction.do";
 
-			if (SessionService.jsessionid !== undefined) page += ";jsessionid=" + SessionService.jessionid;
+			if (SessionService.jsessionid !== undefined) page += ";jsessionid=" + SessionService.jsessionid;
 
 			queryStr += Object.keys(parameters).map(function(parameter) {
                 return encodeURIComponent(parameter) + '=' + encodeURIComponent(parameters[parameter]);

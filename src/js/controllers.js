@@ -13,7 +13,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
         $scope.stylesheets = exports;
     }
 
-    StyleService.setColor(SessionService);
+    StyleService.setStyles();
 }])
 
 .controller('MainCtrl', ["$scope", "$window", "$modal", "$filter", "LocationService", "SessionService", "translations", function($scope, $window, $modal, $filter, LocationService, SessionService, translations) {
@@ -148,7 +148,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
 
         var page = "/LoadingSearchResults.do";
 
-        if (SessionService.jsessionid !== undefined) page += ";jsessionid=" + SessionService.jessionid;
+        if (SessionService.jsessionid !== undefined) page += ";jsessionid=" + SessionService.jsessionid;
 
         var locationNames = '';
 

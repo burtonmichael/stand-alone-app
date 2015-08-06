@@ -45,18 +45,22 @@ select {
     &.has-focus {
         z-index: 2;
     }
-    .glyphicon {
+    .icon {
         color: #222;
-        font-size: 0.8em;
+        font-size: 1em;
         cursor: pointer;
         position: absolute;
         right: 12px;
         top: 50%;
         -webkit-transform: translateY(-50%);
         transform: translateY(-50%);
+        &-chevron-down {
+            font-size: .8em;
+        }
         &-calendar {
             color: #1B65A4;
-            font-size: 1.1em;
+            -webkit-transform: translateY(-40%);
+            transform: translateY(-40%);
         }
     }
     .element-value {
@@ -178,7 +182,7 @@ select {
     }
 }
 
-.element-wrap .glyphicon-refresh {
+.element-wrap .icon-loader {
     -webkit-animation: rotating 2s linear infinite;
     -moz-animation: rotating 2s linear infinite;
     -ms-animation: rotating 2s linear infinite;

@@ -111,6 +111,7 @@ angular.module('searchApp.directives', [])
         scope: {
             pikaday: '=',
             onSelect: '&',
+            onOpen: '&',
             onClose: '&'
         },
         link: function(scope, elem, attrs) {
@@ -161,6 +162,7 @@ angular.module('searchApp.directives', [])
                     case "i18n":
                         config[attr] = scope.$eval(value);
                         break;
+                    case "onOpen":
                     case "onSelect":
                     case "onClose":
                         config[attr] = function(date) {
