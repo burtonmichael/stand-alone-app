@@ -21,5 +21,5 @@ var searchApp = angular.module('searchApp', ['ngRoute',
             redirectTo: '/'
         });
 
-    if (window.history && window.history.pushState) $locationProvider.html5Mode(true);
+    if (window.history && window.history.pushState && window.location.protocol !== 'https:') $locationProvider.html5Mode(true);
 }]);

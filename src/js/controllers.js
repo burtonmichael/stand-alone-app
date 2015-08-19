@@ -16,7 +16,7 @@ angular.module('searchApp.controllers', ['ngRoute'])
     StyleService.setStyles();
 }])
 
-.controller('MainCtrl', ["$scope", "$window", "$modal", "$filter", "LocationService", "SessionService", "translations", function($scope, $window, $modal, $filter, LocationService, SessionService, translations) {
+.controller('MainCtrl', ["$scope", "$window", "$modal", "$filter", "LocationService", "SessionService", "translations", "$http", function($scope, $window, $modal, $filter, LocationService, SessionService, translations, $http) {
 
     $scope.translations = translations;
     $scope.countries = translations.countries;
@@ -162,7 +162,8 @@ angular.module('searchApp.controllers', ['ngRoute'])
             }
         }).join('&');
 
-        $window.open(base + page + '?' + formData + locationNames + SessionService.addAjaxReq);
+        $window.open(base + page + '?' + formData + locationNames + SessionService.sessionParameters);
+
     };
 
     $scope.localeChanged = function(level) {

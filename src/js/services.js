@@ -74,6 +74,10 @@ angular.module('searchApp.services', ['ngCookies'])
 					case 'text':
 						styles[prop] = '#' + SessionService[prop];
 						break;
+					case 'hideHeader':
+					case 'buttonSize':
+						styles[prop] = SessionService[prop];
+						break;
 				}
 			}
 
@@ -122,6 +126,19 @@ angular.module('searchApp.services', ['ngCookies'])
 
 			    output += addRule('.element-wrap .icon-calendar', [
 			        ["color", styles.primary]
+			    ]);
+			}
+
+		    if (styles.buttonSize === "large") {
+			    output += addRule('.form-group--button button', [
+			        ["font-size", "18px"],
+			        ["padding", "10px 16px"]
+			    ]);
+			}
+
+		    if (styles.hideHeader === "true") {
+			    output += addRule('.search-panel h2', [
+			        ["display", "none"]
 			    ]);
 			}
 
@@ -181,9 +198,8 @@ angular.module('searchApp.services', ['ngCookies'])
 		getAjax: function(parameters) {
 			var deferred = $q.defer();
 			var queryStr = '?';
-			var base = SessionService.affUrl ? 'http://' + SessionService.affUrl : "http://www.rentalcars.com";
 
-			var page = "/InPathAjaxAction.do";
+			var page = SessionService.dev ? "http://www.rentalcars.com/InPathAjaxAction.do" : "/InPathAjaxAction.do";
 
 			if (SessionService.jsessionid !== undefined) page += ";jsessionid=" + SessionService.jsessionid;
 
@@ -193,7 +209,7 @@ angular.module('searchApp.services', ['ngCookies'])
 
 			$http({
 				method: "GET",
-				url: base + page + queryStr + SessionService.addAjaxReq
+				url: page + queryStr + '&preflang=' + SessionService.preflang + '&affiliateCode=' + SessionService.affiliateCode
 			})
 				.success(function(data) {
 					SessionService.jsessionid = $cookies.JSESSIONID;
@@ -242,8 +258,7 @@ angular.module('searchApp.services', ['ngCookies'])
 
 	var factory = {
 		preflang: "en",
-		addAjaxReq: "",
-		styles: {}
+		sessionParameters: "",
 	};
 
 	var camelCase = function(parameter) {
@@ -257,15 +272,24 @@ angular.module('searchApp.services', ['ngCookies'])
 		factory[camelCase(parameter)] = decodeURIComponent($location.search()[parameter]);
 	}
 
-	factory.isRTL = (factory.preflang == 'he' || factory.preflang == 'ar') ? true : false;
+	for (var prop in factory) {
+		switch (prop) {
+			case 'sessionParameters':
+			case 'radius':
+			case 'buttonRadius':
+			case 'primary':
+			case 'primaryText':
+			case 'text':
+			case 'hideHeader':
+			case 'buttonSize':
+				break;
+			default:
+                factory.sessionParameters += '&' + prop + '=' + factory[prop];
+				break;
+		}
+	}
 
-	if (factory.preflang) factory.addAjaxReq += '&preflang=' + factory.preflang;
-	if (factory.affiliateCode) factory.addAjaxReq += '&affiliateCode=' + factory.affiliateCode;
-	if (factory.prefcurrency) factory.addAjaxReq += '&prefcurrency=' + factory.prefcurrency;
-	if (factory.cor) factory.addAjaxReq += '&cor=' + factory.cor;
-	if (factory.adplat) factory.addAjaxReq += '&adplat=' + factory.adplat;
-	if (factory.adcamp) factory.addAjaxReq += '&adcamp=' + factory.adcamp;
-	if (factory.enabler) factory.addAjaxReq += '&enabler=' + factory.enabler;
+	factory.isRTL = (factory.preflang == 'he' || factory.preflang == 'ar') ? true : false;
 
 	factory.jsessionid = $cookies.JSESSIONID;
 
